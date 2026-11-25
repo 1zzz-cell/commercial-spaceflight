@@ -1,0 +1,98 @@
+/* ============================================================
+   图表无障碍数据表格（chart-a11y- 前缀独立样式）
+   ------------------------------------------------------------
+   由 chartTools.js 引入，仅图表页的 lazy chunk 携带，不进首屏。
+   复用全站令牌，不引入新色值；表格容器可横向滚动而不撑破卡片；
+   summary 保持 ≥44px 触控目标、可见焦点环。
+   ============================================================ */
+
+.chart-a11y {
+  margin: 4px 20px 16px;
+  border-top: 1px solid var(--border-color);
+  padding-top: 4px;
+  /* flex/grid 子项默认 min-width:auto，会被 nowrap 宽表撑破父链；归零后交给滚动容器 */
+  min-width: 0;
+}
+
+.chart-a11y-summary {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  cursor: pointer;
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  list-style: none;
+}
+
+.chart-a11y-summary::-webkit-details-marker { display: none; }
+
+.chart-a11y-summary::before {
+  content: '▸';
+  display: inline-block;
+  margin-right: 8px;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  transition: transform 0.15s;
+}
+
+.chart-a11y[open] .chart-a11y-summary::before { transform: rotate(90deg); }
+
+.chart-a11y-summary:hover { color: var(--text-primary); }
+
+.chart-a11y-summary:focus-visible {
+  outline: 2px solid #0a63b8;
+  outline-offset: 2px;
+  border-radius: var(--border-radius-sm, 8px);
+}
+
+.chart-a11y-scroll {
+  max-height: 360px;
+  max-width: 100%;
+  min-width: 0;
+  overflow: auto;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-sm, 8px);
+  background: var(--bg-card);
+}
+
+.chart-a11y-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.chart-a11y-table th,
+.chart-a11y-table td {
+  padding: 8px 12px;
+  text-align: left;
+  border-bottom: 1px solid var(--border-color);
+  white-space: nowrap;
+  color: var(--text-secondary);
+}
+
+.chart-a11y-table thead th {
+  position: sticky;
+  top: 0;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-weight: 600;
+  z-index: 1;
+}
+
+.chart-a11y-table tbody tr:last-child td { border-bottom: 0; }
+
+.chart-a11y-note {
+  margin: 8px 0 0;
+  font-size: 0.78rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chart-a11y-summary::before { transition: none; }
+}
+
+@media (max-width: 639px) {
+  .chart-a11y { margin: 4px 16px 12px; }
+}

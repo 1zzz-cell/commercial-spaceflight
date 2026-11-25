@@ -1,0 +1,239 @@
+/* ============================================================
+   科研门户私有样式（/research）
+   ------------------------------------------------------------
+   规则同 _shared/sdk.css：只用 global.css 已定义的 CSS 变量，
+   不引入新色值字面量；类名一律 rs- 前缀，避免与既有样式冲突。
+   portal-* 基础组件样式由 _shared/sdk.css 提供（页面内已 import）。
+   ============================================================ */
+
+/* ---------- 页头附加：跨角色跳转 ---------- */
+.rs-head-extra {
+  margin-top: 14px;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+.rs-head-extra a {
+  color: var(--accent-blue);
+  text-decoration: none;
+  font-weight: 500;
+}
+.rs-head-extra a:hover {
+  text-decoration: underline;
+}
+
+/* ---------- 数据集切换 chips ---------- */
+.rs-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+.rs-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  font-size: 0.85rem;
+  font-family: var(--font-family);
+  color: var(--text-secondary);
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+.rs-chip:hover {
+  color: var(--accent-blue);
+  border-color: var(--border-color-active);
+}
+.rs-chip:focus-visible {
+  outline: 2px solid var(--accent-blue);
+  outline-offset: 2px;
+}
+.rs-chip-active {
+  color: #fff;
+  background: var(--accent-blue);
+  border-color: var(--accent-blue);
+  font-weight: 500;
+}
+.rs-chip-active:hover {
+  color: #fff;
+  background: var(--accent-blue);
+}
+.rs-chip-count {
+  font-size: 0.75rem;
+  padding: 1px 7px;
+  border-radius: 999px;
+  background: rgba(13, 138, 240, 0.1);
+  color: var(--accent-blue);
+  font-variant-numeric: tabular-nums;
+}
+.rs-chip-active .rs-chip-count {
+  background: rgba(255, 255, 255, 0.22);
+  color: #fff;
+}
+
+/* ---------- 说明文本块 ---------- */
+.rs-note {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+.rs-note strong {
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+.rs-note-list {
+  margin: 8px 0 0;
+  padding-left: 18px;
+}
+.rs-note-list li {
+  margin-bottom: 4px;
+}
+
+/* ---------- 缺失率 / 覆盖率小条 ---------- */
+.rs-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 120px;
+}
+.rs-bar-track {
+  flex: 1;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--bg-secondary);
+  overflow: hidden;
+}
+.rs-bar-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: var(--accent-blue);
+}
+.rs-bar-fill-high {
+  background: var(--accent-amber);
+}
+.rs-bar-text {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* ---------- 表格内标记列 ---------- */
+.rs-tagcell {
+  white-space: nowrap;
+}
+.rs-mono {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.78rem;
+}
+
+/* ---------- 待核实清单 ---------- */
+.rs-pending {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 4px;
+}
+.rs-pending-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 14px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-sm);
+  flex-wrap: wrap;
+}
+.rs-pending-name {
+  font-size: 0.85rem;
+  color: var(--text-primary);
+}
+.rs-pending-ds {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  margin-right: 8px;
+}
+
+/* ---------- 导出预览键值对 ---------- */
+.rs-kv {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px 24px;
+  margin: 4px 0 16px;
+}
+.rs-kv-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.rs-kv-label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+.rs-kv-value {
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- 规范说明卡 ---------- */
+.rs-spec-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin: 0 0 8px;
+}
+.rs-spec-title .rs-spec-icon {
+  color: var(--accent-blue);
+  display: inline-flex;
+}
+
+/* ---------- 引用代码块 ---------- */
+.rs-code {
+  margin: 8px 0 0;
+  padding: 12px 14px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-sm);
+  font-family: var(--font-mono, monospace);
+  font-size: 0.75rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  overflow-x: auto;
+  white-space: pre;
+}
+
+/* ---------- 更新日志表格内链接 ---------- */
+.rs-ds-link {
+  color: var(--accent-blue);
+  text-decoration: none;
+  font-weight: 500;
+}
+.rs-ds-link:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 640px) {
+  .rs-chip {
+    padding: 7px 12px;
+    font-size: 0.8rem;
+  }
+  .rs-pending-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* 尊重用户的减弱动效偏好 */
+@media (prefers-reduced-motion: reduce) {
+  .rs-chip {
+    transition: none;
+  }
+}

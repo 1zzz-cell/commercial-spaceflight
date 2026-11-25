@@ -1,0 +1,76 @@
+/* ============================================
+   科研门户 —— 模块私有样式
+   --------------------------------------------
+   规则：
+   - 类名一律 research- 前缀，避免与其他模块 / 主仓样式冲突
+   - 只使用 global.css 已定义的 CSS 变量，不要写死色值
+   - 需要复用的版式请用 @portal 的 Card / SectionTitle / Grid，
+     不要在这里重复造一套 card 样式
+   ============================================ */
+
+.research-hero {
+  padding: 8px 0 0;
+}
+
+.research-hero-title {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: 0.01em;
+}
+
+.research-hero-sub {
+  margin: 8px 0 0;
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+.research-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.research-list-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border-subtle);
+  font-size: 0.86rem;
+  flex-wrap: wrap;
+}
+
+.research-list-item:last-child {
+  border-bottom: none;
+}
+
+.research-company {
+  font-weight: 500;
+  color: var(--text-primary);
+  min-width: 96px;
+}
+
+.research-badge {
+  padding: 2px 8px;
+  font-size: 0.72rem;
+  color: var(--accent-blue);
+  background: var(--accent-blue-dim);
+  border-radius: 999px;
+}
+
+.research-amount {
+  color: var(--text-secondary);
+  font-variant-numeric: tabular-nums;
+  margin-left: auto;
+}
+
+@media (max-width: 640px) {
+  .research-amount {
+    margin-left: 0;
+  }
+}

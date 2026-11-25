@@ -1,0 +1,1255 @@
+/* ============================================================
+   投资人门户 /investors 私有样式
+   ------------------------------------------------------------
+   规则同 research.css：只用 global.css 已定义的 CSS 变量，
+   不引入新色值字面量；类名一律 iv- 前缀，避免与既有样式冲突。
+   定位差异：本页重「判断与前瞻」，图表与卡片密度高于科研页。
+   ============================================================ */
+
+/* ---------- 页首 ---------- */
+.iv-head-extra {
+  margin: 10px 0 0;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.iv-head-extra a {
+  color: var(--text-accent);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.iv-head-extra a:hover {
+  text-decoration: underline;
+}
+
+/* ---------- 图表容器 ---------- */
+.iv-chart {
+  width: 100%;
+  height: 100%;
+}
+
+/* 图表盒子：固定高度交给外层，ECharts 容器撑满，
+   骨架层绝对定位覆盖，ready 后卸载即露出画布 */
+.iv-chart-box {
+  position: relative;
+  width: 100%;
+}
+
+.iv-chart-box-tall {
+  height: 380px;
+}
+
+.iv-chart-box-mid {
+  height: 320px;
+}
+
+/* ---------- 加载态：图表首帧骨架 ---------- */
+.iv-chart-skeleton {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: var(--border-radius-md);
+  background: var(--bg-card);
+  color: var(--text-muted);
+  font-size: 0.82rem;
+  letter-spacing: 0.05em;
+}
+
+.iv-chart-skeleton::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, var(--bg-card-hover), transparent);
+  animation: iv-shimmer 1.2s ease-in-out infinite;
+}
+
+@keyframes iv-shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .iv-chart-skeleton::after {
+    animation: none;
+  }
+}
+
+/* 热力矩阵：轮次列多，窄屏下横向滚动而不是把标签挤成一团 */
+.iv-heat-scroll {
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.iv-heat-inner {
+  min-width: 100%;
+}
+
+/* ---------- 口径提示 ---------- */
+.iv-note {
+  margin: 0;
+  font-size: 0.82rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+
+.iv-note code {
+  padding: 1px 5px;
+  border-radius: 4px;
+  background: var(--bg-input);
+  font-size: 0.78rem;
+  font-family: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+}
+
+.iv-note-list {
+  padding-left: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* ---------- 热力矩阵下钻 ---------- */
+.iv-drill {
+  margin-top: 18px;
+  border-top: 1px dashed var(--border-color);
+  padding-top: 16px;
+}
+
+.iv-drill-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.iv-drill-title {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.iv-drill-clear {
+  border: 1px solid var(--border-color);
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  border-radius: var(--border-radius-sm);
+  padding: 4px 12px;
+  font-size: 0.78rem;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.iv-drill-clear:hover {
+  border-color: var(--border-color-active);
+  color: var(--text-accent);
+}
+
+.iv-drill-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.iv-drill-item {
+  display: grid;
+  grid-template-columns: 88px 1fr auto;
+  gap: 12px;
+  align-items: baseline;
+  padding: 10px 12px;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--border-radius-sm);
+  background: var(--bg-card-hover);
+  font-size: 0.85rem;
+}
+
+.iv-drill-date {
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+  font-size: 0.8rem;
+}
+
+.iv-drill-main {
+  color: var(--text-primary);
+}
+
+.iv-drill-main b {
+  font-weight: 600;
+}
+
+.iv-drill-sub {
+  display: block;
+  margin-top: 2px;
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+}
+
+.iv-drill-amount {
+  font-weight: 600;
+  color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.iv-drill-empty {
+  padding: 18px;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  border: 1px dashed var(--border-color);
+  border-radius: var(--border-radius-sm);
+}
+
+/* ---------- 双口径并陈 ---------- */
+.iv-cali-grid {
+  display: grid;
+  /* min() 兜底：容器窄于 240px 时不再溢出 */
+  grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
+  gap: 12px;
+  margin-top: 4px;
+}
+
+.iv-cali-item {
+  padding: 14px 16px;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--border-radius-md);
+  background: var(--bg-card-hover);
+}
+
+.iv-cali-label {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+}
+
+.iv-cali-value {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
+}
+
+.iv-cali-value small {
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: var(--text-muted);
+  margin-left: 4px;
+}
+
+/* ---------- 关注列表 ---------- */
+.iv-watch {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.iv-watch-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px 6px 12px;
+  border: 1px solid var(--border-color-active);
+  border-radius: 999px;
+  background: var(--accent-blue-dim);
+  font-size: 0.82rem;
+  color: var(--text-primary);
+}
+
+.iv-watch-chip b {
+  font-weight: 600;
+}
+
+.iv-watch-meta {
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.iv-watch-remove {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.08);
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-size: 0.7rem;
+  line-height: 1;
+  transition: all var(--transition-fast);
+}
+
+.iv-watch-remove:hover {
+  background: var(--accent-orange);
+  color: #fff;
+}
+
+.iv-watch-actions {
+  margin-left: auto;
+  display: flex;
+  gap: 8px;
+}
+
+/* ---------- 企业画像卡 ---------- */
+.iv-cmp-grid {
+  display: grid;
+  /* min() 兜底：窄屏（<374px）下不再横向溢出 */
+  grid-template-columns: repeat(auto-fill, minmax(min(340px, 100%), 1fr));
+  gap: 16px;
+}
+
+.iv-cmp {
+  min-width: 0;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-lg);
+  background: var(--bg-card);
+  padding: 18px 20px;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.iv-cmp:hover {
+  border-color: var(--border-color-hover);
+  box-shadow: var(--shadow-sm);
+}
+
+.iv-cmp-watched {
+  border-color: var(--border-color-active);
+}
+
+.iv-cmp-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.iv-cmp-name {
+  margin: 0;
+  font-size: 1.02rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.iv-cmp-badges {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 6px;
+}
+
+.iv-cmp-badge {
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  background: var(--bg-input);
+  color: var(--text-secondary);
+}
+
+.iv-cmp-badge-rounds {
+  background: var(--accent-orange-dim);
+  color: var(--accent-orange);
+  font-weight: 600;
+}
+
+.iv-cmp-star {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  border: 1px solid var(--border-color);
+  background: var(--bg-card);
+  color: var(--text-muted);
+  border-radius: 999px;
+  padding: 5px 11px;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.iv-cmp-star:hover {
+  border-color: var(--accent-amber);
+  color: var(--accent-amber);
+}
+
+.iv-cmp-star-on {
+  border-color: var(--accent-amber);
+  background: rgba(245, 158, 11, 0.10);
+  color: var(--accent-amber);
+  font-weight: 600;
+}
+
+.iv-cmp-kv {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 14px;
+  padding: 12px 14px;
+  border-radius: var(--border-radius-md);
+  background: var(--bg-card-hover);
+}
+
+.iv-cmp-kv-label {
+  display: block;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  margin-bottom: 3px;
+}
+
+.iv-cmp-kv-value {
+  display: block;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.iv-cmp-chain {
+  margin-top: 10px;
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+}
+
+.iv-cmp-chain a {
+  color: var(--text-accent);
+  text-decoration: none;
+}
+
+.iv-cmp-chain a:hover {
+  text-decoration: underline;
+}
+
+.iv-cmp-inv {
+  margin-top: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+}
+
+.iv-inv-tag {
+  padding: 2px 8px;
+  border: 1px solid var(--border-subtle);
+  border-radius: 4px;
+  background: var(--bg-card);
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+}
+
+.iv-inv-more {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+.iv-cmp-toggle {
+  margin-top: 12px;
+  border: none;
+  background: none;
+  padding: 0;
+  color: var(--text-accent);
+  font-size: 0.8rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.iv-cmp-toggle:hover {
+  text-decoration: underline;
+}
+
+.iv-cmp-events {
+  margin-top: 12px;
+  border-top: 1px solid var(--border-subtle);
+  padding-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.iv-cmp-event {
+  display: grid;
+  grid-template-columns: 76px 1fr auto;
+  gap: 10px;
+  align-items: baseline;
+  font-size: 0.8rem;
+}
+
+.iv-cmp-event-date {
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.iv-cmp-event-amount {
+  font-weight: 600;
+  color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* ---------- 催化剂：政策时间轴 ---------- */
+.iv-timeline {
+  position: relative;
+  margin-top: 6px;
+  padding-left: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.iv-timeline::before {
+  content: '';
+  position: absolute;
+  left: 5px;
+  top: 4px;
+  bottom: 4px;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--accent-blue), var(--border-color));
+}
+
+.iv-tl-item {
+  position: relative;
+}
+
+.iv-tl-item::before {
+  content: '';
+  position: absolute;
+  left: -21px;
+  top: 5px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--accent-blue);
+  border: 2px solid var(--bg-card);
+  box-shadow: 0 0 0 2px var(--accent-blue-dim);
+}
+
+.iv-tl-item-recent::before {
+  background: var(--accent-orange);
+  box-shadow: 0 0 0 2px var(--accent-orange-dim);
+}
+
+.iv-tl-date {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.iv-tl-title {
+  margin: 2px 0 4px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.5;
+}
+
+.iv-tl-meta {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+.iv-tl-level {
+  padding: 1px 7px;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+
+.iv-tl-level-national {
+  background: var(--accent-blue-dim);
+  color: var(--accent-blue);
+}
+
+.iv-tl-level-ministerial {
+  background: var(--accent-purple-dim);
+  color: var(--accent-purple);
+}
+
+.iv-tl-level-local {
+  background: var(--accent-green-dim);
+  color: var(--accent-green);
+}
+
+/* ---------- 催化剂：在研火箭 ---------- */
+.iv-rocket-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(200px, 100%), 1fr));
+  gap: 12px;
+  margin-top: 4px;
+}
+
+.iv-rocket {
+  padding: 14px 16px;
+  border: 1px solid var(--border-color);
+  border-left: 3px solid var(--accent-amber);
+  border-radius: var(--border-radius-md);
+  background: var(--bg-card-hover);
+}
+
+.iv-rocket-name {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.iv-rocket-org {
+  margin-top: 2px;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+.iv-rocket-leo {
+  margin-top: 8px;
+  font-size: 0.8rem;
+  color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
+}
+
+.iv-rocket-leo b {
+  color: var(--accent-blue);
+}
+
+.iv-rocket-status {
+  margin-top: 6px;
+  font-size: 0.72rem;
+  color: var(--accent-amber);
+}
+
+/* ---------- 发射可靠性分布 ---------- */
+.iv-dist {
+  margin-top: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.iv-dist-row {
+  display: grid;
+  grid-template-columns: 110px 1fr 44px;
+  gap: 12px;
+  align-items: center;
+  font-size: 0.85rem;
+}
+
+.iv-dist-label {
+  color: var(--text-secondary);
+}
+
+.iv-dist-track {
+  height: 10px;
+  border-radius: 999px;
+  background: var(--bg-input);
+  overflow: hidden;
+}
+
+.iv-dist-fill {
+  height: 100%;
+  border-radius: 999px;
+  transition: width var(--transition-normal);
+}
+
+.iv-dist-fill-high {
+  background: var(--accent-green);
+}
+
+.iv-dist-fill-mid {
+  background: var(--accent-amber);
+}
+
+.iv-dist-fill-low {
+  background: var(--accent-orange);
+}
+
+.iv-dist-val {
+  text-align: right;
+  font-weight: 600;
+  color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- 政策摘要 ---------- */
+.iv-tl-summary {
+  margin: 0 0 4px;
+  font-size: 0.78rem;
+  line-height: 1.65;
+  color: var(--text-secondary);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ---------- 页签说明行 ---------- */
+.iv-tab-note {
+  margin: 0 0 16px;
+  font-size: 0.85rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+
+/* ---------- 栅格间距工具 ---------- */
+.iv-mt {
+  margin-top: 16px;
+}
+
+/* ---------- 页头次级链接 ---------- */
+.iv-head-sep {
+  margin: 0 8px;
+  color: var(--border-color);
+}
+
+/* ---------- 页签计数 ---------- */
+.iv-tabs .tab-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.iv-tab-count {
+  padding: 1px 7px;
+  border-radius: 999px;
+  background: var(--bg-input);
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.iv-tabs .tab-btn[aria-selected='true'] .iv-tab-count {
+  background: var(--accent-blue-dim);
+  color: var(--text-accent);
+}
+
+/* ---------- 栅格：统计卡 / 双栏 / 纵向堆叠 ----------
+   断点与 global.css 对齐（1280 / 1100 / 1024 / 768）；
+   640px 以下由 sdk.css 的 .portal-grid 兜底为单列 */
+.iv-stat-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.iv-split-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.iv-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+}
+
+/* ---------- 企业画像工具栏：搜索 / 排序 / 筛选 / 导出 ---------- */
+.iv-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 10px 14px;
+  flex-wrap: wrap;
+}
+
+.iv-search {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 220px;
+  padding: 6px 10px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-sm);
+  background: var(--bg-input);
+  color: var(--text-muted);
+}
+
+.iv-search:focus-within {
+  border-color: var(--border-color-active);
+}
+
+.iv-search input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 0.84rem;
+  color: var(--text-primary);
+  font-family: inherit;
+}
+
+.iv-search input::placeholder {
+  color: var(--text-muted);
+}
+
+.iv-search-clear {
+  border: none;
+  background: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 0.95rem;
+  line-height: 1;
+  padding: 0 2px;
+}
+
+.iv-search-clear:hover {
+  color: var(--text-primary);
+}
+
+.iv-field {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.iv-field-label {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.iv-field select,
+.iv-toolbar select {
+  padding: 6px 10px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-sm);
+  background: var(--bg-card);
+  color: var(--text-primary);
+  font-size: 0.82rem;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.iv-check {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.iv-toolbar-tail {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: auto;
+  flex-wrap: wrap;
+}
+
+/* ---------- 错误态 ---------- */
+.iv-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 32px 16px;
+  text-align: center;
+}
+
+.iv-error-icon {
+  color: var(--accent-amber);
+}
+
+.iv-error-title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.iv-error-desc {
+  margin: 0;
+  max-width: 460px;
+  font-size: 0.85rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+
+.iv-error-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 4px;
+}
+
+.iv-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 16px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-sm);
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  font-size: 0.84rem;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.iv-btn:hover {
+  border-color: var(--border-color-active);
+  color: var(--text-accent);
+}
+
+.iv-btn-primary {
+  border-color: var(--accent-blue);
+  background: var(--accent-blue);
+  color: #fff;
+}
+
+.iv-btn-primary:hover {
+  background: var(--accent-cyan);
+  border-color: var(--accent-cyan);
+  color: #fff;
+}
+
+/* ---------- 页尾：投资板块互链 ---------- */
+.iv-related {
+  margin-top: 40px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border-color);
+}
+
+.iv-related-title {
+  margin: 0 0 14px;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.iv-related-grid {
+  grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
+  gap: 12px;
+}
+
+.iv-related-card {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 14px 16px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  background: var(--bg-card);
+  text-decoration: none;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.iv-related-card:hover {
+  border-color: var(--border-color-active);
+  box-shadow: var(--shadow-sm);
+}
+
+.iv-related-label {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.iv-related-desc {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+/* ============================================================
+   响应式
+   断点与 global.css 保持一致：1100 / 768 / 640
+   （640 以下 sdk.css 已把 .portal-grid 强制为单列）
+   ============================================================ */
+@media (max-width: 1100px) {
+  .iv-stat-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .iv-split-2 {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .iv-chart-box-tall {
+    height: 340px;
+  }
+
+  .iv-chart-box-mid {
+    height: 280px;
+  }
+
+  /* 轮次列较多，给足宽度后由外层横向滚动 */
+  .iv-heat-inner {
+    min-width: 720px;
+  }
+
+  .iv-toolbar {
+    align-items: stretch;
+  }
+
+  .iv-search {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .iv-toolbar-tail {
+    margin-left: 0;
+  }
+
+  /* 页签在窄屏横向滚动，不再等分压缩 */
+  .iv-tabs .tab-btn {
+    flex: 1 0 auto;
+    min-width: 118px;
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 640px) {
+  .iv-stat-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .iv-drill-item {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+
+  .iv-cmp-kv {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .iv-cmp-event {
+    grid-template-columns: 1fr;
+    gap: 2px;
+  }
+
+  .iv-dist-row {
+    grid-template-columns: 84px 1fr 40px;
+  }
+
+  .iv-watch-actions {
+    margin-left: 0;
+  }
+
+  .iv-toolbar-tail {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+
+/* ============================================================
+   合规视觉收敛（仅作用于 .iv-page，不触碰 global.css / sdk.css）
+   ------------------------------------------------------------
+   依据《商业航天投资活动网站设计方案》§7.1 / §7.2 / §10：
+   字重仅 400/500、圆角 ≤8px、默认无阴影、悬停只加深边框；
+   小字文本改用 --text-secondary（7.96:1）与可读蓝 --cp-link（6.02:1），
+   修复 --text-muted 3.18:1 / --accent-blue 3.55:1 不达 WCAG AA 的问题。
+   ============================================================ */
+.iv-page .portal-card {
+  border-radius: 4px;
+  box-shadow: none;
+}
+
+.iv-page .portal-card-clickable:hover,
+.iv-page .iv-related-card:hover {
+  border-color: var(--border-color-active);
+  box-shadow: none;
+}
+
+/* sdk.css 的 .portal-section-actions 是 flex:0 0 auto，长口径说明在 375px
+   下会把整页撑宽（实测 697px）。局部改为可压缩 + 可换行，不改共享文件 */
+.iv-page .portal-section-head { flex-wrap: wrap; min-width: 0; }
+.iv-page .portal-section-head > div { min-width: 0; }
+.iv-page .portal-section-actions {
+  flex: 0 1 auto;
+  min-width: 0;
+  max-width: 100%;
+  white-space: normal;
+}
+.iv-page .portal-section-actions .iv-note {
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.iv-page .portal-section-title,
+.iv-page .iv-related-title,
+.iv-page .iv-related-label,
+.iv-page .portal-stat-value,
+.iv-page .portal-stat-label {
+  font-weight: 500;
+}
+
+.iv-page .portal-stat-label,
+.iv-page .portal-stat-unit,
+.iv-page .iv-related-desc,
+.iv-page .iv-tab-count {
+  color: var(--text-secondary);
+}
+
+.iv-page .iv-head-extra a,
+.iv-page .iv-concept a,
+.iv-page .iv-statusbar a {
+  color: var(--cp-link);
+}
+
+.iv-page :focus-visible {
+  outline: 2px solid var(--cp-focus);
+  outline-offset: 2px;
+}
+
+/* 指标卡 + 来源条拼成一张完整卡：上方卡片收掉下边框与下圆角 */
+.iv-metric {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.iv-metric .portal-card {
+  flex: 1 1 auto;
+  border-bottom: 0;
+  border-radius: 4px 4px 0 0;
+  box-shadow: none;
+}
+
+.iv-metric .cp-sourcebar {
+  border: 1px solid var(--cp-line);
+  border-radius: 0 0 4px 4px;
+}
+
+/* 卡片较窄时，三段式改为「标签在上 / 值在下」的紧凑四列网格：
+   既保留「来源｜数据时间｜口径」不省略，又避免 flex-wrap 把来源条撑到 100px，
+   四张卡由 grid 行高天然对齐。28–32px 是下限，允许按内容纵向增高。 */
+.iv-metric > .cp-sourcebar {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1.1fr) auto;
+  align-items: start;
+  gap: 0 8px;
+  min-height: var(--cp-sourcebar-h);
+  padding: 5px 10px;
+}
+
+.iv-metric > .cp-sourcebar .cp-sourcebar-item { display: block; min-width: 0; }
+.iv-metric > .cp-sourcebar .cp-sourcebar-item b {
+  display: block;
+  font-size: 11px;
+  line-height: 14px;
+}
+.iv-metric > .cp-sourcebar .cp-sourcebar-item > span {
+  display: block;
+  font-size: 11px;
+  line-height: 16px;
+}
+/* 日期是等宽时间戳，断开会降低可核对性 */
+.iv-metric > .cp-sourcebar .cp-sourcebar-item:nth-child(2) > span {
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+.iv-metric > .cp-sourcebar .cp-sourcebar-badge {
+  grid-column: 4;
+  grid-row: 1;
+  align-self: center;
+  justify-self: end;
+  margin-left: 0;
+  font-size: 11px;
+}
+
+/* 图表 / 表格来源条位于卡片末尾时，与容器同宽、永省略 */
+.iv-page .portal-card:has(> .cp-sourcebar:last-child) { padding-bottom: 0; }
+
+.iv-page .portal-card > .cp-sourcebar:last-child {
+  margin: 16px -20px 0;
+  border-left: 0;
+  border-right: 0;
+  border-bottom: 0;
+  border-radius: 0 0 4px 4px;
+}
+
+/* 卡片外的整区来源条：企业画像 / 催化剂 */
+.iv-cmp-source,
+.iv-catalyst-source {
+  margin-top: 12px;
+  border: 1px solid var(--cp-line);
+  border-top: 1px solid var(--cp-line);
+  border-radius: 4px;
+}
+
+/* ---------- 行情状态条（首屏文字态，不含数值） ---------- */
+.iv-statusbar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+  margin: 14px 0 4px;
+  padding: 8px 12px;
+  background: var(--bg-input);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  font-size: 0.8rem;
+  line-height: 20px;
+  color: var(--text-secondary);
+}
+
+.iv-statusbar b { font-weight: 500; color: var(--text-primary); font-variant-numeric: tabular-nums; }
+.iv-statusbar-note { color: var(--text-secondary); }
+.iv-statusbar a { font-weight: 500; text-decoration: none; white-space: nowrap; }
+.iv-statusbar a:hover { text-decoration: underline; }
+
+/* ---------- 三元口径提示条 ---------- */
+.iv-concept {
+  margin: 16px 0 0;
+  padding: 16px 18px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-left: 3px solid var(--cp-link);
+  border-radius: 4px;
+  box-shadow: none;
+}
+
+.iv-concept-lead {
+  margin: 0 0 12px;
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+
+.iv-concept-lead b { font-weight: 500; color: var(--text-primary); }
+
+.iv-concept-states {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 8px 14px;
+}
+
+.iv-concept-state-desc {
+  font-size: 0.8rem;
+  line-height: 20px;
+  color: var(--text-secondary);
+}
+
+.iv-concept-foot {
+  margin: 12px 0 0;
+  font-size: 0.8rem;
+  line-height: 20px;
+  color: var(--text-secondary);
+}
+
+.iv-concept-foot a { font-weight: 500; text-decoration: none; }
+.iv-concept-foot a:hover { text-decoration: underline; }
+
+@media (max-width: 640px) {
+  .iv-concept-states { grid-template-columns: minmax(0, 1fr); gap: 4px; }
+  .iv-concept-state-desc { margin-bottom: 6px; }
+  .iv-statusbar { align-items: flex-start; flex-direction: column; gap: 6px; }
+  .iv-page .portal-card > .cp-sourcebar:last-child { margin-top: 14px; }
+}

@@ -1,0 +1,689 @@
+{
+  "lastUpdated": "2026-11-24",
+  "source": "公开信息综合整理",
+  "constellations": [
+    {
+      "name": "微厘空间低轨增强系统",
+      "company": "山东未来导航科技有限公司",
+      "type": "导航",
+      "planned": 240,
+      "actual": 20,
+      "orbit": "LEO 650km",
+      "frequency": null,
+      "satWeight": null,
+      "firstLaunch": "2018",
+      "status": "组网中",
+      "verified": false
+    },
+    {
+      "name": "北斗星座",
+      "company": "中国卫星导航系统管理办公室",
+      "type": "导航",
+      "planned": 55,
+      "actual": 60,
+      "orbit": "MEO/IGSO/GEO",
+      "frequency": "B1/B2/B3",
+      "satWeight": null,
+      "firstLaunch": "2000",
+      "status": "已建成",
+      "verified": false
+    },
+    {
+      "name": "星算计划",
+      "company": "国星宇航",
+      "type": "算力",
+      "planned": 2800,
+      "actual": 12,
+      "orbit": "LEO 500-1000km",
+      "frequency": null,
+      "satWeight": null,
+      "firstLaunch": "2025",
+      "status": "组网中",
+      "verified": false
+    },
+    {
+      "name": "GW国网星座",
+      "company": "中国星网",
+      "type": "通信",
+      "planned": 12992,
+      "actual": 180,
+      "orbit": "LEO 500-1145km",
+      "frequency": "Ka/Ku",
+      "satWeight": null,
+      "firstLaunch": "2024",
+      "status": "组网中",
+      "verified": false
+    },
+    {
+      "name": "鸿雁星座",
+      "company": "航天科技集团",
+      "type": "通信",
+      "planned": 300,
+      "actual": 1,
+      "orbit": "LEO 1100km",
+      "frequency": "L/Ka波段",
+      "satWeight": null,
+      "firstLaunch": "2018",
+      "status": "组网中",
+      "verified": false
+    },
+    {
+      "name": "虹云工程",
+      "company": "航天科工集团",
+      "type": "通信",
+      "planned": 156,
+      "actual": 1,
+      "orbit": "LEO 1000km",
+      "frequency": "Ka波段",
+      "satWeight": null,
+      "firstLaunch": "2018",
+      "status": "验证阶段",
+      "verified": false
+    },
+    {
+      "name": "千帆星座",
+      "company": "上海垣信卫星",
+      "type": "通信",
+      "planned": 15000,
+      "actual": 248,
+      "orbit": "LEO 800-1000km",
+      "frequency": "Ka/Ku",
+      "satWeight": null,
+      "firstLaunch": "2024",
+      "status": "组网中",
+      "verified": false
+    },
+    {
+      "name": "天启星座",
+      "company": "国电高科",
+      "type": "通信",
+      "planned": 38,
+      "actual": 38,
+      "orbit": "LEO 900km",
+      "frequency": "UHF",
+      "satWeight": 50,
+      "firstLaunch": "2018",
+      "status": "已建成",
+      "verified": false
+    },
+    {
+      "name": "鸿鹄-3星座",
+      "company": "上海蓝箭鸿擎科技有限公司",
+      "type": "通信",
+      "planned": 10000,
+      "actual": null,
+      "orbit": "LEO 600km",
+      "frequency": "Ku/Ka",
+      "satWeight": null,
+      "firstLaunch": null,
+      "status": "规划中",
+      "verified": false
+    },
+    {
+      "name": "极光星座",
+      "company": "极光星通",
+      "type": "通信",
+      "planned": 12,
+      "actual": 2,
+      "orbit": "LEO 535km",
+      "frequency": "激光通信",
+      "satWeight": null,
+      "firstLaunch": "2024",
+      "status": "组网中",
+      "verified": false
+    },
+    {
+      "name": "行云星座",
+      "company": "航天科工集团",
+      "type": "通信",
+      "planned": 80,
+      "actual": 2,
+      "orbit": "SSO 561km",
+      "frequency": null,
+      "satWeight": 93,
+      "firstLaunch": "2017",
+      "status": "验证阶段",
+      "verified": false
+    },
+    {
+      "name": "天链星座",
+      "company": "航天科技集团",
+      "type": "通信",
+      "planned": null,
+      "actual": 12,
+      "orbit": "GEO",
+      "frequency": "S波段",
+      "satWeight": null,
+      "firstLaunch": "2008",
+      "status": "已建成",
+      "verified": false
+    },
+    {
+      "name": "银河Galaxy",
+      "company": "银河航天",
+      "type": "通信",
+      "planned": 1000,
+      "actual": 30,
+      "orbit": "LEO 1200km",
+      "frequency": "Q/V波段",
+      "satWeight": null,
+      "firstLaunch": "2020",
+      "status": "组网中",
+      "verified": false
+    },
+    {
+      "name": "吉利未来出行星座",
+      "company": "浙江时空道宇",
+      "type": "通信+导航",
+      "planned": 5676,
+      "actual": 64,
+      "orbit": "LEO 600km",
+      "frequency": null,
+      "satWeight": null,
+      "firstLaunch": "2022",
+      "status": "组网中",
+      "verified": false
+    },
+    {
+      "name": "楚天星座",
+      "company": "科工空间",
+      "type": "通信+遥感",
+      "planned": 300,
+      "actual": 3,
+      "orbit": "LEO 500km",
+      "frequency": null,
+      "satWeight": null,
+      "firstLaunch": "2024",
+      "status": "组网中",
+      "verified": false
+    },
+    {
+      "name": "星池计划",
+      "company": "椭圆时空（北京）科技有限公司",
+      "type": "通信+遥感",
+      "planned": 112,
+      "actual": 3,
+      "orbit": "LEO 500km",
+      "frequency": null,
+      "satWeight": null,
+      "firstLaunch": "2023",
+      "status": "组网中",
+      "verified": false
+    },
+    {
+      "name": "吉林一号星座",
+      "company": "长光卫星",
+      "type": "遥感",
+      "planned": 300,
+      "actual": 152,
+      "orbit": "SSO 535km",
+      "frequency": "光学/视频",
+      "satWeight": null,
+      "firstLaunch": "2015",
+      "status": "组网中",
+      "verified": false
+    },
+    {
+      "name": "云遥一号星座",
+      "company": "天津云遥宇航",
+      "type": "遥感",
+      "planned": 90,
+      "actual": 47,
+      "orbit": "SSO 535km",
+      "frequency": "GNSS掩星",
+      "satWeight": 30,
+      "firstLaunch": "2021",
+      "status": "组网中",
+      "verified": false
+    },
+    {
+      "name": "天府星座",
+      "company": "眉山环天智慧科技有限公司",
+      "type": "遥感",
+      "planned": 14,
+      "actual": 10,
+      "orbit": "SSO 535km",
+      "frequency": "光学",
+      "satWeight": 42,
+      "firstLaunch": "2022",
+      "status": "组网中",
+      "verified": false
+    },
+    {
+      "name": "秦岭星座",
+      "company": "西北工业大学（陕西省发改委立项）",
+      "type": "遥感",
+      "planned": 36,
+      "actual": 2,
+      "orbit": "SSO 500km",
+      "frequency": "光学",
+      "satWeight": 150,
+      "firstLaunch": "2026",
+      "status": "组网中",
+      "verified": false
+    },
+    {
+      "name": "星时代AI星座",
+      "company": "国星宇航",
+      "type": "遥感",
+      "planned": 192,
+      "actual": 38,
+      "orbit": "LEO 550km",
+      "frequency": "光学/红外",
+      "satWeight": null,
+      "firstLaunch": "2018",
+      "status": "组网中",
+      "verified": false
+    },
+    {
+      "name": "女娲星座",
+      "company": "航天宏图",
+      "type": "遥感",
+      "planned": 114,
+      "actual": 12,
+      "orbit": "SSO 545km",
+      "frequency": "SAR",
+      "satWeight": null,
+      "firstLaunch": "2023",
+      "status": "组网中",
+      "verified": false
+    },
+    {
+      "name": "太湖星座",
+      "company": "太湖星云（无锡）科技有限公司",
+      "type": "遥感",
+      "planned": 600,
+      "actual": null,
+      "orbit": "SSO 500km",
+      "frequency": "光学",
+      "satWeight": null,
+      "firstLaunch": null,
+      "status": "规划中",
+      "verified": false
+    },
+    {
+      "name": "环天星座",
+      "company": "环天智慧",
+      "type": "遥感",
+      "planned": 100,
+      "actual": 20,
+      "orbit": "SSO 500km",
+      "frequency": "光学/SAR",
+      "satWeight": null,
+      "firstLaunch": "2022",
+      "status": "组网中",
+      "verified": false
+    },
+    {
+      "name": "珠海一号星座",
+      "company": "航宇微",
+      "type": "遥感",
+      "planned": 34,
+      "actual": 12,
+      "orbit": "SSO 500km",
+      "frequency": "光学/视频",
+      "satWeight": null,
+      "firstLaunch": "2017",
+      "status": "组网中",
+      "verified": false
+    },
+    {
+      "name": "中国四维新一代商业遥感卫星系统",
+      "company": "中国四维",
+      "type": "遥感",
+      "planned": 28,
+      "actual": 10,
+      "orbit": "SSO 535km",
+      "frequency": "光学/SAR",
+      "satWeight": null,
+      "firstLaunch": "2022",
+      "status": "组网中",
+      "verified": false
+    },
+    {
+      "name": "AIRSAT卫星星座",
+      "company": "中科卫星",
+      "type": "遥感",
+      "planned": 21,
+      "actual": 10,
+      "orbit": "SSO 500km",
+      "frequency": "光学/SAR",
+      "satWeight": null,
+      "firstLaunch": "2024",
+      "status": "组网中",
+      "verified": false
+    },
+    {
+      "name": "天仪星座",
+      "company": "天仪空间",
+      "type": "遥感",
+      "planned": 120,
+      "actual": 6,
+      "orbit": "LEO 500km",
+      "frequency": "SAR",
+      "satWeight": null,
+      "firstLaunch": "2020",
+      "status": "组网中",
+      "verified": false
+    },
+    {
+      "name": "天目一号",
+      "company": "航天科工集团",
+      "type": "遥感",
+      "planned": null,
+      "actual": 23,
+      "orbit": "SSO 520km",
+      "frequency": "GNSS掩星",
+      "satWeight": 55,
+      "firstLaunch": "2023",
+      "status": "组网中",
+      "verified": false
+    },
+    {
+      "name": "灵鹊星座",
+      "company": "零重力实验室（北京零重空间）",
+      "type": "遥感",
+      "planned": 166,
+      "actual": null,
+      "orbit": "SSO 500km",
+      "frequency": "光学",
+      "satWeight": null,
+      "firstLaunch": "2019",
+      "status": "组网中",
+      "verified": false
+    },
+    {
+      "name": "高分星座",
+      "company": "航天科技集团",
+      "type": "遥感",
+      "planned": null,
+      "actual": 30,
+      "orbit": "LEO/SSO/GEO",
+      "frequency": "光学/SAR",
+      "satWeight": null,
+      "firstLaunch": "2013",
+      "status": "已建成",
+      "verified": false
+    },
+    {
+      "name": "碳卫星星座",
+      "company": "航天科技集团、航天科工集团",
+      "type": "遥感",
+      "planned": null,
+      "actual": 6,
+      "orbit": "SSO 700km",
+      "frequency": "光学",
+      "satWeight": null,
+      "firstLaunch": "2016",
+      "status": "已建成",
+      "verified": false
+    },
+    {
+      "name": "金紫荆",
+      "company": "香港航天科技",
+      "type": "遥感",
+      "planned": 112,
+      "actual": 12,
+      "orbit": "SSO 535km",
+      "frequency": "光学",
+      "satWeight": null,
+      "firstLaunch": "2021",
+      "status": "组网中",
+      "verified": false
+    },
+    {
+      "name": "Star Link",
+      "company": "SpaceX",
+      "type": "通信",
+      "planned": 41930,
+      "actual": 11100,
+      "orbit": "LEO 340-614km",
+      "frequency": "Ku/Ka",
+      "satWeight": 227,
+      "firstLaunch": "2019",
+      "status": "组网中",
+      "verified": false
+    },
+    {
+      "name": "Amazon Leo",
+      "company": "Amazon",
+      "type": "通信",
+      "planned": 3236,
+      "actual": 394,
+      "orbit": "LEO 590-630km",
+      "frequency": "Ka波段",
+      "satWeight": null,
+      "firstLaunch": "2023",
+      "status": "组网中",
+      "verified": false
+    },
+    {
+      "name": "OneWeb",
+      "company": "Eutelsat OneWeb",
+      "type": "通信",
+      "planned": 648,
+      "actual": 648,
+      "orbit": "LEO 1200km",
+      "frequency": "Ku波段",
+      "satWeight": 147,
+      "firstLaunch": "2019",
+      "status": "已建成",
+      "verified": false
+    },
+    {
+      "name": "Telesat",
+      "company": "Telesat",
+      "type": "通信",
+      "planned": 225,
+      "actual": null,
+      "orbit": "LEO 1000km",
+      "frequency": "Ka波段",
+      "satWeight": null,
+      "firstLaunch": null,
+      "status": "规划中",
+      "verified": false
+    },
+    {
+      "name": "KLEO",
+      "company": "KLEOConnect",
+      "type": "通信",
+      "planned": 300,
+      "actual": null,
+      "orbit": "LEO 1100km",
+      "frequency": "Ka波段",
+      "satWeight": null,
+      "firstLaunch": "2019",
+      "status": "规划中",
+      "verified": false
+    },
+    {
+      "name": "SpaceNet",
+      "company": "Astrome",
+      "type": "通信",
+      "planned": 198,
+      "actual": null,
+      "orbit": "LEO 1200km",
+      "frequency": "Ka波段",
+      "satWeight": null,
+      "firstLaunch": null,
+      "status": "规划中",
+      "verified": false
+    }
+  ],
+  "typeStats": [
+    {
+      "type": "遥感",
+      "count": 17
+    },
+    {
+      "type": "通信",
+      "count": 16
+    },
+    {
+      "type": "导航",
+      "count": 2
+    },
+    {
+      "type": "通信+遥感",
+      "count": 2
+    },
+    {
+      "type": "算力",
+      "count": 1
+    },
+    {
+      "type": "通信+导航",
+      "count": 1
+    }
+  ],
+  "deployProgress": [
+    {
+      "stage": "已完成",
+      "count": 6
+    },
+    {
+      "stage": "进行中",
+      "count": 28
+    },
+    {
+      "stage": "规划中",
+      "count": 5
+    }
+  ],
+  "topDeployers": [
+    {
+      "name": "SpaceX",
+      "actual": 8904,
+      "planned": 41930
+    },
+    {
+      "name": "上海垣信卫星",
+      "actual": 248,
+      "planned": 15000
+    },
+    {
+      "name": "中国星网",
+      "actual": 180,
+      "planned": 12992
+    },
+    {
+      "name": "长光卫星",
+      "actual": 152,
+      "planned": 300
+    },
+    {
+      "name": "OneWeb",
+      "actual": 654,
+      "planned": 648
+    },
+    {
+      "name": "Amazon",
+      "actual": 153,
+      "planned": 3236
+    },
+    {
+      "name": "浙江时空道宇",
+      "actual": 64,
+      "planned": 5676
+    },
+    {
+      "name": "国电高科",
+      "actual": 38,
+      "planned": 38
+    },
+    {
+      "name": "天津云遥宇航",
+      "actual": 47,
+      "planned": 90
+    },
+    {
+      "name": "银河航天",
+      "actual": 30,
+      "planned": 1000
+    }
+  ],
+  "statusStats": [
+    {
+      "status": "组网中",
+      "count": 26
+    },
+    {
+      "status": "已建成",
+      "count": 6
+    },
+    {
+      "status": "验证阶段",
+      "count": 2
+    },
+    {
+      "status": "规划中",
+      "count": 5
+    }
+  ],
+  "orbitStats": [
+    {
+      "type": "LEO 低地球轨道",
+      "count": 21
+    },
+    {
+      "type": "SSO 太阳同步轨道",
+      "count": 15
+    },
+    {
+      "type": "其他轨道（GEO/高轨/混合）",
+      "count": 3
+    }
+  ],
+  "frequencyStats": {
+    "source": "由星座列表 frequency 字段归类统计",
+    "data": [
+      {
+        "band": "光学",
+        "count": 14
+      },
+      {
+        "band": "Ka波段",
+        "count": 10
+      },
+      {
+        "band": "其他",
+        "count": 5
+      },
+      {
+        "band": "L波段",
+        "count": 3
+      },
+      {
+        "band": "导航频段",
+        "count": 3
+      },
+      {
+        "band": "Ku波段",
+        "count": 2
+      },
+      {
+        "band": "S波段",
+        "count": 1
+      },
+      {
+        "band": "Q/V波段",
+        "count": 1
+      },
+      {
+        "band": "X波段",
+        "count": 1
+      },
+      {
+        "band": "SAR(合成孔径雷达)",
+        "count": 1
+      }
+    ]
+  },
+  "sourceLevel": "数据集级综合整理，星座条目尚未逐条附原文链接",
+  "meta": {
+    "asOfDate": "2026-10-06",
+    "lastVerifiedAt": "2026-11-24",
+    "publishedAt": "2026-11-24",
+    "note": "星座资料快照"
+  }
+}

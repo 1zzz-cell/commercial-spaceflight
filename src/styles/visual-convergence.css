@@ -1,0 +1,517 @@
+/* ============================================================================
+   Phase 3B · 视觉收敛层（单作用域 / 可独立回滚）
+   ----------------------------------------------------------------------------
+   目的：把 10 个数据页的小字对比度、卡片语言、字重、渐变文字、焦点环、
+         栅格、动效降级统一到已验收的 /investors 合规风格。
+   边界：
+     - 不修改任何既有 CSS 文件；:root 一个值都不动。
+     - .ds-page 前缀规则只作用于 Phase 3C 挂载的 10 个数据页
+       （14 视图 − 3 个 A 档对照页 − 1 个回滚快照 /home-v1）；
+       /investors(.iv-page)、/compliance(.cp-page)、HomeV2(.home-v2) 保持原样。
+     - A / B / J / K / L 为跨页全局规则（焦点环、tone 类、动效降级、skip link、
+       导出按钮），不加 .ds-page 前缀。
+     - 移除 App.jsx 里的 `import './styles/visual-convergence.css'` 即可整体回滚。
+   顺序：由 App.jsx 保证排在 global.css / home-b2b.css / framework.css 之后。
+   ============================================================================ */
+
+/* ============================================================================
+   [0] 唯一新增色值区
+   ----------------------------------------------------------------------------
+   只挂在 .ds-page 与 ds-tone-* 宿主上，绝不写进 :root —— 零共享污染。
+   注：B 节的 .ds-tone-* 类不带 .ds-page 前缀（跨 /investors /compliance /
+   HomeV2 共用），自定义属性若只挂在 .ds-page 会在这些宿主上解析为空，
+   因此把同一组令牌并列挂到 tone 宿主上，保持「单一定义源」。
+   达标可读色（白底 WCAG AA）：#4a5068 7.96 / #0a63b8 6.02 /
+   #c81e28 5.72 / #0a7442 5.85 / #7a4d00。
+   ============================================================================ */
+.ds-page,
+.ds-tone-up,
+.ds-tone-down,
+.ds-tone-flat,
+.ds-tone-verified,
+.ds-tone-partial,
+.ds-tone-unverified {
+  --ds-ink: var(--text-primary);
+  --ds-ink-2: var(--text-secondary);
+  --ds-link: #0a63b8;
+  --ds-focus: #0a63b8;
+  --ds-up: #c81e28;
+  --ds-down: #0a7442;
+  --ds-warn: #7a4d00;
+  --ds-radius-card: 8px;
+  --ds-surface: var(--bg-card);
+  --ds-canvas-soft: var(--bg-input);
+  --ds-line: var(--border-color);
+}
+
+/* ============================================================================
+   A. 全局焦点环（不加 .ds-page 前缀 —— 顶栏 GlobalSearch、合规搜索框、
+      PageLoading 都在 .ds-page 之外，只能靠全局规则覆盖）
+   ----------------------------------------------------------------------------
+   global.css:80 的 :focus-visible 用 --accent-blue (3.55:1)；
+   global.css:3122/4120/4257 与 investor.css:785 有 outline:none；
+   sdk.css:164 的 .portal-export-btn:focus-visible 只有 1px 偏移。
+   global.css:78 的 :focus{outline:none} 保留不动（由 3A 维护）。
+   ============================================================================ */
+:where(a, button, input, select, textarea, [tabindex]):focus-visible {
+  outline: 2px solid #0a63b8;
+  outline-offset: 2px;
+}
+
+/* 特异性加固：:where() 权重为 0，压不过 global.css:3551 的
+   button/a/input:focus-visible (0,1,1) 与 .nav-link:focus-visible (0,2,0)，
+   也压不过懒加载页面 CSS 里的 .xxx input{outline:none}。
+   并列一条 :is() 版本 (0,2,0)，使覆盖与 CSS 注入顺序无关。 */
+:is(a, button, input, select, textarea, [tabindex]):focus-visible {
+  outline: 2px solid #0a63b8;
+  outline-offset: 2px;
+}
+
+/* 4 处 outline:none 的显式覆盖（不依赖 :where() / :is() 的通用规则取胜）：
+   global.css:3122 .search-input、:4120 .global-search-input、
+   :4257 .data-table-filter-select、investor.css:785 .iv-search input。
+   写成 (0,2,0)/(0,2,1) 的具名规则，无论这些源码在何处注入都能盖掉。 */
+.search-input:focus-visible,
+.global-search-input:focus-visible,
+.data-table-filter-select:focus-visible,
+.iv-search input:focus-visible {
+  outline: 2px solid #0a63b8;
+  outline-offset: 2px;
+}
+
+/* 页面作用域内的输入框再并列确认一次（与上方具名规则同值）。
+   ⚠ 合规页焦点环由 compliance.css 自行负责，收敛层刻意不介入：
+   compliance.css:342 的 .cp-tab:focus-visible 用 outline-offset:-2px 内缩环，
+   若在此处并列一条 (0,3,0) 规则会把它改成 +2px，破坏 A 档冻结页零变化；
+   且 .cp-toolbar-link / .cp-riskbar-tools a / .cp-btn 的既有规则与本文件同色同值，
+   并列纯属冗余，已于 Phase 3 复核时删除。 */
+.ds-page .search-input:focus-visible,
+.ds-page .global-search-input:focus-visible,
+.ds-page .data-table-filter-select:focus-visible,
+.iv-page .iv-search input:focus-visible {
+  outline: 2px solid #0a63b8;
+  outline-offset: 2px;
+}
+
+/* A 档冻结页焦点环显式复原（qa-verify 产物级发现，勿删）：
+   compliance.css 由 Header→ComplianceKit 在入口 chunk 同步注入，
+   排在本收敛层之前；上面 A 节全局 `:is(...):focus-visible` 是 (0,2,0)，
+   与 compliance.css:66/289/342 同特异性、后注入即胜 —— 仅删旧的
+   `.cp-page :is(...)` 规则并不能恢复 A 档零变化（.cp-tab 的 -2px 会变 +2px）。
+   这里用 (0,3,0) 的 .cp-page 具名选择器显式复原 compliance.css 原值，
+   不依赖任何注入顺序。/investors 由 investor.css 异步后注入、已天然胜出，不需处理。 */
+.cp-page :is(.cp-toolbar-link, .cp-btn, .cp-riskbar-tools a):focus-visible {
+  outline: 2px solid var(--cp-focus);
+  outline-offset: 2px;
+}
+.cp-page .cp-tab:focus-visible {
+  outline: 2px solid var(--cp-focus);
+  outline-offset: -2px;
+}
+
+.portal-export-btn:focus-visible,
+button.portal-export-btn:focus-visible {
+  outline-width: 2px;
+  outline-offset: 2px;
+  outline-color: #0a63b8;
+}
+
+/* 深底例外：Hero 深蓝底白字 17.65:1，焦点环必须为白 */
+.home-v2 .hv2-hero a:focus-visible {
+  outline-color: #fff;
+}
+
+/* ============================================================================
+   B. 组件级 tone 类（不加 .ds-page 前缀 —— Delta / SourceTag 跨门户共用）
+   ----------------------------------------------------------------------------
+   tone 直接复用 format.js 现成的 dir / level 枚举，不新增第三套枚举。
+   SourceTag 在 sdk.css:118 是 border:1px solid currentColor，
+   color 一改边框自动跟随，无需再写 borderColor。
+   ============================================================================ */
+.ds-tone-up { color: var(--ds-up); }
+.ds-tone-down { color: var(--ds-down); }
+.ds-tone-flat { color: var(--ds-ink-2); }
+.ds-tone-verified { color: var(--ds-down); }
+.ds-tone-partial,
+.ds-tone-unverified { color: var(--ds-warn); }
+
+/* 状态「色点 + 文字」双通道：不能只靠颜色传达语义。
+   .portal-delta 的第二通道是 formatDelta() 的 +/- 符号文本，保留不动。 */
+.portal-source-tag::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  flex: 0 0 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+/* ============================================================================
+   C. 小字对比度（.ds-page 作用域，P0）
+   ----------------------------------------------------------------------------
+   原 --text-muted(#8890a8) 3.18:1 / #94a3b8 2.56:1 全部统一到
+   --ds-ink-2(#4a5068) 7.96:1，字重统一 500。
+   ============================================================================ */
+.ds-page .chart-desc,
+.ds-page .chart-source,
+.ds-page .card-meta,
+.ds-page .stat-label,
+.ds-page .section-subtitle,
+.ds-page .data-source-note p,
+.ds-page .policy-date,
+.ds-page .policy-org,
+.ds-page .policy-source,
+.ds-page .filter-label,
+.ds-page .tab-count,
+.ds-page .legend-label,
+.ds-page .methodology-note,
+.ds-page .empty-state,
+.ds-page .screen-metric-unit,
+.ds-page .screen-metric-sub,
+.ds-page .screen-footer,
+.ds-page .map-loading,
+.ds-page .data-note-text,
+.ds-page .rpt-mini-meta,
+.ds-page .portal-stat-label,
+.ds-page .portal-stat-unit,
+.ds-page .portal-section-subtitle,
+.ds-page .portal-export-label,
+.ds-page .portal-empty,
+.ds-page .portal-empty-hint,
+.ds-page .chart-inline-note,
+.ds-page .ds-inline-note {
+  color: var(--ds-ink-2);
+  font-weight: 500;
+}
+
+.ds-page .btn-secondary,
+.ds-page .feature-link,
+.ds-page .policy-expand-hint,
+.ds-page .tab-btn.tab-active,
+.ds-page .nav-link.active,
+.ds-page .news-page-index,
+.ds-page .rpt-mini-cta,
+.ds-page .rpt-note-year,
+.ds-page .rs-head-extra a,
+.ds-page .rs-ds-link,
+.ds-page .rs-chip-count,
+.ds-page .portal-source-link {
+  color: var(--ds-link);
+}
+
+.ds-page .btn-secondary {
+  border-color: var(--ds-link);
+}
+
+/* 3C 会把 Analysis.jsx:597 / Policy.jsx:184 的内联
+   <p style={{color:'#94a3b8'}}> 换成 className="ds-inline-note"。
+   尺寸规则不依赖 .ds-page 令牌，故全局定义；颜色用既有变量兜底。 */
+.ds-inline-note {
+  color: var(--text-secondary);
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 18px;
+  margin: 6px 4px 0;
+}
+
+/* ============================================================================
+   D. /index 指标卡（P0）
+   ----------------------------------------------------------------------------
+   原 .idx-delta-down 用 #059669 (3.77:1) 不达标，改 --ds-down 5.85:1。
+   ============================================================================ */
+.ds-page .idx-metric-value {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+.ds-page .idx-metric-value small,
+.ds-page .idx-metric-sub {
+  color: var(--ds-ink-2);
+  font-size: 12px;
+  line-height: 18px;
+}
+.ds-page .idx-delta-up { color: var(--ds-up); }
+.ds-page .idx-delta-down { color: var(--ds-down); }
+
+/* ============================================================================
+   E. 卡片语言统一（P1）
+   ----------------------------------------------------------------------------
+   4 套卡片语言并存（4px 无阴影 / 16px+shadow-sm / 10px+glow / 12px+color-mix）
+   收敛为 8px 直角边框、无阴影、无位移动效。
+   ============================================================================ */
+.ds-page .portal-card,
+.ds-page .chart-card,
+.ds-page .screen-panel,
+.ds-page .rpt-doc,
+.ds-page .news-page-item,
+.ds-page .idx-metric,
+.ds-page .idx-caliber-item,
+.ds-page .portal-role-card,
+.ds-page .chain-stage-card,
+.ds-page .facility-card {
+  border-radius: var(--ds-radius-card);
+  box-shadow: none;
+}
+.ds-page .chart-card:hover,
+.ds-page .screen-panel:hover,
+.ds-page .chain-stage-card:hover,
+.ds-page .portal-role-card:hover {
+  border-color: var(--border-color-hover);
+  box-shadow: none;
+  transform: none;
+}
+.ds-page .portal-role-card {
+  background: var(--ds-surface);
+  border: 1px solid var(--ds-line);
+}
+
+/* ============================================================================
+   F. 字重 / 渐变文字（P1）
+   ----------------------------------------------------------------------------
+   渐变文字对比度不可测，改为实色；700/800 字重统一降到 600。
+   ============================================================================ */
+.ds-page .section-title,
+.ds-page .screen-title,
+.ds-page .gradient-text {
+  background: none;
+  -webkit-text-fill-color: var(--ds-ink);
+  color: var(--ds-ink);
+  font-weight: 600;
+}
+.ds-page .page-title,
+.ds-page .rpt-doc-title,
+.ds-page .rpt-mini-title,
+.ds-page .rpt-doc-no,
+.ds-page .rpt-note-year,
+.ds-page .screen-metric-value,
+.ds-page .chain-stage-name,
+.ds-page .news-page-index,
+.ds-page .portal-role-title,
+.ds-page .portal-role-tag,
+.ds-page .portal-role-cta,
+.ds-page .chart-title {
+  font-weight: 600;
+}
+
+/* ============================================================================
+   G. 徽标（P1）
+   ----------------------------------------------------------------------------
+   白字压紫/橙 3.23–4.23:1、#f59e0b 2.15:1 全部改为浅底深字；
+   彩色语义改由 ::before 6px 色点承载（3C 负责给 JSX 加 data-tone 与 --tone-color）。
+   ============================================================================ */
+.ds-page .badge,
+.ds-page .tag,
+.ds-page .ds-badge {
+  color: var(--ds-ink-2);
+  background: var(--ds-canvas-soft);
+  border: 1px solid var(--ds-line);
+  border-radius: 2px;
+  font-size: 12px;
+  font-weight: 500;
+}
+.ds-page [data-tone]::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--tone-color, currentColor);
+  margin-right: 6px;
+}
+/* .ds-badge[data-tone="..."] 色调映射：3C 可直接写 data-tone="up|down|flat|
+   verified|partial|unverified"，也可自行传 --tone-color 覆盖（var 回退链优先）。
+   色点 + 文案双通道，语义不只靠颜色。 */
+.ds-page .ds-badge[data-tone="up"]::before,
+.ds-page [data-tone="up"]::before {
+  background: var(--tone-color, var(--ds-up));
+}
+.ds-page .ds-badge[data-tone="down"]::before,
+.ds-page .ds-badge[data-tone="verified"]::before,
+.ds-page [data-tone="down"]::before,
+.ds-page [data-tone="verified"]::before {
+  background: var(--tone-color, var(--ds-down));
+}
+.ds-page .ds-badge[data-tone="flat"]::before,
+.ds-page [data-tone="flat"]::before {
+  background: var(--tone-color, var(--ds-ink-2));
+}
+.ds-page .ds-badge[data-tone="partial"]::before,
+.ds-page .ds-badge[data-tone="unverified"]::before,
+.ds-page [data-tone="partial"]::before,
+.ds-page [data-tone="unverified"]::before {
+  background: var(--tone-color, var(--ds-warn));
+}
+.ds-page .chain-stage-badge,
+.ds-page .facility-type-tag {
+  color: var(--ds-ink-2);
+  background: var(--ds-canvas-soft);
+  border-radius: 2px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* ============================================================================
+   H. sdk.css 共享坑的局部修补（P0）
+   ----------------------------------------------------------------------------
+   1) .portal-section-actions 原 flex:0 0 auto，375px 下把整页撑到 697px；
+   2) 641–1100px 缺中间断点，3/4 列被压到 ~160px/列；
+      ≤640px 仍由 sdk.css:174-178 的 1fr!important 兜底 —— 这里绝不加 !important；
+   3) .anchor-nav 原 top:60px 错位；.rs-chip-active 原白字压 #0d8af0 3.55:1。
+   ============================================================================ */
+.ds-page .portal-section-head {
+  flex-wrap: wrap;
+  min-width: 0;
+}
+.ds-page .portal-section-head > div {
+  min-width: 0;
+}
+.ds-page .portal-section-actions {
+  flex: 0 1 auto;
+  min-width: 0;
+  max-width: 100%;
+  white-space: normal;
+}
+.ds-page .portal-section-actions * {
+  overflow-wrap: anywhere;
+}
+
+/* Grid 组件改为注入 --grid-cols 自定义属性，调用点零改动 */
+.ds-page .portal-grid {
+  grid-template-columns: repeat(var(--grid-cols, auto-fit), minmax(min(260px, 100%), 1fr));
+}
+@media (min-width: 641px) and (max-width: 1100px) {
+  .ds-page .portal-grid {
+    grid-template-columns: repeat(2, minmax(min(260px, 100%), 1fr));
+  }
+}
+
+.ds-page .portal-role-row {
+  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+}
+.ds-page .rs-kv {
+  grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr));
+}
+.ds-page .anchor-nav {
+  top: 72px;
+  border-radius: 8px;
+}
+.ds-page .rs-chip-active {
+  background: var(--ds-link);
+  color: #fff;
+}
+.ds-page .rs-note,
+.ds-page .rs-pending-ds,
+.ds-page .rs-kv-label {
+  color: var(--ds-ink-2);
+}
+.ds-page .rpt-doc-no {
+  color: var(--ds-ink-2);
+  background: var(--ds-canvas-soft);
+  border-radius: 2px;
+  font-weight: 500;
+}
+
+/* ux-designer 约束：ComplianceKit 的常驻风险条在 /analysis 等非合规页
+   （这些页挂 .ds-page）不应吸顶；/compliance 是 .cp-page 无 .ds-page，
+   compliance.css:82 的 position:sticky 保持原样不受影响。 */
+.ds-page .cp-riskbar {
+  position: static;
+}
+
+/* ============================================================================
+   I. 长文本换行（P0）
+   ----------------------------------------------------------------------------
+   实测 375px 三处溢出：/chain 长 URL <a> 385/401px、/rockets 361px、
+   /constellation .chart-inline-note 441px。CSS 独立兜住，3C 在 JSX 侧配合。
+   ============================================================================ */
+.ds-page .chart-source a,
+.ds-page .chart-source span,
+.ds-page .chart-inline-note,
+.ds-page .ds-wrap-url {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  max-width: 100%;
+}
+
+/* ============================================================================
+   J. 动效降级（P1）
+   ----------------------------------------------------------------------------
+   显式停用，不用 animation-duration:.001ms —— 那会让 infinite 跑马灯瞬间
+   跳到 translateX(-50%)。这是全文件唯一使用 !important 的规则组。
+   .page-fade-in 在 reduce 下会从 opacity:0 / translateY(8px) 起步，必须并列停用；
+   .ds-boot-spinner 是 3A 给加载屏 spinner 挂的类名（内联 spin 动画，只有
+   !important 能压住 inline style）。
+   ============================================================================ */
+@media (prefers-reduced-motion: reduce) {
+  .news-ticker-content,
+  .ticker-track,
+  .dash-ticker-content,
+  .map-spinner,
+  .skeleton,
+  .skeleton::after,
+  .iv-chart-skeleton::after,
+  .page-fade-in,
+  .ds-boot-spinner {
+    animation: none !important;
+    transform: none !important;
+  }
+  .page-fade-in {
+    opacity: 1 !important;
+  }
+  .news-ticker-wrap,
+  .ticker-track,
+  .dash-ticker-wrap {
+    overflow-x: auto;
+    mask-image: none;
+    -webkit-mask-image: none;
+  }
+}
+
+/* ============================================================================
+   K. skip link（P1）
+   ----------------------------------------------------------------------------
+   3A 在 Layout.jsx 加 <a className="ds-skip" href="#main-content"> 与
+   <main id="main-content">；本类默认移出视口，:focus 时显现。
+   ============================================================================ */
+.ds-skip {
+  position: fixed;
+  top: -100px; /* 未聚焦时移出视口（top 为负值）；Header z-index:1000，本层 1200 可盖过 */
+  left: 12px;
+  z-index: 1200;
+  padding: 8px 14px;
+  background: var(--bg-card);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  line-height: 1.4;
+  text-decoration: none;
+}
+.ds-skip:focus {
+  top: 80px;
+  outline: 2px solid #0a63b8;
+  outline-offset: 2px;
+}
+
+/* ============================================================================
+   L. 导出按钮 hover / focus（P1）
+   ----------------------------------------------------------------------------
+   sdk.css:160/164 原用 3.55:1 蓝、1px 环。sdk.css 由懒加载页面 import，
+   注入顺序晚于本文件，故并列一条 element 限定选择器把特异性抬到 (0,2,1)，
+   保证「后置」也能稳定覆盖（不靠 !important）。
+   ============================================================================ */
+.portal-export-btn:hover,
+button.portal-export-btn:hover {
+  color: #0a63b8;
+  border-color: var(--border-color-hover);
+}
+.portal-export-btn:focus-visible,
+button.portal-export-btn:focus-visible {
+  outline: 2px solid #0a63b8;
+  outline-offset: 2px;
+}
+.portal-export-btn:disabled {
+  opacity: .55;
+  pointer-events: none;
+}

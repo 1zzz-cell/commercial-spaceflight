@@ -1,0 +1,1183 @@
+/* ============================================
+   B2B 首页：浅科技冷蓝极简商务风格
+   深空蓝 + 浅灰渐变背景
+   ============================================ */
+
+/* ---------- 页面底色 ---------- */
+.home-b2b {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #f8fafc 0%, #eef2f7 40%, #f1f5f9 100%);
+  padding-top: 0;
+}
+
+/* 让首页 Hero 贴顶，覆盖全局 layout-main 内边距。
+   RouteScrollHandler 实际渲染的是 .page-fade-in（全仓库并不存在 .route-scroll-handler），
+   真实 DOM 为 .layout-main > .page-fade-in > .home-b2b，中间隔着 .page-fade-in，
+   所以只保留这一条有效变体；/home-v1 回滚路由同样依赖它贴顶。 */
+.layout-main:has(> .page-fade-in > .home-b2b) {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  background: transparent;
+}
+
+/* ---------- 顶部导航栏 B2B 风格 ---------- */
+.b2b-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  height: 72px;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(203, 213, 225, 0.7);
+  transition: box-shadow 0.2s ease;
+}
+
+.b2b-header-scrolled {
+  box-shadow: 0 2px 16px rgba(15, 23, 42, 0.06);
+}
+
+.b2b-header-inner {
+  max-width: 1920px;
+  margin: 0 auto;
+  height: 100%;
+  padding: 0 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.b2b-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+
+.b2b-logo-mark {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  position: relative;
+}
+
+.b2b-logo-mark::after {
+  content: '';
+  position: absolute;
+  inset: 7px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.9);
+  border-top-color: transparent;
+  transform: rotate(45deg);
+}
+
+.b2b-logo-text {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #0f172a;
+  letter-spacing: 0.02em;
+}
+
+.b2b-nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.b2b-nav-link {
+  position: relative;
+  padding: 8px 18px;
+  font-size: 0.92rem;
+  font-weight: 500;
+  color: #475569;
+  text-decoration: none;
+  border-radius: 6px;
+  transition: color 0.2s, background 0.2s;
+}
+
+.b2b-nav-link:hover {
+  color: #2563eb;
+  background: rgba(37, 99, 235, 0.06);
+}
+
+.b2b-nav-active {
+  color: #2563eb;
+  background: rgba(37, 99, 235, 0.08);
+  font-weight: 600;
+}
+
+.b2b-nav-active::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -2px;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 2px;
+  background: #2563eb;
+  border-radius: 2px;
+}
+
+.b2b-header-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.b2b-menu-btn {
+  display: none;
+  width: 32px;
+  height: 32px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.b2b-menu-btn span {
+  display: block;
+  width: 20px;
+  height: 2px;
+  background: #334155;
+  border-radius: 2px;
+  transition: transform 0.2s, opacity 0.2s;
+}
+
+/* ---------- BUAA 出品方署名 ---------- */
+.buaa-credit {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 14px 80px;
+  background: rgba(0, 0, 0, 0.25);
+  border-bottom: 1px solid rgba(147, 197, 253, 0.08);
+  backdrop-filter: blur(8px);
+}
+.buaa-credit-logo {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.buaa-credit-text {
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: rgba(203, 213, 225, 0.85);
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+}
+.buaa-credit-divider {
+  width: 1px;
+  height: 18px;
+  background: rgba(147, 197, 253, 0.2);
+  flex-shrink: 0;
+}
+.buaa-credit-sub {
+  font-size: 0.8rem;
+  color: rgba(147, 197, 253, 0.7);
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+/* ---------- Hero 首屏 ---------- */
+.dash-hero {
+  position: relative;
+  padding: 140px 80px 96px;
+  background: linear-gradient(135deg, #0b1426 0%, #111d33 50%, #0f172a 100%);
+  overflow: hidden;
+}
+
+.dash-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(37, 99, 235, 0.12) 0%, transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(59, 130, 246, 0.08) 0%, transparent 40%);
+  pointer-events: none;
+}
+
+.dash-hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 120px;
+  background: linear-gradient(to top, rgba(248, 250, 252, 1), transparent);
+  pointer-events: none;
+}
+
+.dash-hero-inner {
+  position: relative;
+  z-index: 2;
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.dash-hero-tag {
+  display: inline-block;
+  padding: 6px 16px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #93c5fd;
+  background: rgba(147, 197, 253, 0.12);
+  border: 1px solid rgba(147, 197, 253, 0.22);
+  border-radius: 100px;
+  letter-spacing: 0.08em;
+  margin-bottom: 24px;
+}
+
+.dash-hero-title {
+  font-size: 3.2rem;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: 0.02em;
+  margin-bottom: 20px;
+  line-height: 1.15;
+}
+
+.dash-hero-subtitle {
+  font-size: 1.15rem;
+  color: #94a3b8;
+  max-width: 720px;
+  margin: 0 auto 40px;
+  line-height: 1.7;
+}
+
+.dash-hero-actions {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}
+
+/* 数据更新徽章：置于 CTA 按钮之下，避免重叠；
+   深色 Hero 底上使用高对比的半透明白配色，并浮于底部渐变遮罩之上 */
+.dash-hero-badge {
+  position: relative;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  margin-top: 28px;
+  padding: 5px 14px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(147, 197, 253, 0.35);
+  color: #bfdbfe;
+  font-size: 0.78rem;
+}
+
+.dash-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 32px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 10px;
+  transition: transform 0.15s, box-shadow 0.2s, background 0.2s, border-color 0.2s;
+}
+
+.dash-btn:hover {
+  transform: translate3d(0, -1px, 0);
+}
+
+.dash-btn-primary {
+  color: #ffffff;
+  background: #2563eb;
+  border: 1px solid #2563eb;
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.28);
+}
+
+.dash-btn-primary:hover {
+  background: #1d4ed8;
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.35);
+}
+
+.dash-btn-outline {
+  color: #e2e8f0;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(226, 232, 240, 0.35);
+}
+
+.dash-btn-outline:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(226, 232, 240, 0.55);
+}
+
+/* ---------- 通用区域 ---------- */
+.dash-section {
+  max-width: 1760px;
+  margin: 0 auto;
+  padding: 64px 80px;
+}
+
+.dash-section-header {
+  margin-bottom: 32px;
+}
+
+.dash-section-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 8px;
+}
+
+.dash-section-subtitle {
+  font-size: 0.95rem;
+  color: #64748b;
+}
+
+/* ---------- 顶部核心指标卡 ---------- */
+.dash-metric-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.dash-metric-card {
+  background: rgba(255, 255, 255, 0.86);
+  border: 1px solid rgba(203, 213, 225, 0.7);
+  border-radius: 12px;
+  padding: 28px;
+  box-shadow: 0 2px 12px rgba(15, 23, 42, 0.04);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.dash-metric-card:hover {
+  transform: translate3d(0, -2px, 0);
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.07);
+}
+
+.dash-metric-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.dash-metric-label {
+  font-size: 0.88rem;
+  color: #64748b;
+}
+
+/* 指标卡图标：浅蓝灰底 + 主色描边，统一 36×36 */
+.dash-metric-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 9px;
+  background: rgba(37, 99, 235, 0.08);
+  flex: 0 0 auto;
+}
+
+.dash-metric-value {
+  font-size: 2.4rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.dash-metric-unit {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-left: 4px;
+  color: #475569;
+}
+
+.dash-metric-sub {
+  font-size: 0.8rem;
+  color: #94a3b8;
+  margin-top: 10px;
+}
+
+/* ---------- 五链数据卡片 ---------- */
+.dash-chain-row {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
+}
+
+.dash-chain-card {
+  display: block;
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.86);
+  border: 1px solid rgba(203, 213, 225, 0.7);
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 2px 12px rgba(15, 23, 42, 0.04);
+  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+}
+
+.dash-chain-card:hover {
+  transform: translate3d(0, -3px, 0);
+  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.08);
+  border-color: color-mix(in srgb, var(--chain-color) 40%, rgba(203, 213, 225, 0.7));
+}
+
+.dash-chain-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.dash-chain-name {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+/* 五链卡片图标：链色浅底 + 链色描边，统一 36×36、视觉对齐 */
+.dash-chain-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 9px;
+  color: var(--chain-color);
+  background: color-mix(in srgb, var(--chain-color) 10%, transparent);
+  flex: 0 0 auto;
+}
+
+.dash-chain-metric {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--chain-color);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.dash-chain-unit {
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-left: 4px;
+}
+
+.dash-chain-metric-label {
+  font-size: 0.82rem;
+  color: #64748b;
+  margin-bottom: 12px;
+}
+
+.dash-chain-desc {
+  font-size: 0.8rem;
+  color: #94a3b8;
+  line-height: 1.55;
+}
+
+/* ---------- 2×2 可视化看板 ---------- */
+.dash-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.dash-chart-card {
+  background: rgba(255, 255, 255, 0.86);
+  border: 1px solid rgba(203, 213, 225, 0.7);
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 2px 12px rgba(15, 23, 42, 0.04);
+}
+
+.dash-chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 16px;
+}
+
+.dash-chart-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.dash-chart-source {
+  font-size: 0.72rem;
+  color: #94a3b8;
+}
+
+.dash-chart-body {
+  width: 100%;
+  height: 360px;
+}
+
+/* ---------- 时间轴 ---------- */
+.dash-timeline-section {
+  max-width: 1760px;
+  margin: 0 auto;
+  padding: 64px 80px 80px;
+}
+
+.dash-timeline {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  padding-top: 24px;
+}
+
+.dash-timeline::before {
+  content: '';
+  position: absolute;
+  top: 30px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #dbeafe, #2563eb 50%, #dbeafe);
+}
+
+.dash-timeline-item {
+  position: relative;
+  flex: 1;
+  max-width: 200px;
+  text-align: center;
+}
+
+.dash-timeline-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #2563eb;
+  border: 3px solid #ffffff;
+  box-shadow: 0 0 0 2px #2563eb;
+  margin: 0 auto 16px;
+  position: relative;
+  z-index: 1;
+}
+
+.dash-timeline-year {
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: #2563eb;
+  margin-bottom: 8px;
+}
+
+.dash-timeline-text {
+  font-size: 0.82rem;
+  color: #475569;
+  line-height: 1.55;
+}
+
+/* ---------- 底部快讯 ---------- */
+.dash-ticker {
+  max-width: 1920px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: #0f172a;
+  padding: 12px 80px;
+  overflow: hidden;
+}
+
+.dash-ticker-label {
+  flex-shrink: 0;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #93c5fd;
+  background: rgba(147, 197, 253, 0.12);
+  padding: 4px 12px;
+  border-radius: 100px;
+  letter-spacing: 0.05em;
+}
+
+.dash-ticker-wrap {
+  flex: 1;
+  overflow: hidden;
+  mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
+}
+
+.dash-ticker-content {
+  display: inline-flex;
+  gap: 64px;
+  white-space: nowrap;
+  animation: dashTickerScroll 32s linear infinite;
+}
+
+.dash-ticker-item {
+  font-size: 0.84rem;
+  color: #cbd5e1;
+  position: relative;
+}
+
+.dash-ticker-item::after {
+  content: '•';
+  position: absolute;
+  right: -36px;
+  color: #2563eb;
+}
+
+.dash-ticker-item:last-child::after {
+  display: none;
+}
+
+.dash-ticker:hover .dash-ticker-content {
+  animation-play-state: paused;
+}
+
+@keyframes dashTickerScroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ---------- 响应式 ---------- */
+@media (max-width: 1440px) {
+  .b2b-header-inner,
+  .dash-hero,
+  .dash-section,
+  .dash-timeline-section,
+  .dash-ticker {
+    padding-left: 48px;
+    padding-right: 48px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .dash-metric-row { grid-template-columns: repeat(2, 1fr); }
+  .dash-chain-row { grid-template-columns: repeat(3, 1fr); }
+  .dash-grid { grid-template-columns: 1fr; }
+  .dash-dual-chart { grid-template-columns: 1fr; }
+  .dash-compare-row { grid-template-columns: repeat(3, 1fr); }
+  .dash-timeline { flex-wrap: wrap; gap: 32px 0; }
+  .dash-timeline::before { display: none; }
+  .dash-timeline-item { max-width: 50%; text-align: left; padding-left: 20px; border-left: 2px solid #dbeafe; }
+  .dash-timeline-dot { position: absolute; left: -9px; top: 0; margin: 0; }
+  .buaa-credit { left: 48px; }
+}
+
+@media (max-width: 900px) {
+  .b2b-header-inner { padding: 0 24px; }
+  .b2b-nav {
+    position: absolute;
+    top: 72px;
+    left: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 0.98);
+    flex-direction: column;
+    padding: 16px 24px;
+    gap: 4px;
+    border-bottom: 1px solid rgba(203, 213, 225, 0.7);
+    transform: translate3d(0, -100%, 0);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.25s ease, opacity 0.25s ease;
+  }
+  .b2b-nav-open { transform: translateY(0); opacity: 1; pointer-events: auto; }
+  .b2b-nav-link { width: 100%; padding: 12px 0; }
+  .b2b-menu-btn { display: flex; }
+  .dash-hero-title { font-size: 2.2rem; }
+  .dash-hero { padding: 132px 24px 72px; }
+  .dash-section,
+  .dash-timeline-section,
+  .dash-ticker { padding-left: 24px; padding-right: 24px; }
+}
+
+@media (max-width: 640px) {
+  .dash-metric-row { grid-template-columns: 1fr; }
+  .dash-chain-row { grid-template-columns: 1fr; }
+  .dash-compare-row { grid-template-columns: 1fr; }
+  .dash-hero-actions { flex-direction: column; }
+  .dash-btn { width: 100%; }
+  .dash-timeline-item { max-width: 100%; }
+  .buaa-credit { padding: 10px 24px; gap: 8px; }
+  .buaa-credit-logo { width: 28px; height: 28px; }
+  .buaa-credit-text { font-size: 0.75rem; }
+  .buaa-credit-sub { font-size: 0.66rem; }
+}
+
+/* ---------- 对比卡片 ---------- */
+.dash-compare-row {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+}
+
+.dash-compare-card {
+  background: rgba(255, 255, 255, 0.86);
+  border: 1px solid rgba(203, 213, 225, 0.7);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 12px rgba(15, 23, 42, 0.04);
+  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+}
+
+.dash-compare-card:hover {
+  transform: translate3d(0, -2px, 0);
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.07);
+  border-color: color-mix(in srgb, var(--chain-color) 35%, rgba(203, 213, 225, 0.7));
+}
+
+.dash-compare-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 18px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(203, 213, 225, 0.5);
+}
+
+.dash-compare-icon {
+  font-size: 1.2rem;
+}
+
+.dash-compare-name {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.dash-compare-metric {
+  margin-bottom: 16px;
+}
+
+.dash-compare-metric:last-child {
+  margin-bottom: 0;
+}
+
+.dash-compare-metric-top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.dash-compare-metric-value {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #0f172a;
+  line-height: 1;
+}
+
+.dash-compare-metric-unit {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #64748b;
+  margin-left: 3px;
+}
+
+.dash-compare-growth {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #10b981;
+}
+
+.dash-compare-metric-label {
+  font-size: 0.78rem;
+  color: #64748b;
+  margin-bottom: 8px;
+}
+
+.dash-compare-bar-wrap {
+  height: 4px;
+  background: rgba(203, 213, 225, 0.4);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.dash-compare-bar {
+  height: 100%;
+  border-radius: 2px;
+  transition: width 0.6s ease;
+}
+
+/* ---------- 双图表布局 ---------- */
+.dash-dual-chart {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+/* ---------- 2025年度实绩卡片 ---------- */
+.dash-facts-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  padding: 4px 2px;
+}
+
+.dash-fact-card {
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  border-radius: 12px;
+  padding: 18px 20px;
+  background: linear-gradient(160deg, #f8fbff 0%, #ffffff 60%);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.dash-fact-card:hover {
+  box-shadow: 0 8px 24px rgba(37, 99, 235, 0.1);
+  transform: translate3d(0, -2px, 0);
+}
+
+.dash-fact-value {
+  font-size: 30px;
+  font-weight: 700;
+  color: #2563eb;
+  line-height: 1.15;
+}
+
+.dash-fact-unit {
+  font-size: 13px;
+  font-weight: 500;
+  color: #64748b;
+  margin-left: 4px;
+}
+
+.dash-fact-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.dash-fact-sub {
+  font-size: 12px;
+  color: #64748b;
+}
+
+.dash-fact-source {
+  margin-top: 6px;
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+.dash-fact-source a {
+  color: #2563eb;
+  text-decoration: none;
+  border-bottom: 1px dashed rgba(37, 99, 235, 0.4);
+}
+
+.dash-fact-source a:hover {
+  color: #1d4ed8;
+}
+
+.dash-fact-source span {
+  color: #94a3b8;
+}
+
+@media (max-width: 1200px) {
+  .dash-facts-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 700px) {
+  .dash-facts-grid { grid-template-columns: 1fr; }
+}
+
+/* ---------- GlobalSearch B2B 适配 ---------- */
+.b2b-header .global-search-input-wrap {
+  background: rgba(241, 245, 249, 0.9);
+  border: 1px solid rgba(203, 213, 225, 0.9);
+  border-radius: 8px;
+  padding: 8px 12px;
+  min-width: 220px;
+}
+
+.b2b-header .global-search-input {
+  color: #0f172a;
+  font-size: 0.86rem;
+}
+
+.b2b-header .global-search-input::placeholder {
+  color: #94a3b8;
+}
+
+.b2b-header .global-search-icon {
+  color: #64748b;
+}
+
+.b2b-header .global-search-kbd {
+  background: rgba(255, 255, 255, 0.8);
+  border-color: rgba(203, 213, 225, 0.9);
+  color: #64748b;
+  font-size: 0.68rem;
+}
+
+/* ============================================
+   行业趋势解读 / 典型案例（2025 内容增强模块）
+   与实绩卡同一冷蓝卡片体系：圆角12、浅蓝渐变、
+   细边框、hover 轻上浮
+   ============================================ */
+.insight-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  padding: 4px 2px;
+}
+
+.insight-card,
+.case-card {
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  border-radius: 12px;
+  padding: 20px;
+  background: linear-gradient(160deg, #f8fbff 0%, #ffffff 60%);
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.insight-card:hover,
+.case-card:hover {
+  box-shadow: 0 8px 24px rgba(37, 99, 235, 0.1);
+  transform: translate3d(0, -2px, 0);
+}
+
+.insight-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.insight-icon,
+.case-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: rgba(37, 99, 235, 0.09);
+  color: #2563eb;
+  flex: 0 0 auto;
+}
+
+.insight-metric {
+  font-size: 1.55rem;
+  font-weight: 800;
+  color: #1d4ed8;
+  line-height: 1;
+  letter-spacing: -0.01em;
+}
+
+.insight-title,
+.case-title {
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 8px;
+}
+
+.insight-text,
+.case-text {
+  font-size: 0.85rem;
+  color: #475569;
+  line-height: 1.75;
+  flex: 1;
+}
+
+.insight-source,
+.case-source {
+  margin-top: 14px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(148, 163, 184, 0.18);
+  font-size: 0.72rem;
+  line-height: 1.5;
+  color: #94a3b8;
+}
+
+.insight-source a,
+.case-source a {
+  display: flex;
+  align-items: flex-start;
+  gap: 4px;
+  color: #2563eb;
+  text-decoration: none;
+}
+
+.insight-source a:hover,
+.case-source a:hover {
+  text-decoration: underline;
+}
+
+.insight-source .ui-icon,
+.case-source .ui-icon {
+  margin-top: 2px;
+  flex: 0 0 auto;
+}
+
+/* ---------- 典型案例 ---------- */
+.case-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  padding: 4px 2px;
+}
+
+.case-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.case-tag {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 100px;
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: #1d4ed8;
+  background: rgba(37, 99, 235, 0.08);
+  border: 1px solid rgba(37, 99, 235, 0.15);
+  white-space: nowrap;
+}
+
+.case-metric {
+  font-size: 1.9rem;
+  font-weight: 800;
+  color: #1d4ed8;
+  line-height: 1.1;
+  margin-bottom: 10px;
+}
+
+.case-metric-label {
+  display: block;
+  font-size: 0.76rem;
+  font-weight: 500;
+  color: #64748b;
+  margin-top: 4px;
+}
+
+@media (max-width: 1200px) {
+  .insight-grid { grid-template-columns: repeat(2, 1fr); }
+  .case-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 640px) {
+  .insight-grid,
+  .case-grid { grid-template-columns: 1fr; }
+}
+
+/* ============================================================
+   Phase 3A · ≤767 顶栏横向溢出修复
+   ------------------------------------------------------------
+   body 的 overflow-x:hidden 会掩盖真实溢出，实测 320px 下
+   .b2b-menu-btn 被裁出视口；此处改为「窄屏收窄 + 聚焦时全宽浮出」。
+   注意 .b2b-header 带 backdrop-filter，会成为 fixed 子元素的包含块，
+   因此 top 以顶栏上沿为基准：80px = 72px 顶栏 + 8px 间隙。
+   ============================================================ */
+@media (max-width: 767px) {
+  /* 隐去品牌文字，省下约 100px；品牌色标仍保留可识别性 */
+  .b2b-logo-text { display: none; }
+
+  .b2b-header-inner { padding: 0 12px; gap: 8px; }
+  .b2b-header-right { gap: 12px; flex: 0 1 auto; min-width: 0; }
+
+  /* 搜索框常态收窄；min-width:0 覆盖 .b2b-header .global-search-input-wrap 的 220px。
+     input 自身也要 min-width:0，否则 flex 项的 auto 最小尺寸会顶破 120px 外框。 */
+  .b2b-header .global-search { width: 120px; min-width: 0; }
+  .b2b-header .global-search-input-wrap { width: 120px; min-width: 0; }
+  .b2b-header .global-search-input { min-width: 0; }
+  .b2b-header .global-search-input-wrap:focus-within {
+    position: fixed;
+    left: 12px;
+    right: 12px;
+    top: 80px;
+    width: auto;
+    min-width: 0;
+    z-index: 1100;
+  }
+
+  /* 下拉贴边全宽，避免 min-width:320px 的搜索结果面板撑破窄屏 */
+  .b2b-header .global-search-dropdown {
+    position: fixed;
+    left: 12px;
+    right: 12px;
+    width: auto;
+    min-width: 0;
+  }
+  .b2b-header .global-search-dropdown { top: 124px; z-index: 1100; }
+
+  /* Header.jsx 里真实的下拉类名是 .b2b-dropdown；≤900 已是全宽导航面板内的
+     静态手风琴，这里只收紧宽度约束，不改成 fixed，避免破坏手风琴定位 */
+  .b2b-header .b2b-dropdown {
+    left: 12px;
+    right: 12px;
+    width: auto;
+    min-width: 0;
+    transform: none;
+  }
+}
+
+/* ≤360px（含 320px 实测档）：再收一档，给字体渲染 / 滚动条差异留余量。
+   与 ≤767 的 120px 同特异性且顺序更晚，故在 ≤360 生效；
+   :focus-within 规则特异性更高，聚焦时仍会全宽浮出。 */
+@media (max-width: 360px) {
+  .b2b-header .global-search,
+  .b2b-header .global-search-input-wrap { width: 96px; min-width: 0; }
+}
+
+/* ============================================================
+   Phase 3A · 首页升默认后的首帧贴顶（全局兜底）
+   ------------------------------------------------------------
+   home-v2.css 是 HomeV2.jsx 的页面级 lazy import，首帧可能晚于
+   .layout-main 的 72px 内边距出现，导致 / 先闪一条浅色带。
+   这里在全局加载的 home-b2b.css 里放一份同形规则（与文件开头
+   的 .home-b2b 贴顶规则并列）；home-v2.css 里那份保留不动，
+   重复声明无害，/ 首帧即可贴顶。
+   ============================================================ */
+.layout-main:has(> .page-fade-in > .home-v2) {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  background: transparent;
+}
+
+/* 共享导航：桌面用点击展开，窄屏菜单可滚动并退出键盘焦点顺序。 */
+.b2b-nav-link { white-space: nowrap; }
+.b2b-logo { flex-shrink: 0; }
+.b2b-logo-text { white-space: nowrap; }
+.b2b-dropdown[hidden] { display: none; }
+.b2b-header :is(a, button):focus-visible {
+  outline: 2px solid #154d9c;
+  outline-offset: 2px;
+}
+
+@media (min-width: 901px) and (max-width: 1240px) {
+  .b2b-header-inner { padding-inline: 20px; gap: 8px; }
+  .b2b-nav { gap: 2px; }
+  .b2b-nav-link { padding-inline: 8px; }
+  .b2b-header-right { gap: 8px; }
+  .b2b-header .global-search,
+  .b2b-header .global-search-input-wrap { width: 145px; min-width: 0; }
+  .b2b-header .global-search-input { min-width: 0; }
+}
+
+@media (min-width: 901px) and (max-width: 1100px) {
+  .b2b-header .cp-toolbar-link-secondary { display: none; }
+}
+
+@media (min-width: 901px) and (max-width: 980px) {
+  .b2b-header-inner { padding-inline: 12px; }
+  .b2b-header .global-search,
+  .b2b-header .global-search-input-wrap { width: 120px; }
+  .b2b-nav-link { padding-inline: 6px; }
+}
+
+@media (max-width: 900px) {
+  .b2b-nav { visibility: hidden; max-height: calc(100dvh - 72px); overflow-y: auto; }
+  .b2b-nav-open { visibility: visible; }
+  .b2b-menu-btn { min-width: 44px; min-height: 44px; }
+  .b2b-header .b2b-nav-group-open .b2b-dropdown { transform: none; }
+}

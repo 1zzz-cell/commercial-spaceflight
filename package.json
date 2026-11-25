@@ -1,0 +1,27 @@
+{
+  "name": "commercial-space-website",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "dev:module": "vite --open /module-dev.html",
+    "build": "node scripts/build-release.mjs",
+    "preview": "vite preview",
+    "validate:data": "node scripts/validate-data.mjs",
+    "data:status": "node scripts/data-status.mjs"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^6.0.2",
+    "playwright": "^1.61.1",
+    "typescript": "~6.0.2",
+    "vite": "^8.0.12"
+  },
+  "dependencies": {
+    "echarts": "^5.6.0",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "react-router-dom": "^7.16.0"
+  }
+}
+

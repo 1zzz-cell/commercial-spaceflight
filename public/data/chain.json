@@ -1,0 +1,543 @@
+{
+  "lastUpdated": "2026-11-24",
+  "source": "中商产业研究院、艾媒咨询、赛迪智库、IT桔子、创业邦《2025中国商业航天创新生态报告》",
+  "industryStages": [
+    {
+      "stage": "上游",
+      "name": "原材料与基础元器件",
+      "desc": "航天用特种材料、电子元器件、推进剂、复合材料等基础供应环节",
+      "segments": [
+        "特种金属材料",
+        "碳纤维复合材料",
+        "航天电子元器件",
+        "推进剂",
+        "精密加工"
+      ],
+      "keyCompanies": [
+        "光威复材",
+        "中简科技",
+        "紫江企业",
+        "航天电器",
+        "鸿远电子"
+      ],
+      "color": "#0d8af0"
+    },
+    {
+      "stage": "中游",
+      "name": "制造与总装集成",
+      "desc": "卫星制造、火箭总装、分系统集成、测试试验等核心制造环节",
+      "segments": [
+        "卫星制造",
+        "火箭总装",
+        "推进系统",
+        "有效载荷",
+        "地面设备"
+      ],
+      "keyCompanies": [
+        "长光卫星",
+        "银河航天",
+        "星际荣耀",
+        "蓝箭航天",
+        "天兵科技"
+      ],
+      "color": "#8b5cf6"
+    },
+    {
+      "stage": "下游",
+      "name": "发射运营与应用服务",
+      "desc": "商业发射服务、卫星运营、通信/遥感/导航应用及衍生服务",
+      "segments": [
+        "商业发射服务",
+        "卫星互联网运营",
+        "遥感数据服务",
+        "导航定位应用",
+        "太空旅游"
+      ],
+      "keyCompanies": [
+        "海南商业航天发射场",
+        "中国卫通",
+        "航天宏图",
+        "中科宇航",
+        "时空道宇"
+      ],
+      "color": "#f06235"
+    }
+  ],
+  "chainList": [
+    {
+      "key": "industry",
+      "name": "产业链",
+      "color": "#8b5cf6",
+      "icon": "network",
+      "desc": "上中下游产值分布、企业数量、区域集聚度",
+      "metrics": [
+        {
+          "label": "产业总规模(2025)",
+          "value": "2.8",
+          "unit": "万亿元"
+        },
+        {
+          "label": "存续相关企业(截至2025年底)",
+          "value": "393",
+          "unit": "家"
+        }
+      ]
+    },
+    {
+      "key": "capital",
+      "name": "资金链",
+      "color": "#10b981",
+      "icon": "coins",
+      "desc": "投融资事件、融资金额、资本市场表现",
+      "metrics": [
+        {
+          "label": "融资总额(2025)",
+          "value": "186",
+          "unit": "亿元"
+        },
+        {
+          "label": "融资事件(2025)",
+          "value": "67",
+          "unit": "起"
+        }
+      ]
+    },
+    {
+      "key": "rocket",
+      "name": "火箭链",
+      "color": "#f06235",
+      "icon": "rocket",
+      "desc": "运载火箭研制、商业发射服务与可重复使用技术",
+      "metrics": [
+        {
+          "label": "入轨发射次数(2025)",
+          "value": "92",
+          "unit": "次"
+        },
+        {
+          "label": "其中商业航天发射",
+          "value": "50",
+          "unit": "次"
+        }
+      ]
+    },
+    {
+      "key": "satellite",
+      "name": "卫星链",
+      "color": "#06b6d4",
+      "icon": "satellite",
+      "desc": "卫星研制、星座组网、卫星互联网与地面运营",
+      "metrics": [
+        {
+          "label": "入轨航天器(2025)",
+          "value": "377",
+          "unit": "个"
+        },
+        {
+          "label": "其中入轨商业卫星",
+          "value": "311",
+          "unit": "颗"
+        }
+      ]
+    },
+    {
+      "key": "policy",
+      "name": "政策链",
+      "color": "#0d8af0",
+      "icon": "scroll",
+      "desc": "国家级、部委级、地方级政策法规与制度供给（本平台政策库收录口径）",
+      "metrics": [
+        {
+          "label": "国家级政策",
+          "value": "13",
+          "unit": "项"
+        },
+        {
+          "label": "部委级政策",
+          "value": "5",
+          "unit": "项"
+        },
+        {
+          "label": "地方级政策",
+          "value": "7",
+          "unit": "项"
+        }
+      ]
+    }
+  ],
+  "enterpriseMatrix": {
+    "source": "公开信息整理；带官网入口的企业链接指向企业公开官网，未带链接的企业仍需逐条补充来源。",
+    "data": [
+      {
+        "stage": "上游",
+        "category": "原材料",
+        "companies": [
+          {
+            "name": "光威复材",
+            "focus": "碳纤维复合材料",
+            "region": "山东威海",
+            "officialUrl": "https://gwcfc.com/"
+          },
+          {
+            "name": "中简科技",
+            "focus": "高性能碳纤维",
+            "region": "江苏常州"
+          },
+          {
+            "name": "钢研高纳",
+            "focus": "高温合金",
+            "region": "北京"
+          },
+          {
+            "name": "宝钛股份",
+            "focus": "钛合金材料",
+            "region": "陕西宝鸡"
+          }
+        ]
+      },
+      {
+        "stage": "上游",
+        "category": "元器件",
+        "companies": [
+          {
+            "name": "航天电器",
+            "focus": "航天连接器/继电器",
+            "region": "贵州贵阳"
+          },
+          {
+            "name": "鸿远电子",
+            "focus": "MLCC 陶瓷电容",
+            "region": "北京"
+          },
+          {
+            "name": "宏达电子",
+            "focus": "钽电容",
+            "region": "湖南株洲"
+          },
+          {
+            "name": "振华科技",
+            "focus": "军用电子元器件",
+            "region": "贵州贵阳"
+          }
+        ]
+      },
+      {
+        "stage": "中游",
+        "category": "卫星制造",
+        "companies": [
+          {
+            "name": "长光卫星",
+            "focus": "商业遥感卫星",
+            "region": "吉林长春"
+          },
+          {
+            "name": "银河航天",
+            "focus": "通信卫星/卫星互联网",
+            "region": "北京"
+          },
+          {
+            "name": "微纳星空",
+            "focus": "微小卫星总体",
+            "region": "北京"
+          },
+          {
+            "name": "天仪研究院",
+            "focus": "商业微小卫星",
+            "region": "湖南长沙"
+          }
+        ]
+      },
+      {
+        "stage": "中游",
+        "category": "火箭研制",
+        "companies": [
+          {
+            "name": "蓝箭航天",
+            "focus": "液氧甲烷可回收火箭",
+            "region": "北京/湖州",
+            "officialUrl": "https://www.landspace.com/"
+          },
+          {
+            "name": "星际荣耀",
+            "focus": "双曲线系列火箭",
+            "region": "北京",
+            "officialUrl": "https://www.i-space.com.cn/"
+          },
+          {
+            "name": "星河动力",
+            "focus": "谷神星/智神星火箭",
+            "region": "北京",
+            "officialUrl": "https://galactic-energy.cn/"
+          },
+          {
+            "name": "天兵科技",
+            "focus": "天龙系列火箭",
+            "region": "北京",
+            "officialUrl": "https://www.spacepioneer.cc/"
+          },
+          {
+            "name": "中科宇航",
+            "focus": "力箭系列火箭",
+            "region": "广州/北京"
+          },
+          {
+            "name": "东方空间",
+            "focus": "引力系列火箭",
+            "region": "山东烟台"
+          }
+        ]
+      },
+      {
+        "stage": "下游",
+        "category": "发射与运营",
+        "companies": [
+          {
+            "name": "中国卫通",
+            "focus": "卫星通信运营",
+            "region": "北京",
+            "officialUrl": "https://www.chinasatcom.com/"
+          },
+          {
+            "name": "国电高科",
+            "focus": "天启物联网星座运营",
+            "region": "北京"
+          },
+          {
+            "name": "时空道宇",
+            "focus": "低轨星座运营",
+            "region": "浙江杭州"
+          }
+        ]
+      },
+      {
+        "stage": "下游",
+        "category": "应用服务",
+        "companies": [
+          {
+            "name": "航天宏图",
+            "focus": "遥感数据服务",
+            "region": "北京"
+          },
+          {
+            "name": "四维图新",
+            "focus": "导航与位置服务",
+            "region": "北京"
+          },
+          {
+            "name": "海格通信",
+            "focus": "卫星通信终端",
+            "region": "广州"
+          },
+          {
+            "name": "华力创通",
+            "focus": "卫星导航应用",
+            "region": "北京"
+          },
+          {
+            "name": "中科星图",
+            "focus": "数字地球应用",
+            "region": "北京"
+          }
+        ]
+      }
+    ]
+  },
+  "facilityList": [
+    {
+      "name": "海南商业航天发射场",
+      "type": "发射场",
+      "region": "海南文昌",
+      "desc": "我国首个商业航天发射场，2024年首飞，2025年完成9次发射（累计10次）"
+    },
+    {
+      "name": "酒泉卫星发射中心",
+      "type": "发射场",
+      "region": "内蒙古额济纳（酒泉）",
+      "desc": "我国最早发射场，承担大量商业航天发射任务"
+    },
+    {
+      "name": "太原卫星发射中心",
+      "type": "发射场",
+      "region": "山西太原",
+      "desc": "太阳同步轨道发射主力场"
+    },
+    {
+      "name": "西昌卫星发射中心",
+      "type": "发射场",
+      "region": "四川西昌",
+      "desc": "高轨/导航卫星发射主力场"
+    },
+    {
+      "name": "东方航天港",
+      "type": "发射场/园区",
+      "region": "山东海阳",
+      "desc": "海上发射母港，我国唯一海上发射技术服务港"
+    },
+    {
+      "name": "武汉国家航天产业基地",
+      "type": "产业园",
+      "region": "湖北武汉",
+      "desc": "中国星谷，聚集快舟火箭、行云卫星及航天测控等产业项目"
+    },
+    {
+      "name": "北京经开区商业航天产业基地",
+      "type": "产业园",
+      "region": "北京",
+      "desc": "南箭北星格局中的火箭研制核心区"
+    },
+    {
+      "name": "上海松江G60卫星互联网产业基地",
+      "type": "产业园",
+      "region": "上海",
+      "desc": "长三角卫星互联网产业高地"
+    },
+    {
+      "name": "蓝箭航天湖州制造基地",
+      "type": "制造基地",
+      "region": "浙江湖州",
+      "desc": "朱雀火箭总装与试验基地"
+    },
+    {
+      "name": "星际荣耀北京研发中心",
+      "type": "研发中心",
+      "region": "北京",
+      "desc": "双曲线系列火箭研制"
+    }
+  ],
+  "keyFacts2025": {
+    "year": 2025,
+    "sourceNote": "以下均为2025年度已公开的权威统计实绩，每条标注独立来源；预测值一律不纳入",
+    "facts": [
+      {
+        "label": "入轨发射次数",
+        "value": "92",
+        "unit": "次",
+        "sub": "同比+35.3%（2024年68次）",
+        "source": "刘洁等《2025年世界航天发射活动总结》，《中国航天》2026年第1期",
+        "sourceUrl": "https://www.spacejournal.cn/zght/cn/article/pdf/preview/0c597bde-2e3f-404a-9bcc-b8355e02729c.pdf"
+      },
+      {
+        "label": "商业航天发射",
+        "value": "50",
+        "unit": "次",
+        "sub": "占全年发射54%",
+        "source": "国家航天局2026-01-20发布",
+        "sourceUrl": "https://www.cnsa.gov.cn/n6758823/n6758838/c10726402/content.html"
+      },
+      {
+        "label": "入轨商业卫星",
+        "value": "311",
+        "unit": "颗",
+        "sub": "占全年入轨卫星约84%（国家航天局口径）",
+        "source": "国家航天局2026-01-20发布",
+        "sourceUrl": "https://www.cnsa.gov.cn/n6758823/n6758838/c10726402/content.html"
+      },
+      {
+        "label": "存续相关企业",
+        "value": "393",
+        "unit": "家",
+        "sub": "2025年新增83家（同比+277%）",
+        "source": "合合信息启信宝《2026商业航天行业观察报告》（光明网2026-03-24）",
+        "sourceUrl": "https://tech.gmw.cn/2026-03/24/content_38666898.htm"
+      },
+      {
+        "label": "产业总规模",
+        "value": "2.8",
+        "unit": "万亿元",
+        "sub": "弗若斯特沙利文测算（2020年约1万亿）",
+        "source": "弗若斯特沙利文，经光明网2026-03-24报道引用",
+        "sourceUrl": "https://tech.gmw.cn/2026-03/24/content_38666898.htm"
+      },
+      {
+        "label": "一级市场融资",
+        "value": "186",
+        "unit": "亿元",
+        "sub": "全年67起，单笔金额显著提升",
+        "source": "第三届商业航天发展大会发布口径",
+        "sourceUrl": ""
+      }
+    ]
+  },
+  "trendInsights2025": {
+    "year": 2025,
+    "title": "2025年行业趋势解读",
+    "insights": [
+      {
+        "icon": "trend-up",
+        "title": "商业发射首次占据半壁江山",
+        "metric": "54%",
+        "text": "全年92次入轨发射中商业发射50次、占比54%，商业运载力量成为年度发射增量的重要主体，发射环节市场化进程明显提速。",
+        "source": "国家航天局2026-01-20发布；刘洁等《2025年世界航天发射活动总结》（《中国航天》2026年第1期）",
+        "sourceUrl": "https://www.cnsa.gov.cn/n6758823/n6758838/c10726402/content.html"
+      },
+      {
+        "icon": "satellite",
+        "title": "入轨载荷以商业卫星为绝对主体",
+        "metric": "84%",
+        "text": "国家航天局口径下，商业卫星入轨311颗，约占全年入轨卫星的84%。《中国航天》统计的377个是入轨航天器总数，两项统计的对象不同。",
+        "source": "国家航天局2026-01-20发布",
+        "sourceUrl": "https://www.cnsa.gov.cn/n6758823/n6758838/c10726402/content.html"
+      },
+      {
+        "icon": "building",
+        "title": "市场主体数量高速扩容",
+        "metric": "+277%",
+        "text": "2025年新增商业航天相关存续企业83家、同比增长277%，全国总量达393家，四川、北京、广东、海南等地集聚效应突出。",
+        "source": "合合信息启信宝《2026商业航天行业观察报告》（光明网2026-03-24报道）",
+        "sourceUrl": "https://tech.gmw.cn/2026-03/24/content_38666898.htm"
+      },
+      {
+        "icon": "coins",
+        "title": "资本向头部企业与星座赛道集中",
+        "metric": "186亿元",
+        "text": "全年一级市场融资67起、合计约186亿元，事件数较2024年回落但单笔金额显著提升，资金集中流向卫星互联网与头部火箭企业。",
+        "source": "第三届商业航天发展大会发布口径",
+        "sourceUrl": ""
+      }
+    ]
+  },
+  "caseStudies": {
+    "title": "2025年度典型案例",
+    "cases": [
+      {
+        "id": "hainan-site",
+        "tag": "商业发射基建",
+        "icon": "rocket",
+        "title": "海南商业航天发射场年度9发",
+        "metric": "9次",
+        "metricLabel": "2025年发射（累计10次）",
+        "text": "我国首个商业航天发射场2024年11月实现首发，2025年完成9次发射，一号、二号工位相继投用、形成常态化商业发射能力，成为商业火箭高密度发射的核心母港。",
+        "source": "刘洁等《2025年世界航天发射活动总结》，《中国航天》2026年第1期；工位情况据证券日报2025-03-14报道",
+        "sourceUrl": "https://www.spacejournal.cn/zght/cn/article/pdf/preview/0c597bde-2e3f-404a-9bcc-b8355e02729c.pdf"
+      },
+      {
+        "id": "qianfan",
+        "tag": "卫星互联网 · 融资",
+        "icon": "satellite",
+        "title": "千帆星座完成67亿元A轮融资",
+        "metric": "67亿元",
+        "metricLabel": "A轮 · 2024年2月完成",
+        "text": "上海垣信卫星建设运营的千帆星座2024年2月完成67亿元A轮融资，由国开制造业转型升级基金领投、12家机构跟投，为截至2025年我国商业航天领域最大单笔融资，资本加速向星座组网等空间基础设施集中。",
+        "source": "上海证券报·中国证券网2025-12-31报道",
+        "sourceUrl": "https://m.cnstock.com/commonDetail/612445"
+      },
+      {
+        "id": "longmarch",
+        "tag": "国家队运力",
+        "icon": "zap",
+        "title": "长征系列全年69次发射",
+        "metric": "69次",
+        "metricLabel": "占全年全国入轨发射约75%",
+        "text": "2025年长征系列火箭执行69次入轨发射，占全国92次的约四分之三；长征三号、二号、六号系列发射次数居前，成熟型谱构成高密度发射的主力梯队。",
+        "source": "刘洁等《2025年世界航天发射活动总结》，《中国航天》2026年第1期",
+        "sourceUrl": "https://www.spacejournal.cn/zght/cn/article/pdf/preview/0c597bde-2e3f-404a-9bcc-b8355e02729c.pdf"
+      }
+    ]
+  },
+  "meta": {
+    "asOfDate": "2025-12-31",
+    "lastVerifiedAt": "2026-11-24",
+    "publishedAt": "2026-11-24",
+    "note": "2025年产业链与年度实绩"
+  }
+}

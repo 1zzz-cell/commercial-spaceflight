@@ -1,0 +1,452 @@
+{
+  "lastUpdated": "2026-11-24",
+  "source": "中商产业研究院、IT桔子、创业邦",
+  "marketSizeData": {
+    "years": [
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022",
+      "2023",
+      "2024",
+      "2025"
+    ],
+    "values": [
+      0.38,
+      0.46,
+      0.56,
+      0.66,
+      0.84,
+      1.02,
+      1.22,
+      1.48,
+      1.94,
+      2.33,
+      2.8
+    ],
+    "predicted": {
+      "2030": "8-10"
+    },
+    "predictedYears": [],
+    "source": "中商产业研究院、艾媒咨询、赛迪智库等行业研究；2025年值取弗若斯特沙利文测算（经光明网2026-03-24报道引用）",
+    "sourceUrl": "https://tech.gmw.cn/2026-03/24/content_38666898.htm"
+  },
+  "launchData": {
+    "years": [
+      "2020",
+      "2021",
+      "2022",
+      "2023",
+      "2024",
+      "2025"
+    ],
+    "total": [
+      39,
+      55,
+      64,
+      67,
+      68,
+      92
+    ],
+    "commercial": [
+      10,
+      15,
+      20,
+      26,
+      43,
+      50
+    ],
+    "private": [
+      3,
+      3,
+      5,
+      13,
+      12,
+      16
+    ],
+    "predictedYears": [],
+    "source": "《中国航天》期刊（刘洁等《2025年世界航天发射活动总结》）；商业发射数据引自国家航天局2026-01-20发布",
+    "sourceUrl": "https://www.cnsa.gov.cn/n6758823/n6758838/c10726402/content.html"
+  },
+  "financingData": {
+    "years": [
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022",
+      "2023",
+      "2024",
+      "2025"
+    ],
+    "events": [
+      20,
+      30,
+      25,
+      22,
+      30,
+      40,
+      18,
+      138,
+      67
+    ],
+    "amounts": [
+      20,
+      35,
+      30,
+      100,
+      50,
+      70,
+      87.6,
+      202.39,
+      186
+    ],
+    "predictedYears": [],
+    "source": "IT桔子、创业邦睿兽分析、投中信息CVSource；2025年值为第三届商业航天发展大会口径（186亿元/67起）",
+    "sourceUrl": "https://www.stcn.com/article/detail/3559499.html"
+  },
+  "regionData": {
+    "statDate": "截至2025年底",
+    "nationalTotal": 393,
+    "regions": [
+      "四川省",
+      "北京市",
+      "广东省",
+      "海南省",
+      "湖北省",
+      "山东省",
+      "上海市"
+    ],
+    "enterpriseCount": [
+      90,
+      55,
+      41,
+      30,
+      13,
+      8,
+      6
+    ],
+    "features": [
+      "聚焦动力与制造，核心布局成都、绵阳",
+      "火箭研发大脑，亦庄聚集全国超70%民营火箭企业",
+      "主要承担终端配套（广州/深圳）",
+      "依托发射场区位优势，打造商业发射母港",
+      "武汉国家航天产业基地（中国星谷），快舟火箭",
+      "海阳东方航天港，海上发射",
+      "卫星制造与微小卫星产业"
+    ],
+    "source": "合合信息启信宝《2026商业航天行业观察报告》（光明网2026-03-24报道）",
+    "sourceUrl": "https://tech.gmw.cn/2026-03/24/content_38666898.htm",
+    "caliberNote": "启信宝工商注册口径：全国商业航天相关存续企业393家。北京市官方口径（新华社2025-06-20）为300余家（按业务范围统计），口径不同；本图统一采用启信宝口径保证跨省可比。"
+  },
+  "financingStructure2025": {
+    "categories": [
+      "卫星应用",
+      "火箭制造",
+      "卫星制造",
+      "其他"
+    ],
+    "amounts": [
+      87,
+      67.1,
+      30,
+      1.9
+    ],
+    "source": "第三届商业航天发展大会报告"
+  },
+  "financingEvents": [
+    {
+      "date": "2026-09",
+      "company": "氦星光联",
+      "round": "A2轮",
+      "amount": "超5亿",
+      "segment": "卫星激光通信",
+      "investors": "雄安科创基金、武汉光谷科创基金等",
+      "region": "深圳"
+    },
+    {
+      "date": "2026-09",
+      "company": "轨道辰光",
+      "round": "新一轮",
+      "amount": "未披露",
+      "segment": "太空算力",
+      "investors": "远德资本、华控基金、金砖基金等",
+      "region": "北京"
+    },
+    {
+      "date": "2026-09",
+      "company": "派铂宇航",
+      "round": "A++轮",
+      "amount": "数千万元",
+      "segment": "商业航天",
+      "investors": "华西金智等",
+      "region": "成都"
+    },
+    {
+      "date": "2026-08",
+      "company": "航天驭星",
+      "round": "D++轮",
+      "amount": "近20亿",
+      "segment": "卫星测运控",
+      "investors": "红杉中国、前海方舟、联通战新等",
+      "region": "北京"
+    },
+    {
+      "date": "2026-02",
+      "company": "星际荣耀",
+      "round": "D++轮",
+      "amount": "50.37亿",
+      "segment": "火箭制造",
+      "investors": "同创伟业、凯联资本、四川兴广星耀基金等",
+      "region": "北京"
+    },
+    {
+      "date": "2025-06",
+      "company": "蓝箭航天",
+      "round": "D+轮",
+      "amount": "12亿",
+      "segment": "火箭制造",
+      "investors": "苏州相城金控、武进科创投等",
+      "region": "北京"
+    },
+    {
+      "date": "2025-05",
+      "company": "天兵科技",
+      "round": "C+轮",
+      "amount": "15亿",
+      "segment": "火箭制造",
+      "investors": "中信建投资本、中金资本等",
+      "region": "北京"
+    },
+    {
+      "date": "2025-04",
+      "company": "星河动力",
+      "round": "C轮",
+      "amount": "10亿",
+      "segment": "火箭制造",
+      "investors": "泰瑞数创、成都科创投等",
+      "region": "北京"
+    },
+    {
+      "date": "2024-02",
+      "company": "千帆星座(垣信卫星)",
+      "round": "A轮",
+      "amount": "67亿",
+      "segment": "卫星互联网",
+      "investors": "国开制造业转型升级基金领投，国科资本、国盛资本等12家机构",
+      "region": "上海",
+      "source": "上海证券报·中国证券网2025-12-31报道（垣信卫星融资情况核实）",
+      "sourceUrl": "https://m.cnstock.com/commonDetail/612445"
+    },
+    {
+      "date": "2025-03",
+      "company": "银河航天",
+      "round": "C轮",
+      "amount": "10亿",
+      "segment": "卫星制造",
+      "investors": "建信信托、深创投等",
+      "region": "北京"
+    },
+    {
+      "date": "2025-03",
+      "company": "东方空间",
+      "round": "B轮",
+      "amount": "6亿",
+      "segment": "火箭制造",
+      "investors": "红杉中国、经纬创投等",
+      "region": "北京"
+    },
+    {
+      "date": "2025-02",
+      "company": "时空道宇",
+      "round": "B轮",
+      "amount": "8亿",
+      "segment": "卫星互联网",
+      "investors": "高瓴资本、中金资本等",
+      "region": "浙江"
+    },
+    {
+      "date": "2025-01",
+      "company": "长光卫星",
+      "round": "Pre-IPO",
+      "amount": "24.5亿",
+      "segment": "遥感卫星",
+      "investors": "海南自贸港基金、深创投等",
+      "region": "吉林"
+    },
+    {
+      "date": "2024-12",
+      "company": "星际荣耀",
+      "round": "C轮",
+      "amount": "7亿",
+      "segment": "火箭制造",
+      "investors": "鼎晖投资、红杉中国等",
+      "region": "北京"
+    },
+    {
+      "date": "2024-11",
+      "company": "中科宇航",
+      "round": "C轮",
+      "amount": "6亿",
+      "segment": "火箭制造",
+      "investors": "广州产投、中信建投资本等",
+      "region": "广东"
+    },
+    {
+      "date": "2024-10",
+      "company": "微纳星空",
+      "round": "C+轮",
+      "amount": "4亿",
+      "segment": "卫星制造",
+      "investors": "深创投、联想创投等",
+      "region": "北京"
+    },
+    {
+      "date": "2024-09",
+      "company": "航天宏图",
+      "round": "定增",
+      "amount": "8.5亿",
+      "segment": "遥感应用",
+      "investors": "多家机构",
+      "region": "北京"
+    },
+    {
+      "date": "2024-08",
+      "company": "天仪研究院",
+      "round": "C轮",
+      "amount": "3亿",
+      "segment": "卫星制造",
+      "investors": "君联资本、锴明投资等",
+      "region": "湖南"
+    },
+    {
+      "date": "2024-07",
+      "company": "国电高科",
+      "round": "B+轮",
+      "amount": "2.5亿",
+      "segment": "卫星物联网",
+      "investors": "深创投、前海母基金等",
+      "region": "北京"
+    },
+    {
+      "date": "2024-06",
+      "company": "中科星图",
+      "round": "定增",
+      "amount": "15亿",
+      "segment": "遥感应用",
+      "investors": "多只公募基金",
+      "region": "北京"
+    }
+  ],
+  "roundStats": {
+    "source": "由 financingEvents 按轮次自动统计",
+    "data": [
+      {
+        "round": "C轮",
+        "count": 5,
+        "totalAmount": 36
+      },
+      {
+        "round": "C+轮",
+        "count": 2,
+        "totalAmount": 19
+      },
+      {
+        "round": "B轮",
+        "count": 2,
+        "totalAmount": 14
+      },
+      {
+        "round": "定增",
+        "count": 2,
+        "totalAmount": 23.5
+      },
+      {
+        "round": "D+轮",
+        "count": 1,
+        "totalAmount": 12
+      },
+      {
+        "round": "A轮",
+        "count": 1,
+        "totalAmount": 67
+      },
+      {
+        "round": "Pre-IPO",
+        "count": 1,
+        "totalAmount": 24.5
+      },
+      {
+        "round": "B+轮",
+        "count": 1,
+        "totalAmount": 2.5
+      }
+    ]
+  },
+  "segmentStats": {
+    "source": "由 financingEvents 按细分赛道自动统计",
+    "data": [
+      {
+        "segment": "卫星互联网",
+        "count": 2,
+        "totalAmount": 75
+      },
+      {
+        "segment": "火箭制造",
+        "count": 6,
+        "totalAmount": 56
+      },
+      {
+        "segment": "遥感卫星",
+        "count": 1,
+        "totalAmount": 24.5
+      },
+      {
+        "segment": "遥感应用",
+        "count": 2,
+        "totalAmount": 23.5
+      },
+      {
+        "segment": "卫星制造",
+        "count": 3,
+        "totalAmount": 17
+      },
+      {
+        "segment": "卫星物联网",
+        "count": 1,
+        "totalAmount": 2.5
+      }
+    ]
+  },
+  "financingNotes": [
+    {
+      "year": "2026",
+      "event": "上半年127.9亿/79起",
+      "note": "2026年上半年融资额同比增长273%，头部企业集中效应明显，前5家公司拿下7成融资",
+      "impact": "高"
+    },
+    {
+      "year": "2024",
+      "event": "138起",
+      "note": "2024年融资事件数异常增长，主要因卫星互联网赛道集中爆发及\"新质生产力\"概念催化",
+      "impact": "高"
+    },
+    {
+      "year": "2025",
+      "event": "67起",
+      "note": "事件数回落但仍处于高位，单笔融资金额显著提升，资本向头部企业集中",
+      "impact": "中"
+    },
+    {
+      "year": "2024",
+      "event": "202.39亿",
+      "note": "融资总额创历史新高，千帆星座67亿A轮单笔贡献占比约33%",
+      "impact": "高"
+    }
+  ]
+}

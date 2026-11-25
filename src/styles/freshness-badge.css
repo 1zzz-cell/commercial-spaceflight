@@ -1,0 +1,52 @@
+/* ============================================================
+   FreshnessBadge 样式 —— fb- 前缀，独立于 global.css
+   ------------------------------------------------------------
+   语义令牌集中在顶部；未来由主仓负责人回填 global.css。
+   对比度（白底，实测）：
+     --fb-ink     #4a5068  7.96:1  AA 正文
+     --fb-warn    #8a4b00  ≈6.5:1  AA 警示文本
+   警示态不用纯色块，用「浅底 + 深字 + 左侧竖条」三通道编码，
+   不依赖颜色单独传达（WCAG 1.4.1）。
+   ============================================================ */
+.fb-badge {
+  --fb-ink: #4a5068;
+  --fb-warn: #8a4b00;
+  --fb-bg: rgba(13, 138, 240, 0.06);
+  --fb-warn-bg: rgba(245, 158, 11, 0.10);
+  --fb-warn-bar: #b46900;
+  --fb-border-radius: 100px;
+
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  max-width: 100%;
+  margin-top: 4px;
+  padding: 4px 12px;
+  border-radius: var(--fb-border-radius);
+  background: var(--fb-bg);
+  color: var(--fb-ink);
+  font-size: 0.75rem;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.fb-badge__source {
+  color: inherit;
+}
+
+.fb-badge__time {
+  font-variant-numeric: tabular-nums;
+  white-space: normal;
+}
+
+.fb-badge__warn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding-left: 8px;
+  border-left: 2px solid var(--fb-warn-bar);
+  color: var(--fb-warn);
+  font-weight: 500;
+  white-space: nowrap;
+}

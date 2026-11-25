@@ -1,0 +1,219 @@
+/* ============================================
+   模块共用样式 —— 「视觉接口」的落地
+   --------------------------------------------
+   规则：
+   - 只用 global.css 已定义的 CSS 变量，本文件不新增任何色值字面量
+   - 类名一律 portal- 前缀，避免与既有 .card / .btn 等冲突
+   - 模块私有样式请写进各自模块的 styles.css，不要改本文件
+   ============================================ */
+
+.portal-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-lg);
+  padding: 20px;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow var(--transition-fast), border-color var(--transition-fast);
+}
+
+.portal-card-clickable {
+  cursor: pointer;
+}
+.portal-card-clickable:hover {
+  border-color: var(--border-color-hover);
+  box-shadow: var(--shadow-md);
+}
+.portal-card-clickable:focus-visible {
+  outline: 2px solid var(--accent-blue);
+  outline-offset: 2px;
+}
+
+/* ---------- 分区标题 ---------- */
+.portal-section-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+.portal-section-title {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: 0.01em;
+}
+.portal-section-subtitle {
+  margin: 4px 0 0;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+.portal-section-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+/* ---------- 指标卡 ---------- */
+.portal-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.portal-stat-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.portal-stat-label {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+.portal-stat-icon {
+  display: inline-flex;
+  color: var(--accent-blue);
+  opacity: 0.85;
+}
+.portal-stat-value {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.2;
+  font-variant-numeric: tabular-nums;
+}
+.portal-stat-unit {
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: var(--text-muted);
+  margin-left: 4px;
+}
+.portal-stat-foot {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.portal-stat-sub {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+}
+.portal-delta {
+  font-size: 0.78rem;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- 来源 / 可信度标记 ---------- */
+.portal-source-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.72rem;
+  padding: 2px 8px;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  white-space: nowrap;
+  line-height: 1.6;
+}
+.portal-source-sep {
+  opacity: 0.5;
+}
+.portal-source-link {
+  color: var(--text-accent);
+  text-decoration: none;
+}
+.portal-source-link:hover {
+  text-decoration: underline;
+}
+
+/* ---------- 导出工具条 ---------- */
+.portal-export-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.portal-export-label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+.portal-export-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 12px;
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-sm);
+  cursor: pointer;
+  font-family: inherit;
+  transition: all var(--transition-fast);
+}
+.portal-export-btn:hover {
+  color: var(--accent-blue);
+  border-color: var(--border-color-active);
+  background: var(--accent-blue-dim);
+}
+.portal-export-btn:focus-visible {
+  outline: 2px solid var(--accent-blue);
+  outline-offset: 1px;
+}
+
+/* ---------- 栅格 ---------- */
+.portal-grid {
+  display: grid;
+  width: 100%;
+}
+@media (max-width: 640px) {
+  .portal-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* ---------- 空态 ---------- */
+.portal-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 48px 16px;
+  color: var(--text-muted);
+  text-align: center;
+}
+.portal-empty-text {
+  margin: 0;
+  font-size: 0.9rem;
+}
+.portal-empty-hint {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  opacity: 0.8;
+}
+
+/* ---------- 模块页容器 ---------- */
+.portal-page {
+  width: 100%;
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: 24px 20px 64px;
+}
+.portal-page > * + * {
+  margin-top: 32px;
+}
+
+/* 尊重用户的减弱动效偏好 */
+@media (prefers-reduced-motion: reduce) {
+  .portal-card,
+  .portal-export-btn {
+    transition: none;
+  }
+}

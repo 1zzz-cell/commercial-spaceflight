@@ -1,0 +1,50 @@
+/* ============================================================
+   行业资讯页 — 快讯来源筛选（news- 前缀独立样式）
+   ------------------------------------------------------------
+   不修改 framework.css；本文件只服务 News.jsx 的筛选控件。
+   复用全站令牌，不引入新色值；按钮触控区 ≥44px；
+   flex-wrap 允许窄屏换行，不造成横向溢出。
+   ============================================================ */
+.news-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 0 20px 16px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.news-filter-btn {
+  min-height: 44px;
+  padding: 8px 14px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-sm, 8px);
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  font-family: var(--font-family);
+  font-size: 0.82rem;
+  line-height: 1.4;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s, background 0.15s;
+}
+
+.news-filter-btn:hover {
+  border-color: var(--border-color-hover);
+  color: var(--text-primary);
+}
+
+.news-filter-btn.active {
+  border-color: var(--accent-blue, #0a63b8);
+  color: var(--accent-blue, #0a63b8);
+  background: var(--bg-primary);
+  font-weight: 500;
+}
+
+.news-filter-btn:focus-visible {
+  outline: 2px solid #0a63b8;
+  outline-offset: 2px;
+}
+
+@media (max-width: 639px) {
+  .news-filter { padding: 0 16px 12px; gap: 6px; }
+  .news-filter-btn { padding: 6px 10px; font-size: 0.78rem; }
+}

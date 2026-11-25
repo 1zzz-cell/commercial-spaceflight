@@ -1,0 +1,512 @@
+/* ============================================================
+   合规设计层样式 —— cp- 私有前缀
+   ------------------------------------------------------------
+   来源：《商业航天投资活动网站设计方案-20261116.html》§7 / §10
+   连贯性纪律：
+   - 基底、卡片、边框一律复用 global.css 的 CSS 变量，不另起一套皮肤；
+   - 本文件不修改任何全局选择器，只新增 --cp-* 语义令牌与 .cp-* 规则；
+   - 新增色值集中在本段令牌区，未来由主仓回填 global.css / tokens.js；
+   - 主色沿用平台科技蓝的可读版 #0a63b8，不引入方案里的墨蓝 #1F3A5F，
+     否则投资人页会与其余 12 个页面割裂。
+   ============================================================ */
+
+:root {
+  /* 文本 / 表面：优先映射既有变量 */
+  --cp-ink: var(--text-primary);
+  --cp-ink-2: var(--text-secondary);
+  --cp-surface: var(--bg-card);
+  --cp-canvas: var(--bg-primary);
+  --cp-canvas-soft: var(--bg-input);
+  --cp-line: var(--border-color);
+  --cp-line-strong: #6b7280;          /* 语义边框 ≥3:1 */
+
+  /* 合规专用语义色（文本均通过 WCAG AA 4.5:1） */
+  --cp-link: #0a63b8;                 /* 可读蓝 6.02:1 / 白底 */
+  --cp-amber: #7a4d00;
+  --cp-amber-bg: #fbf6ec;
+  --cp-amber-line: #b26a00;
+  --cp-risk: #8a3324;
+  --cp-risk-bg: #fbf1ef;
+  --cp-up: #c81e28;                   /* A 股涨红 */
+  --cp-down: #0a7442;                 /* A 股跌绿 */
+
+  /* 形状：全站 ≤8px，不加阴影 */
+  --cp-radius: 4px;
+  --cp-radius-overlay: 8px;
+  --cp-sourcebar-h: 32px;
+  --cp-sourcebar-h-compact: 28px;
+  --cp-focus: #0a63b8;
+  /* 吸顶偏移 = 固定顶栏高度；方案要求 ResizeObserver 实测注入，
+     SPA 无服务端骨架时先集中为单一变量，改顶栏高度只需动这一处 */
+  --cp-sticky-offset: 72px;
+}
+
+/* ---------- 顶栏合规工具条（≥768 常驻，不进溢出菜单） ---------- */
+.cp-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding-left: 14px;
+  border-left: 1px solid var(--cp-line);
+  white-space: nowrap;
+}
+
+.cp-toolbar-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 13px;
+  line-height: 20px;
+  font-weight: 400;
+  color: var(--cp-ink-2);
+  text-decoration: none;
+}
+
+.cp-toolbar-link:hover { color: var(--cp-link); text-decoration: underline; }
+.cp-toolbar-link:focus-visible { outline: 2px solid var(--cp-focus); outline-offset: 2px; }
+
+.cp-toolbar-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+  border: 1px solid var(--cp-amber-line);
+  border-radius: 50%;
+  color: var(--cp-amber);
+  font-size: 11px;
+  line-height: 1;
+}
+
+/* ---------- 常驻风险条 ---------- */
+.cp-riskbar {
+  position: sticky;
+  top: var(--cp-sticky-offset);
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 36px;
+  margin: 0 0 20px;
+  padding: 7px 14px;
+  background: var(--cp-amber-bg);
+  border: 1px solid var(--cp-line);
+  border-left: 3px solid var(--cp-amber-line);
+  border-radius: var(--cp-radius);
+  box-shadow: none;
+}
+
+.cp-riskbar-icon {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  color: var(--cp-amber);
+}
+
+.cp-riskbar-text {
+  flex: 1 1 auto;
+  min-width: 0;
+  margin: 0;
+  font-size: 13px;
+  line-height: 20px;
+  font-weight: 400;
+  color: var(--cp-amber);
+}
+
+.cp-riskbar-text b { font-weight: 500; }
+
+.cp-riskbar-sub {
+  display: block;
+  font-size: 12px;
+  line-height: 18px;
+  color: var(--cp-ink-2);
+}
+
+.cp-riskbar-tools {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-left: auto;
+}
+
+.cp-riskbar-tools a {
+  font-size: 13px;
+  line-height: 20px;
+  color: var(--cp-link);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.cp-riskbar-tools a:hover { text-decoration: underline; }
+.cp-riskbar-tools a:focus-visible { outline: 2px solid var(--cp-focus); outline-offset: 2px; }
+
+/* ---------- 状态徽标：色点 + 文字双通道 ---------- */
+.cp-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 0 7px;
+  border: 1px solid var(--cp-line-strong);
+  border-radius: 2px;
+  font-size: 12px;
+  line-height: 18px;
+  font-weight: 400;
+  white-space: nowrap;
+  color: var(--cp-ink-2);
+  background: var(--cp-surface);
+}
+
+.cp-badge-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  border: 1px solid currentColor;
+  background: currentColor;
+  flex: 0 0 auto;
+}
+
+.cp-badge-info { color: var(--cp-link); border-color: var(--cp-link); }
+.cp-badge-info .cp-badge-dot { background: transparent; }
+.cp-badge-amber { color: var(--cp-amber); border-color: var(--cp-amber-line); }
+.cp-badge-amber .cp-badge-dot { background: repeating-linear-gradient(45deg, currentColor 0 2px, transparent 2px 4px); }
+.cp-badge-risk { color: var(--cp-risk); border-color: var(--cp-risk); }
+.cp-badge-neutral { color: var(--cp-ink-2); }
+
+/* ---------- 来源标注条：三段式 + 状态徽标，恒占 32px ---------- */
+.cp-sourcebar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px 14px;
+  min-height: var(--cp-sourcebar-h);
+  padding: 6px 12px;
+  background: var(--cp-canvas-soft);
+  border-top: 1px solid var(--cp-line);
+  font-size: 12px;
+  line-height: 18px;
+  color: var(--cp-ink-2);
+}
+
+.cp-sourcebar-item {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 5px;
+  min-width: 0;
+}
+
+.cp-sourcebar-item b {
+  flex: 0 0 auto;
+  font-weight: 500;
+  color: var(--cp-ink);
+}
+
+.cp-sourcebar-item > span {
+  overflow-wrap: anywhere;
+}
+
+.cp-sourcebar-badge { margin-left: auto; }
+
+/* 图表下方 / 移动端记录卡：28px 下限 */
+.cp-sourcebar-chart,
+.cp-sourcebar-record { min-height: var(--cp-sourcebar-h-compact); }
+
+/* ---------- 免责确认模态 ---------- */
+.cp-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(15, 23, 42, 0.45);
+}
+
+.cp-modal {
+  width: 100%;
+  max-width: 520px;
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
+  padding: 22px 24px;
+  background: var(--cp-surface);
+  border: 1px solid var(--cp-line-strong);
+  border-radius: var(--cp-radius-overlay);
+  box-shadow: none;
+}
+
+.cp-modal-title {
+  margin: 0 0 12px;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 500;
+  color: var(--cp-ink);
+}
+
+.cp-modal-body { font-size: 13px; line-height: 20px; color: var(--cp-ink-2); }
+.cp-modal-lead { margin: 0 0 8px; font-weight: 500; color: var(--cp-ink); }
+.cp-modal-notice { margin: 0 0 8px; }
+.cp-modal-list { margin: 8px 0 0; padding-left: 20px; }
+.cp-modal-list li { margin: 3px 0; }
+
+.cp-modal-check {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin: 16px 0;
+  padding: 10px 12px;
+  border: 1px solid var(--cp-line);
+  border-radius: var(--cp-radius);
+  background: var(--cp-canvas-soft);
+  font-size: 13px;
+  line-height: 20px;
+  color: var(--cp-ink);
+  cursor: pointer;
+}
+
+.cp-modal-check input { width: 16px; height: 16px; flex: 0 0 auto; accent-color: var(--cp-link); }
+
+.cp-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.cp-btn {
+  min-height: 36px;
+  padding: 6px 16px;
+  border: 1px solid var(--cp-line-strong);
+  border-radius: var(--cp-radius);
+  background: var(--cp-surface);
+  color: var(--cp-ink);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 400;
+  cursor: pointer;
+}
+
+.cp-btn:hover { border-color: var(--cp-link); color: var(--cp-link); }
+.cp-btn:focus-visible { outline: 2px solid var(--cp-focus); outline-offset: 2px; }
+.cp-btn-primary { background: var(--cp-link); border-color: var(--cp-link); color: #fff; }
+.cp-btn-primary:hover { background: #084f96; border-color: #084f96; color: #fff; }
+.cp-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.cp-btn:disabled:hover { border-color: var(--cp-line-strong); color: var(--cp-ink); }
+
+/* ============================================================
+   合规与口径页（/compliance）
+   ============================================================ */
+.cp-page { max-width: 1100px; }
+
+.cp-kicker {
+  margin: 0 0 8px;
+  font-size: 12px;
+  line-height: 18px;
+  letter-spacing: 1px;
+  color: var(--cp-link);
+}
+
+.cp-lead {
+  max-width: 780px;
+  margin: 0 0 12px;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 500;
+  color: var(--cp-ink);
+}
+
+.cp-desc { max-width: 780px; margin: 0; font-size: 14px; line-height: 22px; color: var(--cp-ink-2); }
+
+.cp-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+  margin: 24px 0 0;
+  border-bottom: 1px solid var(--cp-line);
+}
+
+.cp-tab {
+  min-height: 44px;
+  padding: 10px 18px;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  background: transparent;
+  color: var(--cp-ink-2);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 400;
+  cursor: pointer;
+}
+
+.cp-tab:hover { color: var(--cp-link); }
+.cp-tab[aria-selected='true'] { border-bottom-color: var(--cp-link); color: var(--cp-link); font-weight: 500; }
+.cp-tab:focus-visible { outline: 2px solid var(--cp-focus); outline-offset: -2px; }
+
+.cp-panel { padding-top: 20px; }
+
+.cp-card {
+  margin-bottom: 16px;
+  padding: 20px;
+  background: var(--cp-surface);
+  border: 1px solid var(--cp-line);
+  border-radius: var(--cp-radius);
+  box-shadow: none;
+}
+
+.cp-card-title {
+  margin: 0 0 4px;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 500;
+  color: var(--cp-ink);
+}
+
+.cp-card-sub { margin: 0 0 14px; font-size: 13px; line-height: 20px; color: var(--cp-ink-2); }
+.cp-card p { margin: 8px 0; font-size: 13px; line-height: 21px; color: var(--cp-ink-2); }
+
+.cp-callout {
+  margin: 14px 0;
+  padding: 12px 16px;
+  border: 1px solid var(--cp-line);
+  border-left: 3px solid var(--cp-amber-line);
+  border-radius: 0 var(--cp-radius) var(--cp-radius) 0;
+  background: var(--cp-amber-bg);
+  font-size: 13px;
+  line-height: 20px;
+  color: var(--cp-amber);
+}
+
+.cp-callout b { font-weight: 500; }
+
+.cp-table-wrap { overflow-x: auto; }
+
+.cp-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  line-height: 20px;
+  background: var(--cp-surface);
+}
+
+.cp-table caption {
+  padding: 0 0 8px;
+  text-align: left;
+  font-size: 12px;
+  line-height: 18px;
+  color: var(--cp-ink-2);
+}
+
+.cp-table th,
+.cp-table td {
+  padding: 9px 11px;
+  border: 1px solid var(--cp-line);
+  text-align: left;
+  vertical-align: top;
+  color: var(--cp-ink-2);
+}
+
+.cp-table th { background: var(--cp-canvas); font-weight: 500; color: var(--cp-ink); }
+.cp-table td.numeric, .cp-table th.numeric { text-align: right; font-variant-numeric: tabular-nums; }
+
+.cp-status-list { margin: 0; padding: 0; list-style: none; }
+.cp-status-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 11px 0;
+  border-bottom: 1px solid var(--cp-line);
+  font-size: 13px;
+  line-height: 20px;
+  color: var(--cp-ink-2);
+}
+.cp-status-list li:last-child { border-bottom: 0; }
+.cp-status-list b { flex: 0 0 110px; font-weight: 500; color: var(--cp-ink); }
+
+/* 免责全文：不折叠、不截断 */
+.cp-disclaimer { counter-reset: cp-clause; }
+.cp-clause {
+  position: relative;
+  margin: 0 0 14px;
+  padding-left: 30px;
+  font-size: 14px;
+  line-height: 23px;
+  color: var(--cp-ink-2);
+}
+.cp-clause::before {
+  counter-increment: cp-clause;
+  content: counter(cp-clause) '.';
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--cp-link);
+}
+
+/* ---------- 页脚免责全文：不折叠、与 /compliance 同一文案 ---------- */
+.cp-footer-disclaimer {
+  margin: 24px 0 0;
+  padding: 16px 0 0;
+  border-top: 1px solid var(--cp-line);
+  font-size: 12px;
+  line-height: 19px;
+  color: var(--cp-ink-2);
+}
+
+.cp-footer-disclaimer h4 {
+  margin: 0 0 8px;
+  font-size: 13px;
+  line-height: 20px;
+  font-weight: 500;
+  color: var(--cp-ink);
+}
+
+.cp-footer-disclaimer p { margin: 5px 0; }
+.cp-footer-disclaimer a { color: var(--cp-link); text-decoration: none; }
+.cp-footer-disclaimer a:hover { text-decoration: underline; }
+.cp-footer-disclaimer-link { margin-top: 10px !important; }
+
+/* ============================================================
+   响应式：768 是合规组件的唯一形态分界（文档 §10 表 13）
+   栅格微调沿用全站 1100 / 640，避免与其余页面节奏错位
+   ============================================================ */
+@media (max-width: 1100px) {
+  .cp-toolbar { gap: 10px; padding-left: 10px; }
+  .cp-toolbar-link { font-size: 12px; }
+}
+
+@media (max-width: 767px) {
+  /* Phase 3A 裁决：<768 顶栏保留 1 条带文字合规链接「风险提示」，
+     不进抽屉、不依赖风险条承接；第二个「数据来源与口径」隐藏（≥768 两个都显示）。
+     风险条右端链接与顶栏链接并存、不去重；风险条形态原样不动。 */
+  .cp-toolbar { display: flex; flex-wrap: nowrap; gap: 8px; padding-left: 0; border-left: 0; }
+  .cp-toolbar-link-secondary { display: none; }
+
+  .cp-riskbar {
+    flex-wrap: wrap;
+    min-height: 44px;
+    padding: 8px 12px;
+  }
+  .cp-riskbar-text { flex: 1 1 calc(100% - 30px); }
+  .cp-riskbar-sub { display: none; }
+  .cp-riskbar-tools {
+    width: 100%;
+    margin-left: 0;
+    padding-left: 24px;
+    gap: 18px;
+  }
+  .cp-sourcebar { min-height: var(--cp-sourcebar-h-compact); gap: 3px 10px; padding: 5px 10px; }
+  .cp-sourcebar-badge { margin-left: 0; }
+  .cp-status-list li { flex-direction: column; gap: 2px; }
+  .cp-status-list b { flex: 0 0 auto; }
+  .cp-tab { flex: 1 0 auto; min-width: 132px; padding: 10px 12px; font-size: 13px; }
+  .cp-tabs { flex-wrap: nowrap; overflow-x: auto; }
+}
+
+@media (min-width: 768px) and (max-width: 900px) {
+  /* 顶栏空间不足时只保留两个入口的文字，不收进下拉 */
+  .cp-toolbar { gap: 8px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cp-modal-overlay, .cp-btn, .cp-tab { transition: none; }
+}

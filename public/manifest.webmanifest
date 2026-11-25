@@ -1,0 +1,19 @@
+{
+  "name": "中国商业航天产业数据平台",
+  "short_name": "商业航天数据",
+  "description": "查阅企业与产业链、运载火箭、卫星星座、市场资本、政策资讯及研究数据。",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#eaeff6",
+  "theme_color": "#2563eb",
+  "lang": "zh-CN",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
+

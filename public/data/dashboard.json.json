@@ -1,0 +1,152 @@
+{
+  "lastUpdated": "2026-11-24",
+  "source": "创业邦《2025中国商业航天创新生态报告》",
+  "dashboardMetrics": [
+    {
+      "label": "市场规模",
+      "value": "2.8",
+      "unit": "万亿元",
+      "sub": "/ 2025年机构测算",
+      "icon": "chart-bar",
+      "color": "#4cc9f0"
+    },
+    {
+      "label": "存续相关企业",
+      "value": "393",
+      "unit": "家",
+      "sub": "/ 截至2025年底",
+      "icon": "building",
+      "color": "#4361ee"
+    },
+    {
+      "label": "年入轨发射",
+      "value": "92",
+      "unit": "次",
+      "sub": "/ 2025年实绩",
+      "icon": "rocket",
+      "color": "#f72585"
+    },
+    {
+      "label": "融资规模",
+      "value": "186",
+      "unit": "亿元",
+      "sub": "/ 2025年大会口径",
+      "icon": "coins",
+      "color": "#7209b7"
+    }
+  ],
+  "regionMapData": [
+    {
+      "name": "四川省",
+      "value": 90,
+      "feature": "聚焦动力与制造，核心布局成都、绵阳"
+    },
+    {
+      "name": "北京市",
+      "value": 55,
+      "feature": "火箭研发大脑，亦庄聚集全国超70%民营火箭企业"
+    },
+    {
+      "name": "广东省",
+      "value": 41,
+      "feature": "主要承担终端配套（广州/深圳）"
+    },
+    {
+      "name": "海南省",
+      "value": 30,
+      "feature": "依托发射场区位优势，打造商业发射母港"
+    },
+    {
+      "name": "湖北省",
+      "value": 13,
+      "feature": "武汉国家航天产业基地（中国星谷），快舟火箭"
+    },
+    {
+      "name": "山东省",
+      "value": 8,
+      "feature": "海阳东方航天港，海上发射"
+    },
+    {
+      "name": "上海市",
+      "value": 6,
+      "feature": "卫星制造与微小卫星产业"
+    }
+  ],
+  "regionMapSource": "合合信息启信宝《2026商业航天行业观察报告》（光明网2026-03-24报道）",
+  "milestones": [
+    {
+      "year": "2014",
+      "text": "国务院首次鼓励民间资本参与民用空间基础设施建设",
+      "source": "公开报道整理"
+    },
+    {
+      "year": "2015",
+      "text": "国家民用空间基础设施中长期发展规划发布",
+      "source": "公开报道整理"
+    },
+    {
+      "year": "2016",
+      "text": "《2016中国的航天》白皮书明确提出发展商业航天",
+      "source": "公开报道整理",
+      "sourceUrl": "https://www.cnsa.gov.cn/n6758824/n6758845/c6772477/content.html"
+    },
+    {
+      "year": "2019",
+      "text": "首个商业运载火箭规范性文件发布",
+      "source": "公开报道整理"
+    },
+    {
+      "year": "2020",
+      "text": "卫星互联网纳入新型基础设施(新基建)",
+      "source": "公开报道整理"
+    },
+    {
+      "year": "2024",
+      "text": "商业航天首次写入政府工作报告，定位\"新增长引擎\"",
+      "source": "公开报道整理",
+      "sourceUrl": "https://www.ndrc.gov.cn/fzggw/jgsj/zys/sjdt/202403/t20240320_1365089.html"
+    },
+    {
+      "year": "2025",
+      "text": "国家航天局设立商业航天司，政策力度升级",
+      "source": "国家航天局公开信息（新华社报道）",
+      "sourceUrl": "https://www.cnsa.gov.cn/n6758823/n6758839/c10719382/content.html"
+    }
+  ],
+  "newsTicker": [
+    {
+      "source": "国家航天局",
+      "text": "2025年完成商业航天发射50次，入轨商业卫星311颗，占比84%",
+      "sourceUrl": "https://www.cnsa.gov.cn/n6758823/n6758838/c10726402/content.html"
+    },
+    {
+      "source": "《中国航天》期刊",
+      "text": "2025年全球航天发射次数再创历史新高，中国航天发射统计见原文",
+      "sourceUrl": "https://www.spacejournal.cn/zght/cn/article/id/0c597bde-2e3f-404a-9bcc-b8355e02729c"
+    },
+    {
+      "source": "光明网 / 启信宝",
+      "text": "截至2025年底全国商业航天相关存续企业达393家，2025年新增83家",
+      "sourceUrl": "https://tech.gmw.cn/2026-03/24/content_38666898.htm"
+    },
+    {
+      "source": "国家航天局",
+      "text": "海南商业航天发射场2025年完成9次发射",
+      "sourceUrl": "https://www.cnsa.gov.cn/n6758823/n6758838/c10726402/content.html"
+    },
+    {
+      "source": "公开报道整理",
+      "text": "千帆星座融资数据需结合融资事件原文核对"
+    },
+    {
+      "source": "第三届商业航天发展大会",
+      "text": "2025年商业航天一级市场融资186亿元、67起，采用大会发布口径",
+      "sourceUrl": "https://www.stcn.com/article/detail/3559499.html"
+    },
+    {
+      "source": "光明网 / 弗若斯特沙利文",
+      "text": "2025年中国商业航天产业规模约2.8万亿元，为机构测算值",
+      "sourceUrl": "https://tech.gmw.cn/2026-03/24/content_38666898.htm"
+    }
+  ]
+}

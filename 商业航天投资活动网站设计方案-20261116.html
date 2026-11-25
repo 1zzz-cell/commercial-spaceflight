@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>商业航天股票投资活动网站 · 内容模块 / 信息架构 / 设计方案</title>
+<style>
+  :root{
+    --color-ink:#1F3A5F; --color-ink-2:#2C4A73; --color-chart-2:#4A6FA5; --color-chart-3:#7C8DA6;
+    --color-canvas:#F5F6F8; --color-surface:#FFFFFF; --color-surface-2:#EFF1F4;
+    --color-border:#E2E6EB; --color-border-strong:#8A96A6;
+    --color-text:#1B2430; --color-text-muted:#4A5563; --color-text-weak:#66727F; --color-text-off:#B4BDC8;
+    --color-up:#C8322B; --color-down:#1E8A5A; --color-amber:#B26A00; --color-risk:#8A3324; --color-info:#2C5F8A;
+    --font-cn:"PingFang SC","Source Han Sans SC","Microsoft YaHei",sans-serif;
+    --font-en:Inter,"Helvetica Neue",Arial,sans-serif;
+    --font-num:"IBM Plex Mono","SF Mono",ui-monospace,monospace;
+    --space-1:4px; --space-2:8px; --space-3:12px; --space-4:16px; --space-5:20px; --space-6:24px;
+    --space-8:32px; --space-10:40px; --space-12:48px; --space-16:64px;
+    --radius-card:4px; --radius-tag:2px; --radius-overlay:8px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--color-canvas);color:var(--color-text);font-family:var(--font-cn),var(--font-en);font-size:14px;line-height:1.65;font-weight:400;-webkit-font-smoothing:antialiased}
+  h1,h2,h3,h4{font-weight:500;margin:0}
+  h1{font-size:28px;line-height:36px}
+  h2{font-size:20px;line-height:28px}
+  h3{font-size:16px;line-height:24px}
+  h4{font-size:14px;line-height:22px}
+  p{margin:8px 0}
+  a{color:var(--color-ink);text-decoration:none}
+  a:hover{text-decoration:underline}
+  code,pre,.num{font-family:var(--font-num);font-variant-numeric:tabular-nums lining-nums}
+  .wrap{max-width:1280px;margin:0 auto;padding:0 32px 80px}
+  .num,.numeric{text-align:right;font-variant-numeric:tabular-nums lining-nums}
+  .mono{font-family:var(--font-num)}
+
+  .sitebar{background:var(--color-surface);border-bottom:1px solid var(--color-border);display:flex;align-items:center;gap:16px;padding:0 32px;height:60px;position:sticky;top:0;z-index:20}
+  .brand{font-size:16px;font-weight:500;color:var(--color-ink);white-space:nowrap}
+  .brand span{display:inline-block;width:18px;height:18px;border:1.5px solid var(--color-ink);border-radius:50%;margin-right:8px;vertical-align:-4px}
+  .navlinks{display:flex;gap:20px;font-size:13px;color:var(--color-text-muted);flex:1;flex-wrap:wrap}
+  .compliance-tools{display:flex;align-items:center;gap:12px;font-size:13px;color:var(--color-text-muted);border-left:1px solid var(--color-border);padding-left:16px;white-space:nowrap}
+  .riskbar{background:#FBF6EC;border-left:3px solid var(--color-amber);min-height:36px;display:flex;align-items:center;gap:10px;padding:8px 16px;font-size:13px;line-height:20px;color:#6B4A12;position:sticky;top:60px;z-index:19}
+  .riskbar b{font-weight:500;color:#8A6113;white-space:nowrap}
+  .riskbar .tools{margin-left:auto;display:flex;gap:14px;white-space:nowrap}
+
+  .top{padding:40px 0 20px;border-bottom:1px solid var(--color-border)}
+  .kicker{font-size:12px;line-height:18px;color:var(--color-ink);letter-spacing:1px;margin:0 0 10px}
+  .sub{font-size:14px;color:var(--color-text-muted);margin:10px 0 0}
+  .meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+  .pill{font-size:12px;line-height:18px;border:1px solid var(--color-border);border-radius:2px;padding:2px 9px;color:var(--color-text-muted);background:var(--color-surface)}
+
+  .card{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-card);padding:20px;margin:16px 0}
+  .tldr{border-left:3px solid var(--color-ink)}
+  .lead{font-size:16px;line-height:24px;font-weight:500;color:var(--color-ink);margin:0 0 12px}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}
+  .mini{background:var(--color-canvas);border:1px solid var(--color-border);border-radius:var(--radius-card);padding:14px}
+  .mini b{display:block;font-size:13px;font-weight:500;color:var(--color-ink);margin-bottom:6px}
+  .mini span{font-size:13px;line-height:20px;color:var(--color-text-muted)}
+  .contrarian{background:#FBF6EC;border-left:3px solid var(--color-amber);padding:12px 16px;margin:14px 0;font-size:13px;line-height:20px;color:#6B4A12;border-radius:0 4px 4px 0}
+  .contrarian b{color:#8A6113;font-weight:500}
+
+  h2.sec{font-size:20px;line-height:28px;margin:40px 0 12px;padding-left:12px;border-left:3px solid var(--color-ink);scroll-margin-top:110px}
+  h3.sub3{font-size:16px;line-height:24px;margin:22px 0 8px;color:var(--color-ink)}
+  .note{font-size:13px;line-height:20px;color:var(--color-text-muted);margin:8px 0}
+
+  table{width:100%;border-collapse:collapse;font-size:13px;line-height:20px;margin:10px 0;background:var(--color-surface)}
+  caption{text-align:left;font-size:12px;line-height:18px;color:var(--color-text-muted);padding:0 0 8px}
+  th,td{border:1px solid var(--color-border);padding:9px 11px;text-align:left;vertical-align:top}
+  th{background:var(--color-canvas);font-weight:500;color:var(--color-ink)}
+  td.center,th.center{text-align:center}
+  tr:hover td{background:var(--color-canvas)}
+  .tag{display:inline-block;font-size:12px;line-height:18px;border:1px solid var(--color-border-strong);border-radius:var(--radius-tag);padding:0 6px;color:var(--color-text-muted);white-space:nowrap}
+  .tag.solid{background:var(--color-ink);border-color:var(--color-ink);color:#fff}
+  .tag.dashed{border-style:dashed}
+  .tag.amber{border-color:var(--color-amber);color:var(--color-amber)}
+  .tag.risk{border-color:var(--color-risk);color:var(--color-risk)}
+  .up{color:var(--color-up)}.down{color:var(--color-down)}
+
+  .toc{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}
+  .toc a{font-size:12px;line-height:18px;border:1px solid var(--color-border);background:var(--color-surface);border-radius:2px;padding:4px 10px;color:var(--color-text-muted)}
+  .toc a:hover{border-color:var(--color-ink);color:var(--color-ink);text-decoration:none}
+  .toc a.active{background:#EDF1F7;border-color:var(--color-ink);color:var(--color-ink)}
+
+  .sourcebar{min-height:32px;background:var(--color-canvas);border-top:1px solid var(--color-border);display:flex;align-items:center;gap:16px;flex-wrap:wrap;padding:6px 12px;font-size:12px;line-height:18px;color:var(--color-text-muted)}
+  .sourcebar b{font-weight:500}
+  .sourcebar .st{margin-left:auto;display:flex;align-items:center;gap:6px}
+  .dot{width:8px;height:8px;border-radius:50%;border:1px solid var(--color-ink);display:inline-block}
+  .dot.half{background:linear-gradient(90deg,var(--color-ink) 50%,transparent 50%)}
+  .dot.hollow{background:transparent}
+  .dot.stripe{background:repeating-linear-gradient(45deg,var(--color-text-off) 0 2px,transparent 2px 4px);border-color:var(--color-text-off)}
+  .datacard{background:var(--color-surface);border:1px solid var(--color-border);border-radius:4px;overflow:hidden}
+  .datacard .body{padding:20px}
+  .datacard .label{font-size:13px;color:var(--color-text-muted);display:flex;justify-content:space-between;align-items:center}
+  .datacard .value{font-family:var(--font-num);font-variant-numeric:tabular-nums;font-size:20px;line-height:28px;color:var(--color-ink);text-align:right;margin:8px 0}
+  .datacard .chg{font-size:13px;line-height:20px;text-align:right;font-family:var(--font-num)}
+  .cards3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:14px 0}
+  .demo{border:1px dashed var(--color-border-strong);padding:16px;background:var(--color-surface);border-radius:4px;margin:14px 0}
+
+  pre{background:var(--color-surface);border:1px solid var(--color-border);border-radius:4px;padding:14px 16px;font-size:12px;line-height:18px;overflow-x:auto;white-space:pre;color:var(--color-text);margin:8px 0}
+  details{background:var(--color-surface);border:1px solid var(--color-border);border-radius:4px;padding:10px 14px;margin:10px 0}
+  summary{cursor:pointer;font-size:13px;font-weight:500;color:var(--color-ink)}
+  ul,ol{margin:8px 0;padding-left:22px}
+  li{margin:4px 0;font-size:13px;line-height:20px}
+  .flowbox{background:var(--color-surface);border:1px solid var(--color-border);border-radius:4px;padding:14px 16px;margin:10px 0}
+  .flowbox h4{margin-bottom:6px;color:var(--color-ink)}
+  .steps{font-size:13px;line-height:20px;color:var(--color-text-muted)}
+  .steps b{color:var(--color-text);font-weight:500}
+  .guard{color:var(--color-risk)}
+  .svgwrap{background:var(--color-surface);border:1px solid var(--color-border);border-radius:4px;padding:16px;margin:12px 0;overflow-x:auto}
+  svg{display:block;max-width:100%;height:auto}
+  .warn{background:#FBF1EF;border-left:3px solid var(--color-risk);padding:12px 16px;border-radius:0 4px 4px 0;font-size:13px;line-height:20px;color:#6D2B2B;margin:12px 0}
+  .disc{background:var(--color-surface-2);border:1px solid var(--color-border);border-radius:4px;padding:16px 18px;font-size:12px;line-height:19px;color:var(--color-text-muted);margin-top:32px}
+  .small{font-size:12px;line-height:18px;color:var(--color-text-muted)}
+  button{font-family:inherit;font-size:13px;cursor:pointer;border:1px solid var(--color-border-strong);background:var(--color-surface);color:var(--color-text);border-radius:4px;padding:5px 12px}
+  button:hover{border-color:var(--color-ink);color:var(--color-ink)}
+  @media(max-width:767px){
+    .wrap{padding:0 16px 60px}
+    .sitebar{padding:0 16px;height:56px}
+    .navlinks{display:none}
+    .compliance-tools{border-left:none;padding-left:0;font-size:12px}
+    .riskbar{top:56px;min-height:44px;flex-wrap:wrap}
+    .riskbar .tools{width:100%;margin-left:0}
+    .grid3,.cards3{grid-template-columns:1fr}
+    table{font-size:12px}
+    th,td{padding:7px 8px}
+  }
+  @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<div class="sitebar">
+  <div class="brand"><span></span>航天板块投研站 <span class="small" style="font-size:12px;color:var(--color-text-weak)">· 方案演示</span></div>
+  <nav class="navlinks"><a href="#s1">板块概览</a><a href="#s4">产业链图谱</a><a href="#s4">公司库</a><a href="#s5">研究工具</a><a href="#s5">资讯与研究</a><a href="#s3">活动与社区</a></nav>
+  <div class="compliance-tools"><span>⚠ 风险提示</span><span>ⓘ 数据来源与口径</span><span style="border-left:1px solid var(--color-border);padding-left:12px">账户</span></div>
+</div>
+<div class="riskbar">
+  <b>⚠ 本站内容仅供研究参考与投资者教育，不构成投资建议。</b>
+  <span>不提供交易下单、不做荐股/评级/目标价/收益承诺；行情数据非实时。</span>
+  <span class="tools"><a href="#s8">风险说明</a><a href="#s8">数据口径</a></span>
+</div>
+
+<div class="wrap">
+
+<header class="top">
+  <p class="kicker">网站设计方案 · 三阶段协同汇编</p>
+  <h1>商业航天股票投资类活动网站</h1>
+  <p class="sub">核心内容模块 · 信息架构 · 页面结构 · 使用流程 · 视觉方向 · 合规与前端落地</p>
+  <div class="meta">
+    <span class="pill">编制日期 2026-11-16</span>
+    <span class="pill">定位：投资者教育 + 板块研究 + 活动运营</span>
+    <span class="pill">Web 优先 / 响应式</span>
+    <span class="pill">不含任何真实行情数值（设计态一律 --.--）</span>
+    <span class="pill">本文件自身按方案中的视觉 token 排版</span>
+  </div>
+</header>
+
+<div class="card tldr">
+  <p class="lead">结论先行：这类网站最该做的不是「更炫的行情屏」，而是「每个数字都能查证」的研究型站点。活动与会员是转化层，合规是骨架，不是页脚。</p>
+  <div class="grid3">
+    <div class="mini"><b>判断一 · 首页选数据驱动</b><span>首屏只放 1 主标题 + 1 常驻风险条 + 3 张带来源条的数据卡 + 1 个入口组；活动作为一级导航与第 2 屏的「活动卡列表」存在，不做营销 banner。</span></div>
+    <div class="mini"><b>判断二 · 合规是渲染约束</b><span>32px 来源标注条、常驻不可关闭的风险条、6 类动作的强制勾选模态，都要落到组件类型、lint 规则与服务端令牌，而不是写在文案规范里。</span></div>
+    <div class="mini"><b>判断三 · 围绕一个认知痛点建 IA</b><span>该板块「概念相关 ≠ 业绩受益」：概念股数量远多于产业主体，且相当比例成分股未盈利。所以公司卡用三元状态、估值分位要按盈利/未盈利分组、公告原文必须一键直达。</span></div>
+  </div>
+  <div class="contrarian"><b>一个反直觉的取舍：</b>多数「投资活动站」会做成营销落地页（倒计时、名额进度条、收益案例、讲师战绩），但这恰恰是合规风险最高、与投教定位最冲突的方向。本方案明确禁用这些形态，把报名决策点前移到「主办方资质 + 活动性质 + 个人信息授权」的阅读上，放弃用稀缺性推动转化。</div>
+  <div class="contrarian"><b>第二个反向声音：</b>不要堆「概念股榜单」。题材热度和业绩传导落点并不一致，榜单反而放大误导。设计资源应投在「已量化业务占比 / 仅概念映射 / 未盈利」的区分与一手公告核对链路上。</div>
+  <p class="small" style="margin-bottom:0">交付说明：本文件由视觉设计、体验设计、前端工程三个阶段的结论汇编而成；第 10 章列出三阶段出现过的口径分歧与最终裁决。第 12 章列出需要你拍板的 3 个决策点。</p>
+</div>
+
+<nav class="toc" id="toc">
+  <a href="#s1">1 设计定位</a><a href="#s2">2 目标用户</a><a href="#s3">3 七大内容模块</a><a href="#s4">4 信息架构</a><a href="#s5">5 页面结构</a><a href="#s6">6 关键流程</a><a href="#s7">7 视觉方向</a><a href="#s8">8 合规与风险</a><a href="#s9">9 前端落地</a><a href="#s10">10 口径裁决</a><a href="#s11">11 MVP 分期</a><a href="#s12">12 待确认</a><a href="#s13">13 来源与免责</a>
+</nav>
+
+<h2 class="sec" id="s1">1 · 设计定位与主张</h2>
+<div class="card">
+  <p class="lead">像一份可随时查证的研究底稿，而不是一块让人下注的行情屏。</p>
+  <table>
+    <caption>表 1　三条取舍理由与三个明确回避的方向</caption>
+    <tr><th style="width:20%">类别</th><th>内容</th></tr>
+    <tr><td>取舍理由 1</td><td>口吻定性为「研究参考 / 投资者教育」→ 可信感来自分隔线、来源标注、克制圆角与统一状态编码，而不是动效、渐变与金牌。去交易终端化、去营销化。</td></tr>
+    <tr><td>取舍理由 2</td><td>核心资产是「带来源 + 时间戳 + 口径」的数字集群 → 深色、发光、星空噪点显著抬高中文小字与等宽数字的阅读成本，故浅色为默认皮肤。</td></tr>
+    <tr><td>取舍理由 3</td><td>本板块的认知痛点是「区分」而非「比收益」（概念映射 vs 业绩受益、一手 vs 二手、盘中 vs 休市）→ 设计资源投在状态编码系统，不投在涨跌幅放大与榜单视觉上。</td></tr>
+    <tr><td>回避方向 ①</td><td>「科技感 = 深蓝黑渐变 + 发光 + 粒子星空」的通用航天 SaaS 模板。</td></tr>
+    <tr><td>回避方向 ②</td><td>收益导向视觉：金色奖杯、连续暴涨箭头、红金横幅、收益率大字号、TOP / 牛股榜、目标价进度条。</td></tr>
+    <tr><td>回避方向 ③</td><td>交易终端密度：跳动报价、闪烁、红绿满铺色块、K 线作为首屏主视觉。</td></tr>
+  </table>
+  <p class="note">产品边界：不提供交易下单、持仓同步、tick 级行情；不提供荐股、目标价、评级、收益承诺、跟单或代客理财；未完成风险承受能力评估与适当性匹配的用户，不开放付费与 UGC 权限。</p>
+</div>
+
+<h2 class="sec" id="s2">2 · 目标用户定位</h2>
+<div class="card">
+  <table>
+    <caption>表 2　四类核心用户与排除项</caption>
+    <tr><th style="width:15%">Persona</th><th style="width:20%">身份 / 核心目标</th><th style="width:22%">主要痛点</th><th style="width:18%">内容偏好</th><th style="width:10%">合规敏感度</th><th>首屏最该看到</th></tr>
+    <tr><td><b>A 核验者</b><br><span class="small">个人投资者</span></td><td>有 A 股账户；判断概念股是否真有航天业务收入</td><td>概念名单远多于产业主体，分不清「概念映射 / 已量化业务占比」；易把涨跌读成建议</td><td>公司三元状态、公告原文直达、口径与数据状态</td><td>极高：排序/评级/收益措辞即被误读为荐股</td><td>风险条 + 3 张带来源条的 <code>--.--</code> 数据卡 + 「按业务占比查公司」入口</td></tr>
+    <tr><td><b>B 考据者</b><br><span class="small">行业研究员</span></td><td>券商 / 咨询 / 产业研究助理；建可追溯产业链与事件链、导出可引用底稿</td><td>一手公告与二手研报混用、口径不一、图不可引证</td><td>固定坐标图谱、六阶段事件轴、来源分级、研究卡导出</td><td>高：重时间戳 / 口径 / 可溯源</td><td>「数据来源与口径」一级入口 + 图谱/工具入口组 + 带休市状态数据卡</td></tr>
+    <tr><td><b>C 参会者</b><br><span class="small">活动用户</span></td><td>泛财经读者、讲座沙龙参与者；弄清主办方、活动性质、信息用途与风险</td><td>活动像营销、资质不透明、被倒计时催促</td><td>主办方资质、活动性质、议程、个人信息授权清单、回执</td><td>高：须明示非投资建议 / 非邀约</td><td>风险条 + 活动性质与主办方入口 + 静态「报名开放 / 已结束」</td></tr>
+    <tr><td><b>D 讨论者</b><br><span class="small">社区用户</span></td><td>关注板块愿发帖者；交流事件解读、纠正误传</td><td>不知什么能发、审核标准不明、怕无意荐股</td><td>发帖规则、审核状态与驳回原因、来源分级提示</td><td>极高：UGC 是最大风险面</td><td>社区规则 + 发帖前声明 + 「二手需核实原文」</td></tr>
+  </table>
+  <div class="warn"><b>不服务：</b>要下单 / 持仓同步 / 实时行情终端者；求荐股、目标价、评级、收益承诺、跟单代客理财者；打板涨停预测 / 榜单打榜需求；tick 级量化执行机构。</div>
+  <p class="note">四类用户共用一套 IA，但首屏入口组按 A/B 优先、C 由一级导航直达、D 由合规规则先行——不做「千人千面推荐」，因为个性化重排会破坏图谱与事件轴的可对照、可引用性。</p>
+</div>
+
+<h2 class="sec" id="s3">3 · 七大核心内容模块</h2>
+<div class="card">
+  <table>
+    <caption>表 3　你列出的七类模块 → 对应页面、关键字段、合规要求与优先级</caption>
+    <tr><th style="width:15%">模块</th><th style="width:20%">承载页面</th><th style="width:28%">关键内容 / 字段</th><th style="width:25%">合规要求</th><th style="width:12%">优先级</th></tr>
+    <tr><td><b>行情与数据展示</b></td><td><code>/overview</code>、<code>/overview/quote</code></td><td>板块状态条、3 张数据卡、五大驱动确定性序列、哑铃三段摘要；数值位一律 <code>--.--</code></td><td>每张卡下方 32px 来源条（来源｜数据时间｜口径）+ 盘中/休市/停牌状态徽标；A 股红涨绿跌且带符号文字</td><td>MVP</td></tr>
+    <tr><td><b>公司与企业信息</b></td><td><code>/companies</code>、<code>/companies/{code}</code>、<code>/{code}/filings</code></td><td>公司名 + 6 位代码、产业链段、三元状态（已量化占比 / 仅概念映射 / 未盈利）、业务构成占比、财务估值、公告原文</td><td>未盈利主体不展示 PE、改看 PB 且不进 PE 分位；公告强制一手并带原文链接；研报标「二手·需核实原文」；只提供「加入观察」，无买入/自选措辞</td><td>MVP</td></tr>
+    <tr><td><b>投资分析工具</b></td><td><code>/tools</code>（筛选器 / 对比 / 估值分位）</td><td>按业务占比状态、产业链段、来源等级筛选；≤3 家对比；盈利 / 未盈利分组的估值分位；研究卡导出</td><td>结果表禁排名列、禁整行着色、禁评分评级涨幅榜；筛选态写 URL 且禁 <code>rank/recommend/top</code> 参数；导出前强制免责确认</td><td>迭代 1</td></tr>
+    <tr><td><b>资讯与研究</b></td><td><code>/insights</code>、<code>/insights/{id}</code>、<code>/insights/events</code></td><td>按催化事件聚合（非热度排序）、六阶段事件轴（预热→启动→发酵→高潮→分歧→退潮，固定顺序）、来源分级徽标、正文行内来源</td><td>一手 / 二手分级必现于列表行与详情页；正文含数字处挂来源；文末来源条 + 行内免责声明；不得写目标价或评级</td><td>迭代 1</td></tr>
+    <tr><td><b>社区互动</b></td><td><code>/engage/community</code></td><td>社区规则、发帖前声明、帖子状态（待审 / 已发布 / 已驳回 + 具体原因）、举报入口</td><td>禁荐股/目标价/评级/传谣/代客理财；含数字必填来源 + 时间 + 口径；规则过滤 + 人工审核、驳回须结构化原因且可修改重投</td><td>迭代 2</td></tr>
+    <tr><td><b>活动报名与会员体系</b></td><td><code>/engage/events</code>、<code>/{id}/register</code>、<code>/account/membership</code></td><td>主办方资质与活动性质、议程讲者（不标收益战绩）、个人信息授权清单（用途/范围/留存期/撤回）、报名回执、会员权限清单表</td><td>活动卡禁倒计时闪烁 / 名额进度条 / 限时徽标；报名提交前强制免责确认 + 逐项授权；会员权益不与投资收益挂钩、禁勋章与付费倒计时；<b>活动卡列表禁用 banner 形态</b></td><td>迭代 2（活动列表可提前）</td></tr>
+    <tr><td><b>风险提示与合规声明</b></td><td><code>/compliance</code> 四 tab + 全站常驻组件</td><td>风险提示、数据来源与口径字典（一手/二手、数据时间、口径、四状态定义）、免责声明全文、主办方资质与个人信息授权</td><td>风险条常驻导航下 ≥36px、sticky、不可关闭；免责全文不可折叠；6 类动作强制勾选模态不可遮罩关 / Esc 关，服务端再校验令牌</td><td>MVP（骨架先行）</td></tr>
+  </table>
+  <p class="note">模块之间的主链路：<b>行情与数据 → 公司信息 → 公告原文核对 → 分析工具 → 研究卡导出</b>；活动 / 社区 / 会员是并行的运营链路。两条链路共用同一套来源标注与免责组件，避免口径漂移。</p>
+</div>
+
+<h2 class="sec" id="s4">4 · 信息架构与页面结构总览</h2>
+<div class="card">
+  <h3 class="sub3">4.1 一级导航（6 项 + 常驻合规工具条）</h3>
+  <table>
+    <caption>表 4　主导航、二级结构与 URL</caption>
+    <tr><th style="width:16%">一级导航</th><th style="width:14%">路径</th><th>二级结构</th></tr>
+    <tr><td>板块概览</td><td><code>/overview</code></td><td>首页、板块行情 <code>/quote</code>、五大驱动 <code>/drivers</code></td></tr>
+    <tr><td>产业链图谱</td><td><code>/chain</code></td><td>图谱固定坐标、三段分层 <code>/segments</code></td></tr>
+    <tr><td>公司库</td><td><code>/companies</code></td><td>筛选列表、详情 <code>/{code}</code>、公告原文 <code>/{code}/filings</code></td></tr>
+    <tr><td>研究工具</td><td><code>/tools</code></td><td>筛选器 <code>/screener</code>、对比 <code>/compare</code>、估值分位 <code>/valuation</code></td></tr>
+    <tr><td>资讯与研究</td><td><code>/insights</code></td><td>列表、事件时间轴 <code>/events</code>、详情 <code>/{id}</code></td></tr>
+    <tr><td>活动与社区</td><td><code>/engage</code></td><td>活动列表/详情/报名、社区、会员中心 <code>/account/membership</code></td></tr>
+    <tr><td><b>全局合规工具条</b><br><span class="small">顶栏右侧，非第 7 项</span></td><td><code>/compliance</code></td><td>四 tab：<code>#risk</code> 风险提示、<code>#sources</code> 数据来源与口径、<code>#statement</code> 免责声明全文、<code>#organizer</code> 主办方资质与授权。任意页一次点击直达</td></tr>
+  </table>
+  <p class="note"><b>URL 规范：</b>小写 kebab；筛选态入 query（<code>?segment=upstream&amp;biz=quantified&amp;stage=ferment&amp;source=primary&amp;page=1</code>），可分享、可后退、刷新不丢；禁 <code>rank/recommend/top</code> 参数与真实数值入 URL。全局搜索只检索公司 / 公告 / 资讯 / 研究标题与来源并标一手/二手，不检索行情数值、不返回排名；筛选器不用「为你推荐」。</p>
+
+  <h3 class="sub3">4.2 站点地图</h3>
+  <div class="svgwrap">
+  <svg viewBox="0 0 1000 268" width="100%" role="img" xmlns="http://www.w3.org/2000/svg">
+    <title>网站信息架构：六个一级导航、全局合规工具条与关键子页面</title>
+    <desc>顶部为六个一级导航模块，中部为常驻合规工具条，底部为各模块的关键子页面与四类用户的主要入口。</desc>
+    <rect x="20" y="14" width="960" height="46" rx="4" fill="#F5F6F8" stroke="#E2E6EB" stroke-width="1"/>
+    <text x="36" y="41" style="font-size:13px;font-weight:500;fill:#1F3A5F">顶栏 · 6 项主导航（≤6 项、两级上限）</text>
+    <g style="font-size:12px;fill:#1B2430">
+      <rect x="20" y="72" width="150" height="44" rx="4" fill="#FFFFFF" stroke="#1F3A5F" stroke-width="1"/><text x="95" y="99" text-anchor="middle">板块概览 /overview</text>
+      <rect x="178" y="72" width="150" height="44" rx="4" fill="#FFFFFF" stroke="#1F3A5F" stroke-width="1"/><text x="253" y="99" text-anchor="middle">产业链 /chain</text>
+      <rect x="336" y="72" width="150" height="44" rx="4" fill="#FFFFFF" stroke="#1F3A5F" stroke-width="1"/><text x="411" y="99" text-anchor="middle">公司库 /companies</text>
+      <rect x="494" y="72" width="150" height="44" rx="4" fill="#FFFFFF" stroke="#1F3A5F" stroke-width="1"/><text x="569" y="99" text-anchor="middle">研究工具 /tools</text>
+      <rect x="652" y="72" width="150" height="44" rx="4" fill="#FFFFFF" stroke="#1F3A5F" stroke-width="1"/><text x="727" y="99" text-anchor="middle">资讯研究 /insights</text>
+      <rect x="810" y="72" width="170" height="44" rx="4" fill="#FFFFFF" stroke="#1F3A5F" stroke-width="1"/><text x="895" y="99" text-anchor="middle">活动社区 /engage</text>
+    </g>
+    <rect x="20" y="128" width="960" height="38" rx="4" fill="#FBF6EC" stroke="#B26A00" stroke-width="1"/>
+    <text x="36" y="152" style="font-size:12px;font-weight:500;fill:#8A6113">⚠ 全局合规工具条（顶栏右侧常驻 / &lt;768 并入风险条）　风险提示 ┃ 数据来源与口径 ┃ 免责全文 ┃ 主办方资质</text>
+    <g style="font-size:11px;fill:#4A5563">
+      <rect x="20" y="180" width="150" height="70" rx="4" fill="#FFFFFF" stroke="#E2E6EB" stroke-width="1"/><text x="32" y="198">板块行情 /quote</text><text x="32" y="216">五大驱动 /drivers</text><text x="32" y="234">3 数据卡 + 来源条</text>
+      <rect x="178" y="180" width="150" height="70" rx="4" fill="#FFFFFF" stroke="#E2E6EB" stroke-width="1"/><text x="190" y="198">固定坐标三段泳道</text><text x="190" y="216">上游 / 中游 / 下游</text><text x="190" y="234">查看前免责确认</text>
+      <rect x="336" y="180" width="150" height="70" rx="4" fill="#FFFFFF" stroke="#E2E6EB" stroke-width="1"/><text x="348" y="198">详情 /{code}</text><text x="348" y="216">公告 /{code}/filings</text><text x="348" y="234">三元状态 + 一手直达</text>
+      <rect x="494" y="180" width="150" height="70" rx="4" fill="#FFFFFF" stroke="#E2E6EB" stroke-width="1"/><text x="506" y="198">筛选 / 对比 / 分位</text><text x="506" y="216">盈利与未盈利分组</text><text x="506" y="234">导出前免责确认</text>
+      <rect x="652" y="180" width="150" height="70" rx="4" fill="#FFFFFF" stroke="#E2E6EB" stroke-width="1"/><text x="664" y="198">事件轴 /events</text><text x="664" y="216">详情 /{id}</text><text x="664" y="234">一手 / 二手分级</text>
+      <rect x="810" y="180" width="170" height="70" rx="4" fill="#FFFFFF" stroke="#E2E6EB" stroke-width="1"/><text x="822" y="198">活动列表 / 报名</text><text x="822" y="216">社区 / 会员中心</text><text x="822" y="234">授权 + 强制确认</text>
+    </g>
+  </svg>
+  </div>
+  <div class="sourcebar"><b>来源</b><span>本方案三阶段汇编（视觉 / 体验 / 前端）</span><b>数据时间</b><span>2026-11-16（方案编制日）</span><b>口径</b><span>信息架构示意，非运行时数据</span><span class="st"><span class="dot"></span>结构示意</span></div>
+</div>
+
+<h2 class="sec" id="s5">5 · 页面结构与区块（12 类页面）</h2>
+<div class="card">
+  <p class="note">记号：<b>★</b>＝含数字，必带 32px 来源条（来源｜数据时间｜口径）+ 状态（非实时 / 盘中 / 休市 / 停牌），数值一律 <code>--.--</code>；<b>R</b>＝常驻风险条（导航下 ≥36px、sticky、不可关）；<b>D</b>＝触发式免责模态（不可点遮罩 / Esc 关）。</p>
+  <table>
+    <caption>表 5　页面清单与区块结构</caption>
+    <tr><th style="width:16%">页面</th><th>区块（序 · 名 · 作用）</th><th style="width:12%">R / D</th></tr>
+    <tr><td><b>P1 首页</b></td><td>① 定位标题（研究参考·投资者教育）② 风险条 ③ 行情状态条 ④ 板块数据卡 ×3★ ⑤ 入口组（图谱/公司库/工具/活动会员）⑥ 数据说明链接。<b>首屏 900px 止于 ⑤</b></td><td>R；无 D</td></tr>
+    <tr><td><b>P2 板块行情</b><br><code>/overview/quote</code></td><td>① 状态条 ② 数据卡 ×3★ ③ 五大驱动确定性序列（固定序）④ 哑铃三段摘要 ⑤ 来源与口径跳转</td><td>R；无 D</td></tr>
+    <tr><td><b>P3 产业链图谱</b><br><code>/chain</code></td><td>① 免责模态 ② 固定坐标图谱（上游材料元器件 → 中游总装发射 → 下游运营应用，坐标/顺序不重排）③ 三段说明（先兑现 / 技术高盈利弱 / 空间大变现慢）④ 主体清单卡（三元编码）★ ⑤「概念相关 ≠ 业绩受益」条</td><td>R；<span class="guard">D 查看前</span></td></tr>
+    <tr><td><b>P4 公司详情</b><br><code>/companies/{code}</code></td><td>① 标识 + 三元状态 ② 业务构成（占比 <code>--.--</code>）★一手 ③ 财务估值（盈利/未盈利分列，未盈利不展示 PE 改 PB）★ ④ 公告原文列表（一手直达交易所；二手标需核实原文）★ ⑤ 加入观察 + 下载研究卡 ⑥ 概念映射说明</td><td>R；<span class="guard">D 下载前</span></td></tr>
+    <tr><td><b>P5 研究工具</b><br><code>/tools</code></td><td>① 局部 tab ② 筛选条件（业务占比状态 / 产业链段 / 来源等级；无评分评级涨幅榜）③ 结果表（禁排名列、禁整行着色）★ + caption ④ 对比卡（≤3 家）★ ⑤ 估值分位（未盈利不进 PE 分位）★ ⑥ 导出研究卡</td><td>R；<span class="guard">D 导出前</span></td></tr>
+    <tr><td><b>P6 资讯列表</b><br><code>/insights</code></td><td>① 事件时间轴入口（六阶段固定序，不重排）② 按事件聚合列表（非热度排序，标一手/二手）★如含数字 ③ 筛选（事件/阶段/来源等级）</td><td>R；无 D</td></tr>
+    <tr><td><b>P7 资讯/研究详情</b><br><code>/insights/{id}</code></td><td>① 标题 + 来源分级徽标 ② 正文（数字处行内来源）★ + 文末来源条 ③ 事件轴定位（固定高亮当前阶段）④ 原文核对链接 ⑤ 行内免责声明</td><td>R；<span class="guard">D 下载前</span></td></tr>
+    <tr><td><b>P8 活动列表</b><br><code>/engage/events</code></td><td>① 活动性质 + 主办方资质（非推介会 / 非投资建议）② 活动卡列表（静态状态文案；非 banner、禁倒计时闪烁/名额条/限时徽标）③ 筛选（形式/城市/时间，写 URL）</td><td>R；无 D</td></tr>
+    <tr><td><b>P9 活动详情/报名</b><br><code>/{id}/register</code></td><td>① 主办方资质与活动性质 ② 议程讲者（不标收益战绩）③ 风险行内声明 ④ 个人信息授权清单（用途/范围/留存期/撤回逐项勾选）⑤ 免责确认模态 ⑥ 回执（可撤销 / 下载）</td><td>R；<span class="guard">D 提交前</span></td></tr>
+    <tr><td><b>P10 社区</b><br><code>/engage/community</code></td><td>① 社区规则（禁荐股/目标价/评级/传谣/代客理财）② 发帖前声明 + 来源分级提示 ③ 帖子列表（待审/已发布/已驳回 + 驳回原因）④ 举报入口</td><td>R；<span class="guard">D 发帖前</span></td></tr>
+    <tr><td><b>P11 会员中心</b><br><code>/account/membership</code></td><td>① 权限清单表格（研究卡导出/图谱图层/历史快照/活动报名权限；禁勋章、禁收益挂钩）② 付费前模态 ③ 协议与个人信息授权</td><td>R；<span class="guard">D 付费前</span></td></tr>
+    <tr><td><b>P12 合规与数据来源</b><br><code>/compliance</code></td><td>① 四 tab 局部导航 ② 来源分级（一手 = 交易所公告/年报；二手 = 媒体/研报标需核实原文）③ 口径字典（数据时间/口径/四状态定义，示意 <code>--.--</code>）★ ④ 免责声明全文（不可折叠）</td><td>R；无 D</td></tr>
+  </table>
+  <p class="small">板块快照数字（概念股数量、产业主体数、亏损占比、PE/PB 等）仅作为 IA 设计依据，不写入任何产品文案；所有数字位一律 <code>--.--</code> + 来源条 + 状态。</p>
+</div>
+
+<h2 class="sec" id="s6">6 · 关键使用流程</h2>
+<div class="card">
+  <div class="flowbox"><h4>流程 ①　新访客首访 → 了解活动 → 完成报名</h4>
+    <p class="steps"><b>S1</b> 首页（决策：是否理解研究参考定位；退出：关闭，无强制注册）→ <b>S2</b> 活动列表筛选（决策：读性质与主办方资质；退出：返回）→ <b>S3</b> 详情（决策：接受非投资建议 / 非邀约；<b>来源提示</b>：主办方资质带「来源｜核验时间｜口径」）→ <b>S4</b> 填写并逐项勾选个人信息授权（决策：用途/留存期/撤回；退出：放弃且不留存已填信息）→ <b>S5</b> <span class="guard">D 免责模态（不可遮罩关）</span>勾选已知悉投资者教育性质 + 提交 → <b>S6</b> 回执（决策：下载 / 撤销）。</p>
+    <p class="small">风险条全程 sticky；全程无数值、无名额进度、无倒计时。</p>
+  </div>
+  <div class="flowbox"><h4>流程 ②　查板块 → 下钻公司 → 核对公告原文 → 加入观察</h4>
+    <p class="steps"><b>S1</b> 行情页读状态条 + 3 卡来源条（退出：仅浏览）→ <b>S2</b> 公司库按业务占比状态 / 产业链段筛选（决策：优先已量化业务占比；退出：清空）→ <b>S3</b> 详情识别三元状态，未盈利不读 PE，每卡 ★ 来源条 → <b>S4</b> 公告原文（<b>来源提示</b>：一手直达交易所；研报标二手·需核实原文；退出：返回详情）→ <b>S5</b> 加入观察（禁「买入 / 自选」措辞）→ 若下载研究卡触发 <span class="guard">D</span> → <b>S6</b> 观察列表（无排名、无整行着色）。</p>
+  </div>
+  <div class="flowbox"><h4>流程 ③　工具对比 → 导出研究卡</h4>
+    <p class="steps"><b>S1</b> 筛选器（决策：条件写 URL 可分享）→ <b>S2</b> 结果表（★ 来源条 + caption；决策：≤3 家）→ <b>S3</b> 对比 / 估值分位（决策：盈利/未盈利分组，未盈利不进 PE 分位；退出：调条件）→ <b>S4</b> <span class="guard">D 导出免责模态</span>（仅供研究参考、不构成投资建议、不得对外荐股）→ <b>S5</b> 研究卡自动附来源｜数据时间｜口径 + 免责全文 + <code>--.--</code> 占位说明 + 生成时间 → 退出。</p>
+  </div>
+  <div class="flowbox"><h4>流程 ④　发帖 → 审核 → 发布 / 驳回</h4>
+    <p class="steps"><b>S1</b> 读规则 → <b>S2</b> 行内声明（禁荐股/目标价/评级/传谣/代客理财；二手需核实原文）→ <b>S3</b> 编辑（决策：含数字必填来源 + 时间 + 口径；退出：存草稿）→ <b>S4</b> <span class="guard">D 提交强制勾选</span> → <b>S5</b> 审核队列（规则 + 人工；决策：通过 / 驳回）→ <b>S6a</b> 发布（作者/时间/来源分级）或 <b>S6b</b> 驳回（具体原因 + 修改重投，非黑箱）→ <b>S7</b> 举报入口常驻。</p>
+  </div>
+  <p class="note">首页形态的倾向判断：<b>选「数据驱动首页」</b>。理由 ① 活动驱动会把运营转化置于查证之前，与「风险提示一等公民」冲突；② 首屏硬约束恰好容纳「状态 + 3 卡 + 来源条」骨架，活动 banner 被禁止与图表/榜单/资讯流同屏；③ 核心痛点要求首屏先给出有来源、有时间、有口径的占位，建立「先查证再判断」的行为顺序。活动驱动作为次级入口：入口组第 4 项、一级导航直达、第 2 屏活动卡列表，不做首屏弹窗。</p>
+</div>
+
+<h2 class="sec" id="s7">7 · 视觉风格方向</h2>
+<div class="card">
+  <h3 class="sub3">7.1 设计 token（可直接映射为 CSS Variables）</h3>
+  <table>
+    <caption>表 6　色彩、字体、版式 token（本文件自身即按此表排版）</caption>
+    <tr><th style="width:18%">类别</th><th style="width:26%">Token</th><th>值 / 使用约束</th></tr>
+    <tr><td>主色</td><td><code>--color-ink</code> / <code>-ink-2</code></td><td><code>#1F3A5F</code> / <code>#2C4A73</code>：主导航、主按钮、图表序列 1、图谱主干连线、一手来源。交互态只用主色深浅变化</td></tr>
+    <tr><td>中性</td><td><code>--color-canvas / surface / surface-2</code></td><td><code>#F5F6F8</code> / <code>#FFFFFF</code> / <code>#EFF1F4</code></td></tr>
+    <tr><td>边框</td><td><code>--color-border / -strong</code></td><td><code>#E2E6EB</code> 装饰用；<code>#8A96A6</code> 承载语义的边框（≥3:1）</td></tr>
+    <tr><td>文字</td><td><code>--color-text / -muted / -weak / -off</code></td><td><code>#1B2430 / #4A5563 / #66727F / #B4BDC8</code>；12px 来源条同样 ≥4.5:1</td></tr>
+    <tr><td>涨跌（A 股）</td><td><code>--color-up / -down</code></td><td><span class="up">涨 <code>#C8322B</code>：▲ + "+" + 文字「涨」</span> / <span class="down">跌 <code>#1E8A5A</code>：▼ + "−" + 文字「跌」</span>；仅小面积着数字与箭头，禁整行/整块填充，禁红绿画趋势线</td></tr>
+    <tr><td>其他语义</td><td><code>--color-amber / -risk / -info</code></td><td>需核实 / 未盈利 / 非实时 <code>#B26A00</code> ⚠；风险错误 <code>#8A3324</code> 只用于提示条绝不用于行情数字；口径信息 <code>#2C5F8A</code> ⓘ。操作成功用主色 + ✓，<b>不用绿色</b>（避免与跌绿冲突）</td></tr>
+    <tr><td>字体</td><td>中文 / 西文 / 数字</td><td>PingFang SC / Source Han Sans SC / Microsoft YaHei；Inter；IBM Plex Mono 等宽 <code>tabular-nums</code>。<b>字重仅 400 / 500</b>，禁 600/700 与合成粗体；层级靠字号 + 颜色深度 + 留白 + 分隔线</td></tr>
+    <tr><td>字号阶梯</td><td>Display / H1 / H2 / H3 / Body / Body-S / Caption / Micro</td><td>28/36、24/32、20/28、16/24、14/22、13/20、12/18、11/16；<b>禁 &lt;12px 承载关键数据</b>；数字强调不加粗，改用 14→20 字号 + 等宽 + 主色</td></tr>
+    <tr><td>版式</td><td>栅格 / 容器 / 间距 / 圆角</td><td>12/8/4 列，gutter 24/16/12，最大内容宽 <b>1280px</b>；间距 4px 基数（4…64）；圆角卡片 4px、标签 2px、浮层 8px，<b>全站 ≤8px</b>；边框 1px、默认无阴影，悬停不抬高阴影只加深边框</td></tr>
+    <tr><td>占位符</td><td><code>--.--</code></td><td>统一 <code>--.--</code> / <code>+--.--%</code> / <code>¥--.--</code> / <code>YYYY-MM-DD HH:mm</code>；空值用「—」不用 <code>0.00</code>；设计稿与原型不得出现任何真实行情数值</td></tr>
+  </table>
+
+  <h3 class="sub3">7.2 组件规范与「活样例」</h3>
+  <p class="note">三类基础原语（占位符 / 来源条 / 状态徽标）被 12 类业务组件复用，避免口径漂移。下面是一个按规范排出的样例，本文件顶部也已演示常驻风险条与合规工具条。</p>
+  <div class="demo">
+    <div class="cards3">
+      <div class="datacard"><div class="body"><div class="label"><span>板块指数示例</span><span class="tag"><span class="dot hollow"></span> 休市</span></div><div class="value">--.--</div><div class="chg up">▲ +--.--% 涨</div></div><div class="sourcebar"><b>来源</b><span>交易所行情（示意）</span><b>数据时间</b><span>YYYY-MM-DD HH:mm</span><b>口径</b><span>收盘 / 未复权</span><span class="st"><span class="dot half"></span>非实时</span></div></div>
+      <div class="datacard"><div class="body"><div class="label"><span>估值指标示例</span><span class="tag dashed"><span class="dot hollow"></span> 二手·需核实原文</span></div><div class="value">--.--</div><div class="chg down">▼ −--.--% 跌</div></div><div class="sourcebar"><b>来源</b><span>第三方数据平台</span><b>数据时间</b><span>YYYY-MM-DD</span><b>口径</b><span>TTM / 合并报表</span><span class="st"><span class="dot"></span>已标注</span></div></div>
+      <div class="datacard"><div class="body"><div class="label"><span>成分状态示例</span><span class="tag amber"><span class="dot stripe"></span> 未盈利</span></div><div class="value">--.--</div><div class="chg" style="color:var(--color-text-weak)">— 平</div></div><div class="sourcebar"><b>来源</b><span>公司年报（一手）</span><b>数据时间</b><span>YYYY-MM-DD</span><b>口径</b><span>归母 / 合并报表</span><span class="st"><span class="dot"></span>一手</span></div></div>
+    </div>
+    <p class="small" style="margin-bottom:0">样例中的数值、来源名均为占位与示意，不代表任何真实标的、行情或公告；来源条恒占 32px、不可折叠、不可用 tooltip 替代。</p>
+  </div>
+  <table>
+    <caption>表 7　关键组件视觉参数（摘要）</caption>
+    <tr><th style="width:20%">组件</th><th>关键规范</th></tr>
+    <tr><td>来源标注条</td><td>恒占 32px（移动端记录卡与图表容器下可取 28px 下限）、<code>--color-canvas</code> 底、1px 上分隔、12/18 三段式「来源｜数据时间｜口径」+ 状态徽标；不可折叠 / 省略 / 悬浮替代。全局口径页与局部来源条互补、不可互替。</td></tr>
+    <tr><td>公司信息卡</td><td>公司名 + 6 位代码（等宽 13 弱色）+ 业务占比条（4px：主色实心 / 虚线框 / 灰）+ 三元状态 + 未盈利角标 + 底部来源条；禁星级、目标价、荐股标签。</td></tr>
+    <tr><td>产业链图谱节点</td><td>三段横向泳道 + 1px 分隔；节点 ≥120×48，白底 1px 4px；实线 = 股权/供应关系，虚线 = 概念关联；<b>固定分层坐标，禁力导向重排、禁发光与流动粒子</b>。</td></tr>
+    <tr><td>活动卡 / 会员</td><td>白底 1px 4px + 左侧 3px 主色竖条；静态状态「报名中·已结束·名额已满」；禁倒计时闪烁 / 名额进度条 / 限时红金徽标；会员等级用权限清单表格，不用勋章皇冠。</td></tr>
+    <tr><td>资讯条目 / 阶段标签</td><td>行高 72px、1px 底分隔，左阶段标签、中标题 14/22 + 摘要 13/20 单行截断、右来源分级 + 等宽时间；六阶段用<b>同一主色明度阶梯 + 序号 ①②③</b>，不用六色渐变，禁温度计 / 火焰表「高潮」。</td></tr>
+    <tr><td>风险提示条 / 免责块</td><td>风险条 ≥36px 淡琥珀底 + 3px 左竖条 + ⚠ + 13/20 文案 + 「详情」，常驻不可关闭可 sticky；免责块白底 1px，弹出为模态且不可点遮罩关闭。</td></tr>
+    <tr><td>表格 / 按钮 / Chip</td><td>表头 <code>--color-canvas</code> 底 13/20/500、行高 44、数值列右对齐、吸顶；<b>禁斑马纹、禁排名列、禁涨跌幅整行着色</b>。主按钮主色实底白字 h36、悬停 <code>#2C4A73</code>；危险操作不用红色实底。</td></tr>
+  </table>
+
+  <h3 class="sub3">7.3 数据可视化与航天意象</h3>
+  <ul>
+    <li><b>折线：</b>序列 <code>#1F3A5F / #4A6FA5 / #7C8DA6</code>（第三条虚线），禁红绿画趋势线；<b>柱状/占比：</b>主色明度阶梯，未盈利用琥珀斜纹编码，占比优先 100% 横向堆叠条、不用饼图；<b>K 线：</b>仅详情可选视图、不做首屏，涨实心跌空心并带「涨/跌」文字与 ▲▼。</li>
+    <li><b>图表容器：</b>白底 1px、标题在上、图例在标题行右（色块必须带文字）、坐标轴 12px 弱色、仅横向网格；来源条固定在每张图/表<b>下方</b>，与容器同宽、永不省略；图/表切换用带文字的 Segmented，切换不改变来源条位置。</li>
+    <li><b>航天意象 3 条规则：</b>① 首屏面积 ≤10%，仅作结构性背景（1px 轨道弧、章节分隔、图谱页极淡网格）；② 装饰层 <code>pointer-events:none</code>、z-index 低于内容、数字区对比度 ≥4.5:1，禁渐变 / glow / blur / 粒子 / 星空噪点；③ 语义化而非装饰化（轨道弧 = 时间轴主线、节点 = 产业链实体、分层 = 泳道）。</li>
+    <li><b>示例对比：</b>✅ 图谱页标题区一条 1px 椭圆轨道弧，弧上 3 个空心节点对应上/中/下游且带文字标签并兼作导航锚点；❌ 首屏 Hero 用深空渐变 + 星点 + 发光地球叠加收益率大数字，或把「火箭升空」做成上扬箭头用于涨幅图标（等同收益暗示）。</li>
+  </ul>
+
+  <h3 class="sub3">7.4 首屏 900px 预算（线框示意）</h3>
+  <div class="svgwrap">
+  <svg viewBox="0 0 1000 300" width="100%" role="img" xmlns="http://www.w3.org/2000/svg">
+    <title>数据驱动首页首屏区块排布示意</title>
+    <desc>自上而下为顶栏、常驻风险条、主标题、行情状态条与三张带来源条的数据卡、入口组；图表与资讯流下移至第二屏。</desc>
+    <rect x="20" y="12" width="960" height="40" rx="4" fill="#FFFFFF" stroke="#1F3A5F" stroke-width="1"/><text x="34" y="37" style="font-size:12px;fill:#1F3A5F;font-weight:500">顶栏 56–64px　品牌 + 6 项主导航 + 右侧全局合规工具条（⚠ 风险提示 ┃ ⓘ 数据来源与口径 ┃ 账户）</text>
+    <rect x="20" y="58" width="960" height="36" rx="4" fill="#FBF6EC" stroke="#B26A00" stroke-width="1"/><text x="34" y="81" style="font-size:12px;fill:#8A6113;font-weight:500">⚠ 常驻风险条 ≥36px（sticky、不可关闭）　本站内容仅供研究参考与投资者教育，不构成投资建议</text>
+    <rect x="20" y="102" width="960" height="44" rx="4" fill="#FFFFFF" stroke="#E2E6EB" stroke-width="1"/><text x="34" y="129" style="font-size:14px;fill:#1B2430;font-weight:500">Row 1　主标题 + 定位副句（不含任何数字）</text>
+    <rect x="20" y="154" width="960" height="26" rx="4" fill="#F5F6F8" stroke="#E2E6EB" stroke-width="1"/><text x="34" y="172" style="font-size:11px;fill:#4A5563">Row 2a　行情状态条（文字态：休市 / 非实时 / 停牌）</text>
+    <g>
+      <rect x="20" y="186" width="308" height="72" rx="4" fill="#FFFFFF" stroke="#E2E6EB" stroke-width="1"/><text x="32" y="208" style="font-size:11px;fill:#4A5563">数据卡 1　--.--</text><rect x="20" y="226" width="308" height="32" fill="#F5F6F8" stroke="#E2E6EB" stroke-width="1"/><text x="32" y="246" style="font-size:11px;fill:#4A5563">来源 ｜ 数据时间 ｜ 口径</text>
+      <rect x="346" y="186" width="308" height="72" rx="4" fill="#FFFFFF" stroke="#E2E6EB" stroke-width="1"/><text x="358" y="208" style="font-size:11px;fill:#4A5563">数据卡 2　--.--</text><rect x="346" y="226" width="308" height="32" fill="#F5F6F8" stroke="#E2E6EB" stroke-width="1"/><text x="358" y="246" style="font-size:11px;fill:#4A5563">来源 ｜ 数据时间 ｜ 口径</text>
+      <rect x="672" y="186" width="308" height="72" rx="4" fill="#FFFFFF" stroke="#E2E6EB" stroke-width="1"/><text x="684" y="208" style="font-size:11px;fill:#4A5563">数据卡 3　--.--</text><rect x="672" y="226" width="308" height="32" fill="#F5F6F8" stroke="#E2E6EB" stroke-width="1"/><text x="684" y="246" style="font-size:11px;fill:#4A5563">来源 ｜ 数据时间 ｜ 口径</text>
+    </g>
+    <rect x="20" y="266" width="960" height="26" rx="4" fill="#FFFFFF" stroke="#E2E6EB" stroke-width="1"/><text x="34" y="284" style="font-size:11px;fill:#1F3A5F;font-weight:500">Row 3　入口组 4 项（产业链图谱 / 公司库 / 研究工具 / 活动与会员）　—　首屏至此结束，图表·资讯流·活动卡列表下移第 2 屏</text>
+  </svg>
+  </div>
+
+  <h3 class="sub3">7.5 响应式与无障碍底线</h3>
+  <table>
+    <caption>表 8　三档形态下导航与数据的降级</caption>
+    <tr><th style="width:16%">视口</th><th style="width:30%">导航 / 合规工具条</th><th>数据卡 / 表格 / 来源条</th></tr>
+    <tr><td><b>≥1280 桌面</b></td><td>6 项横排 + 顶栏右侧合规工具条（1px 竖线分隔、13/20 <code>#4A5563</code>、不增高顶栏）</td><td>3 卡横排各带 32px 来源条；表格全列 + caption + sticky 表头；长表每 20 行重复 28px 来源条且表尾仍有终条；图谱固定坐标</td></tr>
+    <tr><td><b>768–1279 平板</b></td><td>主导航收进抽屉，<b>风险条与合规工具条仍常驻</b>（一级可达不丢）</td><td>卡 2 列 + 第 3 卡换行，来源条随卡不合并；表格横向滚动、表头与来源条 sticky，禁隐藏列丢口径；图谱等比缩放、顺序不变</td></tr>
+    <tr><td><b>&lt;768 移动</b></td><td>底部 4 tab +「更多」抽屉（<b>E1：抽屉只放资讯 / 活动 / 社区 / 会员等二级内容导航，不含合规入口</b>）；两个合规入口并入风险条右端为<b>带文字链接</b>「风险说明」「数据口径」，风险条 ≥44px，点击展开完整免责块 / 口径页（非 toast、不可遮罩关）</td><td>风险条 sticky 顶部单行；卡单列、每条来源条完整保留（28px 下限）；多列表格降级为<b>记录卡</b>：白底 + 1px 上分隔、<b>仅 1px 底分隔 + 8px 卡间距、不画完整外框</b>，卡内键值「标签左 / 数值右」等宽右对齐、caption 转卡片组标题、口径内联；<b>640–767 卡内键值 1→2 列</b>时列间 gutter 16px，每张卡的 28px 来源条 <code>grid-column:1/-1</code> <b>跨卡内两列满宽置底</b>、多张卡之间不合并 / 不共享 / 不跨卡；图谱改固定顺序纵向三段列表 + 展开原图</td></tr>
+  </table>
+  <ul>
+    <li><b>四类状态：</b>空态「当前条件下没有可展示的主体。本平台不提供推荐名单，请调整筛选条件。」；数据延迟/休市/停牌「保留 <code>--.--</code> 占位与已标注时间的历史快照，不作为决策依据」且不自动轮询；来源不可用「隐藏相关数值，仅保留来源标注条」，绝不显示估算值或缓存真值；无权限引导权限清单、不弹付费倒计时。</li>
+    <li><b>无障碍：</b>正文与所有数据 ≥4.5:1、12px 来源条同样 ≥4.5:1；任何语义 ≥2 重编码（色 + 形状 + 符号 + 文字），红绿色盲下形状仍可辨；焦点环 2px <code>#4A6FA5</code> + 2px offset，禁 <code>outline:none</code>；跳转链接「跳到主内容 / 跳到风险提示 / 跳到数据来源与口径」；每表 <code>&lt;caption&gt;</code> + <code>scope</code>，图表 <code>role="img"</code> + aria-label 含来源/时间/口径；<code>prefers-reduced-motion</code> 关闭动效，禁数字滚动计数动画。</li>
+  </ul>
+</div>
+
+<h2 class="sec" id="s8">8 · 风险提示与合规声明设计</h2>
+<div class="card">
+  <table>
+    <caption>表 9　8 个触点的提示形态、文案要点与是否可关闭</caption>
+    <tr><th style="width:16%">触点</th><th style="width:20%">形态</th><th>文案要点</th><th style="width:12%">可关闭</th></tr>
+    <tr><td>首次访问</td><td>常驻风险条 ≥36px sticky + 一次性定位说明模态</td><td>不提供交易、不做荐股/评级/目标价/收益承诺；行情非实时；条内「查看风险提示全文」</td><td>风险条<b>不可关</b>；说明可关</td></tr>
+    <tr><td>数据卡旁</td><td>32px 常驻来源条 + 状态标签</td><td>来源（一手：交易所公告/年报）｜数据时间｜口径｜状态（休市/非实时）</td><td>不可关、不折叠、禁 tooltip</td></tr>
+    <tr><td>报名提交前</td><td>强制勾选模态</td><td>主办方资质 + 活动性质（非投资建议/非邀约）+ 风险 + 个人信息授权逐项</td><td>不可关（仅取消报名）</td></tr>
+    <tr><td>研究下载前</td><td>强制勾选模态</td><td>仅供研究参考、含来源与口径、不构成投资建议、不得对外荐股</td><td>不可关</td></tr>
+    <tr><td>图谱查看前</td><td>强制勾选模态</td><td>结构示意、坐标固定、不含投资建议；概念相关 ≠ 业绩受益</td><td>不可关</td></tr>
+    <tr><td>UGC 发布前</td><td>行内声明 + 强制勾选模态</td><td>禁荐股/目标价/评级/收益承诺/传谣；二手需核实原文；引用数字须带来源</td><td>不可关</td></tr>
+    <tr><td>会员付费前</td><td>行内声明 + 强制勾选模态</td><td>权益为工具/内容/活动权限，不含投资建议、不与投资收益挂钩；先看权限清单表</td><td>不可关</td></tr>
+    <tr><td>页脚</td><td>免责声明全文（不折叠）+ 六个一级链接</td><td>不构成任何证券买卖要约；仅作存档引证，<b>不替代顶部常驻条</b></td><td>不可关</td></tr>
+  </table>
+  <div class="warn"><b>三条不可绕过的原则：</b>① 常驻风险条与来源条由顶层 layout 服务端直渲，loading / error / 404 均继承，任何路由或状态不可绕过；② 6 类动作的免责确认是「路由/动作守卫 + 服务端令牌二次校验」，禁遮罩关、禁 Esc 关、禁直连 <code>/export</code> 或 API 绕过，会话内已读不替代每次显式确认；③ 任何渲染数字的组件必须同时渲染来源条与状态标签，字段缺失渲染「来源待核｜时间 --｜口径 --」而非隐藏。</div>
+  <h3 class="sub3">8.1 数据口径的两层澄清（避免误读）</h3>
+  <p>本方案多处写「产品内禁写任何真实行情数值、一律 <code>--.--</code>」，指的是<b>设计态 / 原型 / 方案文档</b>：不把某个时点的数字硬编码进界面文案或截图，以免过期数字被当作当前数据。这不等于网站上线后永远只显示破折号——<b>运行时</b>应由合规授权的数据源提供数值，并逐项携带「来源名称 + 来源分级 + 数据时间（带时区）+ 口径 + 市场状态 + 延迟分钟数 + 免责版本」。任何缺失其中一项的响应都不渲染数值，回退为 <code>--.--</code> 并保留来源条。这一区分是「不编造数据」与「产品可用」之间的边界。</p>
+  <p class="note">一手来源（交易所公告、公司年报/季报、监管机构）可直接采信并标注机构名 + 发布日期；非一手来源（财经媒体、研报引用、第三方平台二次引用）必须标「需核实原文」，研报还需标注机构 + 发布时间，不得与一手来源同等处理。跨来源数值冲突时优先采信高层级来源并显式标注分歧。</p>
+</div>
+
+<h2 class="sec" id="s9">9 · 前端落地与性能方案</h2>
+<div class="card">
+  <h3 class="sub3">9.1 技术选型与渲染分工</h3>
+  <table>
+    <caption>表 10　技术选型与取舍</caption>
+    <tr><th style="width:16%">层</th><th style="width:32%">选型</th><th>取舍理由</th></tr>
+    <tr><td>框架</td><td>Next.js App Router + RSC</td><td>合规元素在<b>服务端首帧</b>注入，hydration 不可绕过；投教/研究内容需可被检索</td></tr>
+    <tr><td>样式</td><td>CSS Variables 单层 token + CSS Modules</td><td>单一真源；禁任意值类写法（如 <code>rounded-[10px]</code>）突破圆角/字重约束</td></tr>
+    <tr><td>图表</td><td><code>echarts/core</code> 按需注册 + 纯 SVG 图谱</td><td>全量约 1MB → 约 200KB；固定坐标泳道用 SVG 直出、免 canvas、可 SSR</td></tr>
+    <tr><td>表格</td><td><code>@tanstack/react-table</code> + <code>react-virtual</code></td><td>headless 才能同源产出 <code>&lt;caption&gt;</code>/<code>scope</code> 与移动端记录卡</td></tr>
+    <tr><td>渲染</td><td>SSG / ISR / SSR / CSR 岛</td><td><b>SSG</b>＝合规四 tab、免责全文、主办方资质、错误页（build-time 固化）；<b>ISR 300–900s + tag</b>＝概览、资讯、公告索引、公司列表（只缓存静态骨架与占位符）；<b>SSR</b>＝搜索、公司详情、账户、活动详情与报名（按请求带 asOf/口径/状态）；<b>CSR 岛</b>＝图谱、对比、图/表切换、筛选、强制模态、UGC 编辑器</td></tr>
+  </table>
+  <p class="note"><b>为什么不做纯 SPA 交易终端式应用：</b>本产品无低延迟推流需求（明确不自动轮询），SPA 的核心优势（本地状态、WS 推流、离线缓存）全部失效；合规要求风险条/来源条在服务端首帧即存在、确认令牌服务端二次校验，纯 CSR 可被禁用 JS 或直连 API 绕过；URL 即状态 + 首屏 LCP/CLS + 200% 缩放无障碍在 RSC 流式渲染下更可控。</p>
+
+  <h3 class="sub3">9.2 组件分层</h3>
+  <details>
+    <summary>展开目录结构（点击）</summary>
+    <pre>src/
+├── tokens/       color.css typography.css spacing.css radius.css
+│                 breakpoints.css grid.css tokens.ts(TS 镜像)
+├── lib/
+│   ├── compliance/ disclaimer.ts  source-tier.ts  caliber.ts
+│   │               market-status.ts  placeholder.ts  confirm-token.ts
+│   │               format-safe.ts  audit.ts
+│   ├── data/       adapters/{exchange,annual,media,research,ugc,event}.ts
+│   │               cache.ts  fetchers.ts  revalidate.ts
+│   └── schema/     entities.ts  contracts.ts
+├── primitives/    PlaceholderValue / SourceBar / StatusBadge / RiskBanner
+│                  ConfirmModal / Segmented / VisuallyHidden
+├── composites/    DataCard / ChartFrame / DataTable / RecordCard
+│                  KeyValueGrid / FilterBar / MetricStrip / EmptyState
+│                  ErrorState / PermissionTable / DisclaimerBlock
+├── features/      overview / chain / companies / tools / insights / engage
+│                  compliance / search / account / filings / event-register
+├── guards/        DisclaimerGuard / RouteGuard / ActionGuard
+│                  compliance-actions.ts   # 6 类动作注册表
+├── app/           layout.tsx(RiskBanner + 全局合规工具条，顶层不可绕过)
+│                  (site)/…  compliance/  search/  account/
+│                  api/confirm export register ugc search   # 服务端再校验
+│                  loading.tsx  error.tsx  not-found.tsx
+├── tests/         compliance/ a11y/ e2e/
+└── .eslintrc.compliance.js</pre>
+  </details>
+  <ul>
+    <li><code>PlaceholderValue</code> 唯一渲染 <code>--.--</code> 与「数据待核」aria，禁裸 <code>toFixed</code>；<code>SourceBar</code> 32px 常驻，props 全部必填，缺失渲染「来源待核｜时间 --｜口径 --」；<code>StatusBadge</code> 一手/二手、延迟、休市/停牌，颜色非唯一载体。</li>
+    <li><code>DataCard = PlaceholderValue + SourceBar + StatusBadge</code> 为唯一数值卡组合件；<code>DataTable</code> 负责三档降级与每 20 行重复来源条；<code>DisclaimerGuard</code> 动作/路由级，锁焦点模态 + 服务端令牌。</li>
+    <li><b>禁止渲染不带来源条的数字：</b>DataCard、DataTable（数字列）、ChartFrame、RecordCard、KeyValueGrid、MetricStrip、ComparisonTool、KlineView、CompanyProfileHeader、InsightBody、ExportResearchCard —— 一律经 <code>formatSafe()</code> 单一出口。</li>
+  </ul>
+
+  <h3 class="sub3">9.3 数据契约（合规字段是一等公民）</h3>
+  <details>
+    <summary>展开关键实体字段定义（点击）</summary>
+    <pre>type ISO8601TZ = string;              // 强制带时区，如 2026-03-31T09:30:00+08:00
+type SourceTier = 'primary' | 'secondary';
+type MarketStatus = 'pre' | 'open' | 'closed' | 'halt';
+
+interface ComplianceMeta {          // 所有含数字实体必须 extends
+  sourceName: string;
+  sourceTier: SourceTier;
+  sourceUrl?: string;
+  asOf: ISO8601TZ;                  // 数据时间
+  caliber: Caliber;                 // 口径字典枚举 key，禁自由文本
+  marketStatus: MarketStatus;
+  delayMinutes: number;             // 非实时默认 ≥15
+  disclaimerVersion: string;
+  confirmToken?: string;
+  needsOriginalCheck?: boolean;     // secondary → true，渲染「需核实原文」
+}
+
+interface MarketDatum extends ComplianceMeta {
+  fieldKey: string;
+  value: string | null;             // null → '--.--'
+  unit?: string;
+  isEstimate: false;                // 字面量 false：类型层面禁估算
+  snapshotOf?: ISO8601TZ;           // 休市/停牌保留历史快照标注
+}
+
+interface CompanyProfile {
+  code: string; name: string;
+  segment: 'upstream' | 'midstream' | 'downstream';
+  bizStatus: 'quantified' | 'concept-only' | 'unprofitable';
+  quantifiedShare?: MarketDatum;
+  valuation: { metric: 'PB' | 'PE'; datum: MarketDatum | null };  // 未盈利 → PB
+  pePercentileEligible: boolean;    // 未盈利 false，不进 PE 分位
+  filings: Filing[];
+  watchlistOnly: true;              // 只加观察，无评级/目标价字段
+}
+
+interface EventRegistration {
+  eventId: string; userId: string;
+  state: 'draft'|'pending-confirm'|'submitted'|'receipted'|'revoked'|'cancelled';
+  organizerQualification: string;
+  eventNature: 'education' | 'research';
+  piiConsent: { version: string; grantedAt: ISO8601TZ; scopes: string[] };
+  disclaimerVersion: string;
+  confirmToken: string;
+  benefitTiedToReturn: false;       // 字面量 false：权益不与收益挂钩
+}
+
+interface UgcPost {
+  id: string; body: string;
+  state: 'draft'|'pending-review'|'published'|'rejected'|'reported';
+  rejectReason?: { code: string; label: string; hint: string };
+  revisionOf?: string;
+  bannedPatterns: ReadonlyArray&lt;'stock-pick'|'rumor'|'return-promise'&gt;;
+  disclaimerVersion: string; confirmToken?: string;
+}</pre>
+  </details>
+  <p class="note"><b>缓存真值禁用保障：</b>客户端只缓存 <code>ComplianceMeta</code> + 占位符；任何含 <code>value</code> 的响应 <code>Cache-Control: no-store</code>；<code>cacheValue()</code> 直接抛错，lint 禁把含 value 的对象写入本地存储；来源不可用返回 <code>{value:null,...meta}</code>，<code>formatSafe</code> 强制 <code>--.--</code> 且保留来源条；CI 断言「DOM 无数字、有来源条」。<b>不用 WebSocket</b>：推流会制造状态不一致并暗示实时行情，与定位冲突；替代方案是 ISR + 标签失效 + 用户主动「刷新数据」按钮更新 <code>asOf</code>。</p>
+
+  <h3 class="sub3">9.4 性能与合规工程化</h3>
+  <ul>
+    <li><b>图表：</b>按需注册 LineChart/BarChart + Grid/Tooltip/Legend，<code>next/dynamic({ssr:false})</code> + IntersectionObserver 视口触发；占比用 100% 横向堆叠条；<b>图/表切换不重绘来源条</b>（SourceBar 置于 Segmented 外层稳定 key 的兄弟节点，<code>ChartFrame</code> 持<b>单一</b> <code>ComplianceMeta</code>（<code>metaRef</code>），图与表两视图渲染同一份可见来源条，禁各自另起 meta）；K 线 <code>large:true</code> + LTTB 降采样，仅详情可选视图；长表用 <code>rangeExtractor</code> 每 20 行插入<b>静态</b>来源条行（不得 sticky），表尾另有静态终条。</li>
+    <li><b>CWV 目标：</b>LCP ≤2.0s（桌面 ≤1.5s）、CLS ≤0.02、INP ≤200ms。来源条 32px 与风险条 ≥36px 在 SSR 固定高度、骨架与真实内容同尺寸 → CLS≈0；首屏 0 字节 ECharts（固定宽高比骨架）；本地中文字体子集 + <code>size-adjust</code> 兜底，禁外部 CDN 字体。</li>
+    <li><b>合规工程化：</b>顶层 layout 服务端直渲 RiskBanner + 合规工具条，loading/error/404 继承同一 layout；CI 检查点含 ESLint 自定义规则 <code>no-bare-number</code>、<code>require-source-bar</code>、<code>no-rank-param</code>、<code>font-weight-only-400-500</code>、<code>radius-max-8</code>、<code>no-shadow</code>、<code>no-compliance-in-overflow</code>（E1：移动端「更多」抽屉不得收纳合规入口），加 <code>tsc --noEmit</code>、axe-core + Playwright、产物扫描（禁真实行情数值 / ECharts 体积阈值 / 禁 WS 与轮询代码）；E2E 在 <code>375 / 640 / 767 / 768 / 1024 / 1279 / 1280 / 1366 / 1440</code> 九个宽度断言来源条常驻、表格降级与合规入口可见。</li>
+    <li><b>免责确认：</b><code>POST /api/confirm</code> 签发 HMAC 令牌（绑定 userId + action + disclaimerVersion + 短 exp）；<code>/api/export</code>、<code>/api/register</code>、<code>/api/ugc</code> 等 6 类动作服务端二次校验，缺令牌 403；导出研究卡由服务端生成器统一拼装（页眉来源｜时间｜口径｜市场状态 + 免责全文 + generatedAt + 版本），禁客户端自由拼装。审计日志不记录行情真值与 PII 明文。</li>
+  </ul>
+
+  <h3 class="sub3">9.5 权限矩阵与状态机</h3>
+  <table>
+    <caption>表 11　角色 × 能力（「需确认」全部走 DisclaimerGuard + 服务端令牌）</caption>
+    <tr><th>能力</th><th class="center">游客</th><th class="center">注册</th><th class="center">会员</th><th class="center">运营</th><th class="center">审核员</th></tr>
+    <tr><td>浏览 / 筛选</td><td class="center">✓</td><td class="center">✓</td><td class="center">✓</td><td class="center">✓</td><td class="center">✓</td></tr>
+    <tr><td>导出研究卡</td><td class="center">✗</td><td class="center">需确认（配额）</td><td class="center">需确认</td><td class="center">✓</td><td class="center">✓</td></tr>
+    <tr><td>活动报名</td><td class="center">✗</td><td class="center">需确认</td><td class="center">✓</td><td class="center">✓</td><td class="center">✓</td></tr>
+    <tr><td>发帖</td><td class="center">✗</td><td class="center">需确认</td><td class="center">✓</td><td class="center">✓</td><td class="center">✓</td></tr>
+    <tr><td>审核 / 驳回</td><td class="center">✗</td><td class="center">✗</td><td class="center">✗</td><td class="center">✗</td><td class="center">✓</td></tr>
+    <tr><td>合规工具条 / 免责</td><td class="center">✓ 常驻</td><td class="center">✓</td><td class="center">✓</td><td class="center">✓</td><td class="center">✓</td></tr>
+  </table>
+  <p class="steps"><b>报名状态机：</b><code>draft → pending-confirm ─[勾选免责 + 签发 confirmToken]→ submitted ─[服务端校验令牌 + PII 授权]→ receipted</code>；<code>submitted/receipted → revoked</code>（用户主动撤销带 reason）；<code>draft/pending-confirm → cancelled</code>。<b>UGC：</b><code>draft → pending-review</code>（发帖强制确认）→ 规则过滤 bannedPatterns → 人工 → <code>published | rejected</code>；驳回带结构化原因且可 <code>revisionOf</code> 修改重投；任意态可 <code>reported</code> → 复核。</p>
+
+  <h3 class="sub3">9.6 可度量指标</h3>
+  <table>
+    <caption>表 12　产品 / 技术 / 合规指标</caption>
+    <tr><th style="width:34%">指标</th><th style="width:30%">目标</th><th>测量方式</th></tr>
+    <tr><td>合规渲染覆盖率</td><td>含数字组件 100% 带来源条 + 状态</td><td>CI 静态扫描 + 运行时断言</td></tr>
+    <tr><td>来源不可用降级正确率</td><td>100% 无数字、保留来源条</td><td>自动化用例</td></tr>
+    <tr><td>免责确认绕过率</td><td>0（API 令牌校验覆盖 100%）</td><td>直连渗透用例</td></tr>
+    <tr><td>LCP / CLS / INP</td><td>≤2.0s / ≤0.02 / ≤200ms</td><td>Lighthouse CI + RUM</td></tr>
+    <tr><td>首屏 JS</td><td>≤180KB gzip，图表按需包 ≤220KB</td><td>bundle analyzer 阈值</td></tr>
+    <tr><td>URL 状态保真率</td><td>刷新/后退/分享 100% 还原，0 个 rank/recommend/top</td><td>E2E</td></tr>
+    <tr><td>无障碍</td><td>axe 0 critical/serious，200% 缩放无溢出</td><td>Playwright</td></tr>
+    <tr><td>图表懒加载</td><td>首屏 0 字节 ECharts</td><td>Performance API</td></tr>
+  </table>
+</div>
+
+<h2 class="sec" id="s10">10 · 三阶段口径裁决表（重要）</h2>
+<div class="card">
+  <p class="note">三个阶段各自给出过参数，其中若干处互相冲突。以下为<b>最终唯一准绳</b>，实现与验收均以此表为准。</p>
+  <table>
+    <caption>表 13　分歧项 → 最终裁决</caption>
+    <tr><th style="width:18%">分歧项</th><th style="width:34%">出现过的口径</th><th>最终裁决</th></tr>
+    <tr><td><b>断点体系</b></td><td>视觉给栅格断点 640/1024/1440；体验给形态分档 &lt;768 / 768–1279 / ≥1280；中途一度出现 640–768 子断点</td><td><b>768 是唯一形态分界</b>（导航形态、表格→记录卡、合规工具条落点）。<b>640 / 1024 / 1440 仅作栅格断点</b>（4→8→12 列、gutter、外边距、卡内边距）。删除 640–768 子断点：该宽度下「品牌 + 6 项横排导航 + 2 个带文字合规入口」物理溢出，与「不进溢出菜单 / 文字不可省」互斥。原分歧的答案是<b>按作用域拆分并存</b>，不是二选一、也不是三档合一。前端一个 768 媒体查询、QA 一套用例。</td></tr>
+    <tr><td><b>1280 与 1440</b></td><td>一度写成「1440 起另应用容器上限策略」；工程方案把 1440 写成「内容锁 1280 居中」的起点</td><td><code>max-width:1280px</code> 自视口 <b>≥1280 起连续生效</b>（<code>box-sizing:border-box</code>，含 <code>padding-inline</code>；内容区固定 1280 居中、不再拉伸；锁宽是 <code>max-width</code> 固有约束、<b>无需媒体查询</b>），<b>不是断点</b>；<b>1440 只是额外宽屏布局策略起点</b>（产业链图谱页 <code>max-width:none</code> + 左右 32px、宽屏多列），不是限宽开始、不改变合规工具条形态。若按「1440 才限宽」实现，1280–1440 区间会被拉满、表格与 32px 来源条被横向拉伸、gutter 比例失真。另：体验侧「≥1280 导航降级档」与视觉侧「1280 内容宽度上限」<b>数值巧合但语义不同</b>，须分别标注作用域，不得合并。</td></tr>
+    <tr><td><b>来源条高度</b></td><td>32px 硬约束 vs 移动端 28px 下限 vs 图表容器 ≥28px</td><td>数据卡 / 表格 <b>32px</b>；第 2 屏起图表容器下方、&lt;768 记录卡、桌面长表每 20 行重复条均 <b>28px</b>；<b>28–32px 是最小高度</b>，200% 缩放可纵向增高 / 换行，但不得折叠、隐藏、省略、裁剪。桌面长表「每 20 行重复条 + 表尾终条」<b>并存</b>，不是二选一。</td></tr>
+    <tr><td><b>sticky 表头层叠</b><br><span class="small">最后一处冲突</span></td><td>体验/工程一度写「重复行若 sticky，top 取 thead 实测高度联动 + z-index 分层」；视觉最终签字要求重复条静态不得 sticky</td><td><b>以视觉侧最终签字为准</b>：<code>top:var(--thead-h)</code> 归属 <b>sticky <code>&lt;thead&gt;</code></b>，用于避开吸顶导航 + 常驻风险条的合计高度（ResizeObserver 取实测值注入 CSS 变量，禁硬编码）；<b>每 20 行重复来源条是表格内静态行、不得 sticky、不设 top</b>，否则会与 thead 堆叠遮住数据行；表尾终条 <code>position:static</code>；thead 底色必须不透明 <code>#F5F6F8</code>（禁 rgba，防透字重影）。<b>旧表述中「重复条参与吸顶层叠」的规则作废</b>——静态行不设 <code>top</code>、不 sticky，sticky thead 自然覆盖滚过的重复条；工程可保留 <code>position:relative</code> + 兜底层级（thead 30 / 重复条 20 / 普通行 1），但不得据此恢复 <code>top</code>，详见 10.1 调和裁决。工程补遗 D 中「重复行 top:var(--thead-h)」同步作废。</td></tr>
+    <tr><td><b>数字对齐</b></td><td>首版写「200% 缩放时数字右对齐改左对齐」，与视觉规范冲突</td><td><b>撤销该偏差</b>：数字等宽 <code>tabular-nums</code> 右对齐是<b>不变量</b>；允许标签换行 / 收窄标签区、桌面表格横向滚动，不得压缩数字字号或改对齐。</td></tr>
+    <tr><td><b>合规工具条落点</b></td><td>是否单列第 7 个导航项；窄屏是否进「更多」菜单</td><td>≥768 置于顶栏主导航右侧（1px 竖线、13/20 <code>#4A5563</code>、400、图标 + 文字不可省、在顶栏 56–64px 内消化）；&lt;768 并入常驻风险条右端为带文字链接「风险说明」「数据口径」，风险条 ≥44px，点击展开完整免责块 / 口径页（<b>非 toast</b>、不可遮罩关）。<b>全场景禁</b>收进「更多」、hover 下拉、滚动隐藏；<b>E1 勘误：移动端「更多」抽屉只放资讯 / 活动 / 社区 / 会员等二级内容导航，不得收纳合规入口</b>（首版相关表述作废，由 lint <code>no-compliance-in-overflow</code> 保障）。全局口径页入口与局部来源条<b>互补不可互替</b>。</td></tr>
+    <tr><td><b>活动区域形态</b></td><td>「活动 banner」vs 活动卡列表</td><td>首屏之外改为<b>活动卡列表</b>，<b>直接禁用 banner 形态</b>（全宽横幅 + 单 CTA 易与营销横幅同构）；与既有「禁倒计时闪烁 / 名额进度条 / 限时徽标」叠加。</td></tr>
+    <tr><td><b>零回归硬约束</b></td><td>各阶段重复声明</td><td>主色 <code>#1F3A5F</code>；A 股涨红 <code>#C8322B</code> / 跌绿 <code>#1E8A5A</code> 且形状 + 符号 + 文字多重编码；来源条不可折叠 / 省略；风险条常驻不可关闭；颜色非唯一信息载体；航天意象首屏面积 ≤10%；URL 即状态；免责确认服务端令牌校验不可绕过。</td></tr>
+  </table>
+  <h3 class="sub3">10.1 最终封版补遗（三阶段签字后并入）</h3>
+  <p class="note">以下为视觉、体验、前端三方封版后回传的实现级增量，与表 13 具有同等效力；若与前文措辞冲突，以表 13 与本小节为准。</p>
+  <table>
+    <caption>表 13a　容器锁宽与 token 命名（按作用域分名，禁合并）</caption>
+    <tr><th style="width:30%">Token</th><th>语义与作用域</th></tr>
+    <tr><td><code>--container-max:1280px</code></td><td><b>容器 border-box 上限</b>（含 <code>padding-inline</code>），栅格在其内容盒内排布；自 ≥1280 起连续生效、<b>无需媒体查询</b>。<b>不得</b>写成「1280 内容盒 + 再叠 32px padding」（总占宽 1344px，1366 视口下贴边留白断裂）。1366 视口实算：容器 1280 居中、左右各 43px、内容起点距边 75px、内容盒 1216px 内排 12 列 gutter 24px。</td></tr>
+    <tr><td><code>--bp-form:768px</code></td><td><b>唯一形态断点</b>：导航形态、表格→记录卡、合规工具条落点。</td></tr>
+    <tr><td><code>--bp-nav-desktop:1280px</code></td><td>体验侧「≥1280 导航降级档」，与 <code>--container-max</code> 数值巧合但语义不同，分名分作用域。</td></tr>
+    <tr><td><code>--bp-wide-exception:1440px</code></td><td>仅「产业链图谱页放开上限」的宽屏例外（<code>max-width:none</code> + 左右 32px），<b>不是限宽起点</b>、不改变合规工具条形态。图表 canvas <code>max-width:100%</code> 继承容器，不另设 1440 锚点。</td></tr>
+    <tr><td><code>--sticky-offset</code> / <code>--thead-h</code></td><td><code>--sticky-offset</code> 由 <code>ResizeObserver</code> 实测所有吸顶顶部元素（GlobalHeader 56–64px + RiskBanner ≥768:36px / &lt;768:≥44px）总高注入，<b>禁硬编码</b>，用于 sticky <code>&lt;thead&gt;</code> 的 <code>top</code>；&lt;768 自动只剩风险条、无需分支。<code>--thead-h</code> 降为只读测量值，供虚拟滚动 offset 计算，<b>不再用于重复条定位</b>。</td></tr>
+  </table>
+  <details>
+    <summary>展开 CSS 终版片段（点击）</summary>
+    <pre>*,*::before,*::after { box-sizing:border-box; }
+.site-container{
+  width:100%;
+  max-width:var(--container-max);       /* 1280 border-box，含 padding */
+  padding-inline:var(--page-gutter);    /* 16 / 24 / 32 随栅格断点，计入 1280 之内 */
+  margin-inline:auto;
+  display:grid; grid-template-columns:repeat(12,1fr); gap:var(--grid-gutter);
+}
+@media (min-width:1440px){ .chain-page .site-container{ max-width:none; padding-inline:32px; } }
+
+/* 640–767 记录卡：卡内 2 列键值，来源条跨两列满宽置底 */
+.record-card{ display:grid; grid-template-columns:repeat(2,1fr);
+              column-gap:16px;
+              border-bottom:1px solid var(--line); margin-bottom:8px; }  /* 无完整外框 */
+.record-card__kv{ display:flex; justify-content:space-between; }
+.record-card__value{ font-variant-numeric:tabular-nums lining-nums;
+                     text-align:right; padding-right:12px; }   /* 各对齐到本列右边缘 */
+.record-card > .source-bar{ grid-column:1 / -1; min-height:var(--sourcebar-h-compact);
+                            background:var(--surface); border-top:1px solid var(--line); }
+
+/* sticky 归属：top 只属于 thead；重复条为表内静态行 */
+thead{ position:sticky; top:var(--sticky-offset); z-index:30; background:var(--bg); }  /* #F5F6F8 不透明 */
+.sourcebar-repeat{ position:relative; z-index:20; }  /* 不 sticky、不设 top */
+tbody > tr{ position:relative; z-index:1; }
+tfoot .sourcebar-final{ position:static; }</pre>
+  </details>
+  <p class="note"><b>主理人对 z-index 的调和裁决：</b>规范层面「重复条静态、不设 top、不参与吸顶层叠」是硬要求（视觉侧口径）；工程可在实现中保留 <code>position:relative</code> + <code>z-index:20</code> 作为<b>可选兜底</b>（不脱离文档流、不改变静态属性），但不得写成「重复条参与吸顶层叠」的设计规则，也不得据此恢复 <code>top</code>。旧表述中的 sticky 分层关系整体作废。</p>
+  <table>
+    <caption>表 13b　编译期补强与 lint 映射</caption>
+    <tr><th style="width:26%">约束</th><th>工程保障</th></tr>
+    <tr><td>来源条高度不漂移</td><td><code>SourceBarProps</code> 无逃逸口：<code>variant</code> 仅 5 类（card / chart / table / repeat / record），高度只能取 <code>--sourcebar-h-card:32px</code> / <code>--sourcebar-h-compact:28px</code> / <code>--sourcebar-h-table-repeat:28px</code>；禁硬编码 <code>height/lineHeight</code>，lint <code>sourcebar-height-token</code> 校验 28–32 区间。</td></tr>
+    <tr><td>涨跌多重编码不漏项</td><td><code>PriceMove</code> 五字段 <code>direction / sign / arrow / label / colorToken</code>；lint <code>require-move-encoding</code> 与 <code>no-bare-number</code> 拦截漏项与裸数字。</td></tr>
+    <tr><td>动效可降级</td><td><code>MOTION</code> 常量（乘数 1 / 0.5 / 0，reduced-motion 取 0），禁内联 <code>transition-duration</code>。</td></tr>
+    <tr><td>其余硬约束</td><td><code>no-compliance-in-overflow</code>（E1）、<code>require-source-bar</code>、<code>no-rank-param</code>、<code>font-weight-only-400-500</code>、<code>radius-max-8</code>、<code>no-shadow</code>，加 <code>tsc --noEmit</code> 与产物扫描。</td></tr>
+  </table>
+  <table>
+    <caption>表 13c　记录卡不可协商参数（归类为视觉验收项）与一处措辞澄清</caption>
+    <tr><th style="width:26%">项</th><th>最终口径</th></tr>
+    <tr><td>来源条</td><td>28px 为 <code>min-height</code>（非固定高度），白底 + 1px 上分隔，三段式「来源｜数据时间｜口径」+ 状态徽标不缩写、不折叠。</td></tr>
+    <tr><td>卡体</td><td>不画完整外框，仅 1px 底分隔 + 8px 卡间距；卡片本身单列纵向堆叠。</td></tr>
+    <tr><td>数字</td><td><code>tabular-nums</code> 等宽右对齐 + 12px 右内边距，<b>各自右对齐到本列（grid cell）右边缘</b>，不统一对齐到卡片右边缘；200% 缩放不改左对齐。</td></tr>
+    <tr><td>640–767 双列</td><td>列间 gutter <b>16px</b>（4px 标尺，不用 8px）；每张卡的来源条 <code>grid-column:1/-1</code> <b>跨卡内两列满宽、置于键值下方独立成行</b>；&lt;640 单列时同样满宽置底，两档位置一致。<b>措辞消歧：</b>工程侧「不跨列」仅指<b>不跨卡片</b>合并 / 共享，不是「只占一列」——按字面做成单列会把三段式横向压缩，属错误实现。</td></tr>
+  </table>
+  <table>
+    <caption>表 13d　E2E 九宽度断言（375 / 640 / 767 / 768 / 1024 / 1279 / 1280 / 1366 / 1440）</caption>
+    <tr><th style="width:22%">组</th><th>预期</th></tr>
+    <tr><td>375 / 640</td><td>记录卡单列 / 双列、来源条满宽 28px 且独立成行、数值各对齐本列右边缘、风险条 ≥44px 与合规文字链接可见。</td></tr>
+    <tr><td>767 / 768</td><td>形态切换临界：767 合规入口仍在风险条、未进抽屉；768 顶栏合规工具条带文字、抽屉不含合规（E1）；两档表格降级形态正确。</td></tr>
+    <tr><td>1024 / 1279</td><td>栅格 8→12 列、表格横向滚动；<b>sticky 归属在 ≥768 全区间无条件生效</b>，不只 ≥1280 桌面。</td></tr>
+    <tr><td>1280 / 1366</td><td>容器 border-box =1280、左右各 43px、内容起点距边 75px、内容盒 1216px 内 12 列 gutter 24；<b>不出现 1344px 总占宽</b>；图表 canvas 继承容器。</td></tr>
+    <tr><td>1440</td><td>仅图谱页放宽例外，合规工具条形态不变、不出现「≥1440 才切桌面」。</td></tr>
+    <tr><td>全宽度</td><td><code>thead.top=--sticky-offset</code> 实测联动且底色不透明；重复条无 <code>top</code>、不吸顶、不与 thead 堆叠；表尾终条 static 且滚动到底仍可见；图/表切换时来源条不重绘。</td></tr>
+  </table>
+  <p class="note"><b>报名撤销的数据清理：</b><code>EventRegistration</code> 用判别联合类型，使 <code>cancelled</code> 分支强制 <code>pii: never</code> 并触发已填信息清除（放弃报名不留存），<code>revoked</code> 分支仅保留审计所需最小字段；<code>submitted</code> 前必须持有 <code>confirmToken</code> + <code>piiConsent</code>。</p>
+  <div class="warn"><b>作废表述清单（10 条，实现与 QA 均不得引用）：</b>①「1440 起另应用容器上限」；②「1440 才限宽」；③「≥1440 导航才是桌面」；④「640–768 子断点」；⑤「移动端更多抽屉含合规入口」；⑥「200% 缩放数字改左对齐」；⑦「重复来源条 sticky / 设 top / 参与 z-index 吸顶层叠」；⑧「1280 内容盒 + 32px padding（总占宽 1344）」；⑨「记录卡不跨列 = 只占一列」；⑩「工程示例版本号固化具体日期串」。</div>
+  <p class="note">另有一处主理人补充澄清：工程方案示例中的免责版本号写成了一个具体日期串（形如 <code>DL-2026-03-v1</code>），这只是示意，实际应按发布批次生成（建议 <code>DL-YYYYMM-vN</code>）并做全文 hash，不要在方案或产品里固化一个可能过时的日期。</p>
+</div>
+
+<h2 class="sec" id="s11">11 · MVP 与迭代顺序</h2>
+<div class="card">
+  <table>
+    <caption>表 14　分期清单与明确后置项</caption>
+    <tr><th style="width:14%">阶段</th><th>范围</th></tr>
+    <tr><td><b>MVP</b></td><td><code>tokens/</code> + 5 个 primitives + <code>layout.tsx</code> 合规骨架 + <code>DisclaimerGuard</code> + <code>/api/confirm</code> + <code>/compliance</code>(SSG) + <code>/overview</code>(ISR，3 数据卡 + 来源条 + 风险条) + <code>/search</code>(SSR，仅标题/来源/一手二手标注) + <code>/companies</code> 列表与三档降级 + 公司详情（三元状态、未盈利改 PB、不进 PE 分位） + 公告核对原文 + 四类状态 + 审计日志 + CI 合规检查。</td></tr>
+    <tr><td><b>迭代 1</b></td><td><code>/chain</code> 固定 SVG 图谱 + 文本等价列表、ECharts 按需与图/表切换、<code>/tools</code> 对比与估值分位、导出研究卡（服务端拼装）、<code>/insights</code> 列表与详情（含事件轴与二手标注）。</td></tr>
+    <tr><td><b>迭代 2</b></td><td><code>/engage</code> 活动与社区、报名状态机、PII 授权、UGC 审核流、<code>/account/membership</code> 权限清单、角色矩阵与运营后台。</td></tr>
+    <tr><td><b>明确后置 / 不做</b></td><td>真实行情数值（设计态）、WebSocket / 自动轮询、排名榜单 / 评级 / 目标价、饼图、K 线首屏、付费倒计时、名额进度条、整行着色 / 斑马纹、阴影、&gt;8px 圆角、&gt;500 字重。</td></tr>
+  </table>
+  <p class="note"><b>3 大工程风险：</b>① 来源条被绕过 / 口径漂移（12 类组件各自渲数字）→ 数值收敛到 <code>formatSafe()</code> 单一出口 + 交叉类型 props + lint 规则 + primitives 唯一实现；② 免责确认被 API 直连绕过 → 服务端 <code>confirmToken</code> 二次校验 + 动作注册表统一拦截 + 直连渗透用例；③ 两套断点并存导致降级不一致 → 单一 <code>breakpoints.css</code> + <code>useLayoutMode()</code> 只认 768 / 1280，栅格微调不进 hook，E2E 在 375 / 640 / 767 / 768 / 1024 / 1279 / 1280 / 1366 / 1440 九宽度断言来源条常驻、表格降级、合规入口可见与重复条静态。</p>
+</div>
+
+<h2 class="sec" id="s12">12 · 需要你拍板的 3 个决策点</h2>
+<div class="card">
+  <table>
+    <caption>表 15　默认前提与待确认项</caption>
+    <tr><th style="width:20%">决策点</th><th style="width:34%">本方案的默认前提</th><th>为什么需要你确认</th></tr>
+    <tr><td><b>① 活动 vs 数据的主次</b></td><td>按「投教 + 研究 + 活动运营」综合站设计，首页选数据驱动、活动为一级导航与第 2 屏入口</td><td>若你的核心 KPI 是单场活动的报名转化（例如一次性峰会官网），首页形态与信息密度应改为活动驱动，合规提示的呈现方式也要相应调整——这是唯一会显著改动 IA 的变量。</td></tr>
+    <tr><td><b>② 行情数据的授权与实时性</b></td><td>设计态全部 <code>--.--</code> 占位；运行时假定由合规授权数据源提供，并强制携带来源 / 时点 / 口径 / 状态</td><td>若尚未取得行情授权，MVP 应只做「公司库 + 公告原文 + 合规骨架」，行情与估值模块整体后置；若已有授权，需明确延迟分钟数与缓存策略。这会改变 MVP 范围与数据契约。</td></tr>
+    <tr><td><b>③ 主办方资质与会员模式</b></td><td>活动明示主办方资质与活动性质；会员权益为工具/内容/活动权限，不与投资收益挂钩；付费前强制免责确认</td><td>涉及持牌资质、个人信息处理与收费合规，须由你提供主办主体性质与实际权益清单。若活动免费或改用邀请制，报名状态机与 PII 授权清单可以简化。</td></tr>
+  </table>
+  <p class="note">以上三点确认后，可直接按第 11 章的 MVP 清单排期；不确认也不影响先做合规骨架、公司库与公告核对链路。</p>
+</div>
+
+<h2 class="sec" id="s13">13 · 来源、口径与免责</h2>
+<div class="card">
+  <table>
+    <caption>表 16　本方案的数据来源与口径</caption>
+    <tr><th style="width:20%">内容层级</th><th>说明</th></tr>
+    <tr><td><b>板块内容依据</b></td><td>产业链「哑铃型」三段、五大驱动确定性排序、概念股数量远多于产业主体、板块内相当比例成分股未盈利、PE 高而 PB 低、题材六阶段等，来自本工作区前两份成果：《商业航天股票投资学习路径-20261116.html》与《股票零基础入门手册-20261116.html》。其中板块估值快照为 <b>2026-11-13</b>、盘中指数快照为 <b>2026-11-16</b>（非收盘价），产业链图谱更新日 2025-12-12；<b>均为指定时点快照、非实时数据</b>，本方案仅将其用作信息架构与内容模块的设计依据，<b>未写入任何产品文案或界面数值</b>。</td></tr>
+    <tr><td><b>规则与投教口径</b></td><td>A 股基础交易规则与红涨绿跌等依据前两轮已核实的证监会投教材料、中国基金报「新手研习社」（2024-10-16）、新华网投教、深圳商报投教文章（2024-10-10）；涉及具体规则一律以交易所与券商最新规定为准。</td></tr>
+    <tr><td><b>设计结论</b></td><td>色彩 / 字号 / 断点 / 组件参数 / 数据契约 / 性能指标 / 分期，均为视觉、体验、前端三个阶段的<b>设计建议与工程约定</b>，不是对市场的事实陈述，也不是已实现的功能。</td></tr>
+    <tr><td><b>本次检索说明</b></td><td>本次任务为网站信息架构与设计方案，不涉及具体标的、行情或财务数值的查询，因此未触发金融数据源取数；方案内所有数值位均以占位符呈现。当前会话未连接行情 / 财务类实时数据服务。</td></tr>
+  </table>
+  <p class="small">合规边界：本方案不含个股评级、目标价或任何买卖建议；文中出现的公司/板块仅作为信息架构的取样对象。网站上线前，合规声明文案、主办方资质披露、个人信息授权条款与会员协议应由具备资质的法务/合规人员审定。</p>
+</div>
+
+<div class="disc">
+  <p style="margin-top:0"><strong>本方案仅供研究参考与产品设计讨论，不构成投资建议。</strong></p>
+  <p><strong>免责声明</strong>：以上内容基于公开数据和量化分析，仅供参考，不构成投资建议。市场有风险，投资需谨慎。任何投资决策应结合个人风险承受能力、资金状况和投资目标独立判断，必要时咨询持牌专业机构。过往表现不预示未来收益。</p>
+  <p style="margin-bottom:0">文中所有行情 / 财务数值位均为 <code>--.--</code> 占位或纯示意，不代表任何真实公司、指数、行情或公告；版本号、路径与字段名为设计建议，落地时需按实际工程与合规要求复核。</p>
+</div>
+
+</div>
+
+<script>
+(function(){
+  var links = [].slice.call(document.querySelectorAll('#toc a'));
+  var targets = links.map(function(a){
+    var el = document.querySelector(a.getAttribute('href'));
+    return el;
+  });
+  function update(){
+    var best = -1;
+    var y = window.scrollY + 140;
+    targets.forEach(function(el, i){
+      if (el && el.offsetTop <= y) best = i;
+    });
+    links.forEach(function(a, i){ a.classList.toggle('active', i === best); });
+  }
+  window.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', update);
+  update();
+})();
+</script>
+</body>
+</html>
