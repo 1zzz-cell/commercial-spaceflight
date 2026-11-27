@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-11-24",
+  "lastUpdated": "2026-11-27",
   "source": "公开信息综合整理",
   "constellations": [
     {
@@ -33,26 +33,30 @@
       "company": "国星宇航",
       "type": "算力",
       "planned": 2800,
-      "actual": 12,
+      "actual": 8,
       "orbit": "LEO 500-1000km",
       "frequency": null,
       "satWeight": null,
       "firstLaunch": "2025",
       "status": "组网中",
-      "verified": false
+      "verified": false,
+      "source": "人民网",
+      "sourceUrl": "https://finance-app.people.cn/n1/2026/1014/c1004-40814857.html"
     },
     {
       "name": "GW国网星座",
       "company": "中国星网",
       "type": "通信",
       "planned": 12992,
-      "actual": 180,
+      "actual": 216,
       "orbit": "LEO 500-1145km",
       "frequency": "Ka/Ku",
       "satWeight": null,
       "firstLaunch": "2024",
       "status": "组网中",
-      "verified": false
+      "verified": false,
+      "source": "央视网（央视新闻）",
+      "sourceUrl": "https://news.cctv.com/2026/11/21/ARTIfHtLTscOyLLl0qGrFRZ4261120.shtml"
     },
     {
       "name": "鸿雁星座",
@@ -85,39 +89,45 @@
       "company": "上海垣信卫星",
       "type": "通信",
       "planned": 15000,
-      "actual": 248,
+      "actual": 274,
       "orbit": "LEO 800-1000km",
       "frequency": "Ka/Ku",
       "satWeight": null,
       "firstLaunch": "2024",
       "status": "组网中",
-      "verified": false
+      "verified": false,
+      "source": "中国证券报·中证网",
+      "sourceUrl": "https://jnzstatic.cs.com.cn/zzb/htmlInfo/137161.html"
     },
     {
       "name": "天启星座",
       "company": "国电高科",
       "type": "通信",
-      "planned": 38,
-      "actual": 38,
+      "planned": 1132,
+      "actual": 41,
       "orbit": "LEO 900km",
       "frequency": "UHF",
       "satWeight": 50,
       "firstLaunch": "2018",
       "status": "已建成",
-      "verified": false
+      "verified": false,
+      "source": "上海证券报·中国证券网",
+      "sourceUrl": "https://m.cnstock.com/commonDetail/805645"
     },
     {
       "name": "鸿鹄-3星座",
       "company": "上海蓝箭鸿擎科技有限公司",
       "type": "通信",
       "planned": 10000,
-      "actual": null,
+      "actual": 1,
       "orbit": "LEO 600km",
       "frequency": "Ku/Ka",
       "satWeight": null,
       "firstLaunch": null,
       "status": "规划中",
-      "verified": false
+      "verified": false,
+      "source": "科创板日报（财联社）",
+      "sourceUrl": "https://m.cls.cn/detail/2457733"
     },
     {
       "name": "极光星座",
@@ -175,14 +185,16 @@
       "name": "吉利未来出行星座",
       "company": "浙江时空道宇",
       "type": "通信+导航",
-      "planned": 5676,
+      "planned": 240,
       "actual": 64,
       "orbit": "LEO 600km",
       "frequency": null,
       "satWeight": null,
       "firstLaunch": "2022",
       "status": "组网中",
-      "verified": false
+      "verified": false,
+      "source": "科技日报",
+      "sourceUrl": "https://www.stdaily.com/web/gdxw/2026-08/24/content_568784.html"
     },
     {
       "name": "楚天星座",
@@ -214,14 +226,16 @@
       "name": "吉林一号星座",
       "company": "长光卫星",
       "type": "遥感",
-      "planned": 300,
-      "actual": 152,
+      "planned": 200,
+      "actual": 161,
       "orbit": "SSO 535km",
       "frequency": "光学/视频",
       "satWeight": null,
       "firstLaunch": "2015",
       "status": "组网中",
-      "verified": false
+      "verified": false,
+      "source": "中国证券报",
+      "sourceUrl": "https://jnz.cs.com.cn/app/html/jnz/126785.html"
     },
     {
       "name": "云遥一号星座",
@@ -681,9 +695,9 @@
   },
   "sourceLevel": "数据集级综合整理，星座条目尚未逐条附原文链接",
   "meta": {
-    "asOfDate": "2026-10-06",
-    "lastVerifiedAt": "2026-11-24",
-    "publishedAt": "2026-11-24",
+    "asOfDate": "2026-11-20",
+    "lastVerifiedAt": "2026-11-27",
+    "publishedAt": "2026-11-27",
     "note": "星座资料快照"
   }
 }
