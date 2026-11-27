@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-11-24",
+  "lastUpdated": "2026-11-27",
   "source": "中商产业研究院、IT桔子、创业邦",
   "marketSizeData": {
     "years": [
@@ -161,6 +161,116 @@
   },
   "financingEvents": [
     {
+      "date": "2026-11",
+      "company": "航宇星瑞",
+      "round": "A轮",
+      "amount": "超亿元",
+      "segment": "载荷与核心单机",
+      "investors": "贵州科风投、贵阳创投、方广资本、卓璞资本",
+      "region": "苏州",
+      "source": "企查查融资记录（相关新闻）",
+      "sourceUrl": "https://www.qcc.com/creport/2f59aef44f5dce9b7356cd861fdfd2b2.html"
+    },
+    {
+      "date": "2026-11",
+      "company": "北辰航天",
+      "round": "天使++轮",
+      "amount": "数千万元",
+      "segment": "地面设备（航天电气互联EWIS电缆网）",
+      "investors": "高信资本、天鹰资本、西海岸创投",
+      "region": "青岛",
+      "source": "科创板日报（腾讯新闻转载）",
+      "sourceUrl": "https://news.qq.com/rain/a/20261116A0ALN100"
+    },
+    {
+      "date": "2026-11",
+      "company": "宇辰探索",
+      "round": "A轮",
+      "amount": "未披露",
+      "segment": "运载火箭",
+      "investors": "高瑞基金",
+      "region": "北京",
+      "source": "企查查融资记录（股权变更）",
+      "sourceUrl": "https://www.qcc.com/creport/a4237928c0747a8e09fe81cced748f14.html"
+    },
+    {
+      "date": "2026-11",
+      "company": "谱星航天",
+      "round": "Pre-A+轮、A轮",
+      "amount": "近3亿元（两轮合计）",
+      "segment": "遥感卫星（光谱定量遥感/光学载荷）",
+      "investors": "金浦智能、联融志道、新鼎资本、长发基金、闵金投、长兴基金、贵州省高新基金、崇山资本",
+      "region": "上海",
+      "source": "36氪",
+      "sourceUrl": "https://dy.163.com/article/LB9N2GP605118DFD.html"
+    },
+    {
+      "date": "2026-11",
+      "company": "天链测控",
+      "round": "B+轮",
+      "amount": "未披露",
+      "segment": "地面设备（卫星测控与地面站网）",
+      "investors": "火星人、财通创新、广科控股",
+      "region": "北京",
+      "source": "科创板日报（东方财富转载）",
+      "sourceUrl": "https://finance.eastmoney.com/a/202611023919029613.html"
+    },
+    {
+      "date": "2026-10",
+      "company": "星鸿航宇",
+      "round": "天使轮",
+      "amount": "未披露",
+      "segment": "卫星制造（低成本批产微小卫星）",
+      "investors": "前海母基金、丹诚资产、水木创投、国鼎资本、海南瑞益投资、北京元航智汇科技创新中心",
+      "region": "北京",
+      "source": "泰伯网",
+      "sourceUrl": "https://www.taibo.cn/newsflashes/33385765"
+    },
+    {
+      "date": "2026-10",
+      "company": "环天智慧",
+      "round": "增资（B轮）",
+      "amount": "12亿元",
+      "segment": "遥感卫星（遥感星座+智慧城市）",
+      "investors": "中电科投资控股、中信建投投资、眉山环天实业等20家投资方",
+      "region": "眉山",
+      "source": "投中网（新浪财经转载）",
+      "sourceUrl": "https://finance.sina.com.cn/money/fund/jjzl/2026-10-29/doc-iniwwpnx8905238.shtml"
+    },
+    {
+      "date": "2026-10",
+      "company": "海龙空天",
+      "round": "天使+轮",
+      "amount": "未披露",
+      "segment": "地面设备（星敏感器、磁力矩器等姿轨控部件）",
+      "investors": "新微资本",
+      "region": "成都",
+      "source": "朝阳资本论（腾讯新闻自媒体）",
+      "sourceUrl": "https://view.inews.qq.com/a/20261029A07QYC00"
+    },
+    {
+      "date": "2026-10",
+      "company": "驭龙航天",
+      "round": "A轮",
+      "amount": "未披露",
+      "segment": "火箭发射（液体火箭发动机及运载火箭）",
+      "investors": "元禾璞华、凯洋基金、华夏恒天旗下杭州矩芯创投",
+      "region": "上海",
+      "source": "科创板日报（腾讯新闻转载）",
+      "sourceUrl": "https://news.qq.com/rain/a/20261027A0D22900"
+    },
+    {
+      "date": "2026-10",
+      "company": "瑞启深空",
+      "round": "天使轮",
+      "amount": "超2亿元",
+      "segment": "遥感卫星（智能遥感星座/太空情报）",
+      "investors": "东吴创新、东吴创新、苏创投、火炬电子、乾融资本、金雨茂物等机构",
+      "region": "苏州",
+      "source": "投中网（新浪科技转载）",
+      "sourceUrl": "https://finance.sina.com.cn/tech/roll/2026-10-26/doc-iniwpfnc2451326.shtml"
+    },
+    {
       "date": "2026-09",
       "company": "氦星光联",
       "round": "A2轮",
@@ -231,17 +341,6 @@
       "segment": "火箭制造",
       "investors": "泰瑞数创、成都科创投等",
       "region": "北京"
-    },
-    {
-      "date": "2024-02",
-      "company": "千帆星座(垣信卫星)",
-      "round": "A轮",
-      "amount": "67亿",
-      "segment": "卫星互联网",
-      "investors": "国开制造业转型升级基金领投，国科资本、国盛资本等12家机构",
-      "region": "上海",
-      "source": "上海证券报·中国证券网2025-12-31报道（垣信卫星融资情况核实）",
-      "sourceUrl": "https://m.cnstock.com/commonDetail/612445"
     },
     {
       "date": "2025-03",
@@ -341,6 +440,17 @@
       "segment": "遥感应用",
       "investors": "多只公募基金",
       "region": "北京"
+    },
+    {
+      "date": "2024-02",
+      "company": "千帆星座(垣信卫星)",
+      "round": "A轮",
+      "amount": "67亿",
+      "segment": "卫星互联网",
+      "investors": "国开制造业转型升级基金领投，国科资本、国盛资本等12家机构",
+      "region": "上海",
+      "source": "上海证券报·中国证券网2025-12-31报道（垣信卫星融资情况核实）",
+      "sourceUrl": "https://m.cnstock.com/commonDetail/612445"
     }
   ],
   "roundStats": {
@@ -450,9 +560,9 @@
     }
   ],
   "meta": {
-    "asOfDate": "2025-12-31",
-    "lastVerifiedAt": "2026-11-24",
-    "publishedAt": "2026-11-24",
+    "asOfDate": "2026-11-01",
+    "lastVerifiedAt": "2026-11-27",
+    "publishedAt": "2026-11-27",
     "note": "2025年融资与产业统计"
   }
 }
